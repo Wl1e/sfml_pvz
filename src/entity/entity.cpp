@@ -13,7 +13,7 @@ Entity::Entity(EntityType type) :
 
 Entity::Entity(EntityType type, string_view source_path) :
     m_scene(nullptr), m_type(type), m_pos({0, 0}), m_size({0, 0}),
-    m_animation(new Animation(nullptr, "source/sun"))
+    m_animation(new Animation(nullptr, source_path))
 {
 }
 

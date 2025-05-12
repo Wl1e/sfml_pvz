@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.10)
 
 # Project name and version
-project(test VERSION 1.0)
+project(demo VERSION 1.0)
 
 # Set C++ standard
 set(CMAKE_CXX_STANDARD 17)
@@ -17,7 +17,7 @@ set(SOURCES
     src/entity/entity.cpp
     # src/entity/tool.cpp
     # src/game.cpp
-    src/test.cpp
+    src/demo.cpp
     # Add other source files here
 )
 

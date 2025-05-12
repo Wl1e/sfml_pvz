@@ -24,13 +24,17 @@ public:
         m_scene->run();
     }
 
-    void addEntity(Entity* entity)
+    // void addEntity(Entity* entity)
+    // {
+    //     m_scene->addEntity(entity);
+    // }
+    // void delEntity(Entity* entity)
+    // {
+    //     m_scene->delEntity(entity);
+    // }
+    GameScene* scene()
     {
-        m_scene->addEntity(entity);
-    }
-    void delEntity(Entity* entity)
-    {
-        m_scene->delEntity(entity);
+        return m_scene;
     }
 
 private:

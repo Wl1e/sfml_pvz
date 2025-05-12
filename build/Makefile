@@ -117,24 +117,24 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named test
+# Target rules for targets named demo
 
 # Build rule for target.
-test: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test
-.PHONY : test
+demo: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 demo
+.PHONY : demo
 
 # fast build rule for target.
-test/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/build
-.PHONY : test/fast
+demo/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/build
+.PHONY : demo/fast
 
 src/animation/base.o: src/animation/base.cpp.o
 .PHONY : src/animation/base.o
 
 # target to build an object file
 src/animation/base.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/animation/base.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/animation/base.cpp.o
 .PHONY : src/animation/base.cpp.o
 
 src/animation/base.i: src/animation/base.cpp.i
@@ -142,7 +142,7 @@ src/animation/base.i: src/animation/base.cpp.i
 
 # target to preprocess a source file
 src/animation/base.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/animation/base.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/animation/base.cpp.i
 .PHONY : src/animation/base.cpp.i
 
 src/animation/base.s: src/animation/base.cpp.s
@@ -150,7 +150,7 @@ src/animation/base.s: src/animation/base.cpp.s
 
 # target to generate assembly for a file
 src/animation/base.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/animation/base.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/animation/base.cpp.s
 .PHONY : src/animation/base.cpp.s
 
 src/animation/gamescene.o: src/animation/gamescene.cpp.o
@@ -158,7 +158,7 @@ src/animation/gamescene.o: src/animation/gamescene.cpp.o
 
 # target to build an object file
 src/animation/gamescene.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/animation/gamescene.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/animation/gamescene.cpp.o
 .PHONY : src/animation/gamescene.cpp.o
 
 src/animation/gamescene.i: src/animation/gamescene.cpp.i
@@ -166,7 +166,7 @@ src/animation/gamescene.i: src/animation/gamescene.cpp.i
 
 # target to preprocess a source file
 src/animation/gamescene.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/animation/gamescene.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/animation/gamescene.cpp.i
 .PHONY : src/animation/gamescene.cpp.i
 
 src/animation/gamescene.s: src/animation/gamescene.cpp.s
@@ -174,15 +174,39 @@ src/animation/gamescene.s: src/animation/gamescene.cpp.s
 
 # target to generate assembly for a file
 src/animation/gamescene.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/animation/gamescene.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/animation/gamescene.cpp.s
 .PHONY : src/animation/gamescene.cpp.s
+
+src/demo.o: src/demo.cpp.o
+.PHONY : src/demo.o
+
+# target to build an object file
+src/demo.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/demo.cpp.o
+.PHONY : src/demo.cpp.o
+
+src/demo.i: src/demo.cpp.i
+.PHONY : src/demo.i
+
+# target to preprocess a source file
+src/demo.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/demo.cpp.i
+.PHONY : src/demo.cpp.i
+
+src/demo.s: src/demo.cpp.s
+.PHONY : src/demo.s
+
+# target to generate assembly for a file
+src/demo.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/demo.cpp.s
+.PHONY : src/demo.cpp.s
 
 src/draw/drawable.o: src/draw/drawable.cpp.o
 .PHONY : src/draw/drawable.o
 
 # target to build an object file
 src/draw/drawable.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/draw/drawable.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/draw/drawable.cpp.o
 .PHONY : src/draw/drawable.cpp.o
 
 src/draw/drawable.i: src/draw/drawable.cpp.i
@@ -190,7 +214,7 @@ src/draw/drawable.i: src/draw/drawable.cpp.i
 
 # target to preprocess a source file
 src/draw/drawable.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/draw/drawable.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/draw/drawable.cpp.i
 .PHONY : src/draw/drawable.cpp.i
 
 src/draw/drawable.s: src/draw/drawable.cpp.s
@@ -198,7 +222,7 @@ src/draw/drawable.s: src/draw/drawable.cpp.s
 
 # target to generate assembly for a file
 src/draw/drawable.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/draw/drawable.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/draw/drawable.cpp.s
 .PHONY : src/draw/drawable.cpp.s
 
 src/entity/entity.o: src/entity/entity.cpp.o
@@ -206,7 +230,7 @@ src/entity/entity.o: src/entity/entity.cpp.o
 
 # target to build an object file
 src/entity/entity.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/entity/entity.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/entity/entity.cpp.o
 .PHONY : src/entity/entity.cpp.o
 
 src/entity/entity.i: src/entity/entity.cpp.i
@@ -214,7 +238,7 @@ src/entity/entity.i: src/entity/entity.cpp.i
 
 # target to preprocess a source file
 src/entity/entity.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/entity/entity.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/entity/entity.cpp.i
 .PHONY : src/entity/entity.cpp.i
 
 src/entity/entity.s: src/entity/entity.cpp.s
@@ -222,32 +246,8 @@ src/entity/entity.s: src/entity/entity.cpp.s
 
 # target to generate assembly for a file
 src/entity/entity.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/entity/entity.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/entity/entity.cpp.s
 .PHONY : src/entity/entity.cpp.s
-
-src/test.o: src/test.cpp.o
-.PHONY : src/test.o
-
-# target to build an object file
-src/test.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/test.cpp.o
-.PHONY : src/test.cpp.o
-
-src/test.i: src/test.cpp.i
-.PHONY : src/test.i
-
-# target to preprocess a source file
-src/test.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/test.cpp.i
-.PHONY : src/test.cpp.i
-
-src/test.s: src/test.cpp.s
-.PHONY : src/test.s
-
-# target to generate assembly for a file
-src/test.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/test.cpp.s
-.PHONY : src/test.cpp.s
 
 # Help Target
 help:
@@ -257,22 +257,22 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... test"
+	@echo "... demo"
 	@echo "... src/animation/base.o"
 	@echo "... src/animation/base.i"
 	@echo "... src/animation/base.s"
 	@echo "... src/animation/gamescene.o"
 	@echo "... src/animation/gamescene.i"
 	@echo "... src/animation/gamescene.s"
+	@echo "... src/demo.o"
+	@echo "... src/demo.i"
+	@echo "... src/demo.s"
 	@echo "... src/draw/drawable.o"
 	@echo "... src/draw/drawable.i"
 	@echo "... src/draw/drawable.s"
 	@echo "... src/entity/entity.o"
 	@echo "... src/entity/entity.i"
 	@echo "... src/entity/entity.s"
-	@echo "... src/test.o"
-	@echo "... src/test.i"
-	@echo "... src/test.s"
 .PHONY : help
 
 

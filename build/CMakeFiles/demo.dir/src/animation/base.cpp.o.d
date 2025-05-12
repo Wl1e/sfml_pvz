@@ -1,4 +1,4 @@
-CMakeFiles/test.dir/src/animation/base.cpp.o: \
+CMakeFiles/demo.dir/src/animation/base.cpp.o: \
  /home/wlle/code/demo/sfml2/src/animation/base.cpp \
  /usr/include/stdc-predef.h /usr/include/c++/14.2.1/filesystem \
  /usr/include/c++/14.2.1/bits/requires_hosted.h \

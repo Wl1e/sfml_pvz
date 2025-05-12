@@ -1,6 +1,7 @@
-CMakeFiles/test.dir/src/draw/drawable.cpp.o: \
- /home/wlle/code/demo/sfml2/src/draw/drawable.cpp \
+CMakeFiles/demo.dir/src/animation/gamescene.cpp.o: \
+ /home/wlle/code/demo/sfml2/src/animation/gamescene.cpp \
  /usr/include/stdc-predef.h \
+ /home/wlle/code/demo/sfml2/src/animation/gamescene.h \
  /home/wlle/code/SFML/include/SFML/Graphics/RenderWindow.hpp \
  /home/wlle/code/SFML/include/SFML/Graphics/Export.hpp \
  /home/wlle/code/SFML/include/SFML/Config.hpp \
@@ -230,19 +231,6 @@ CMakeFiles/test.dir/src/draw/drawable.cpp.o: \
  /usr/include/c++/14.2.1/utility \
  /usr/include/c++/14.2.1/bits/stl_relops.h \
  /home/wlle/code/SFML/include/SFML/System/Clock.hpp \
- /home/wlle/code/SFML/include/SFML/Graphics/Texture.hpp \
- /usr/include/c++/14.2.1/filesystem /usr/include/c++/14.2.1/bits/fs_fwd.h \
- /usr/include/c++/14.2.1/bits/fs_path.h /usr/include/c++/14.2.1/iomanip \
- /usr/include/c++/14.2.1/bits/quoted_string.h \
- /usr/include/c++/14.2.1/sstream /usr/include/c++/14.2.1/istream \
- /usr/include/c++/14.2.1/ios /usr/include/c++/14.2.1/bits/basic_ios.h \
- /usr/include/c++/14.2.1/bits/basic_ios.tcc \
- /usr/include/c++/14.2.1/ostream /usr/include/c++/14.2.1/bits/ostream.tcc \
- /usr/include/c++/14.2.1/bits/istream.tcc \
- /usr/include/c++/14.2.1/bits/sstream.tcc /usr/include/c++/14.2.1/codecvt \
- /usr/include/c++/14.2.1/bits/fs_dir.h \
- /usr/include/c++/14.2.1/bits/fs_ops.h \
- /home/wlle/code/demo/sfml2/src/animation/gamescene.h \
  /usr/include/c++/14.2.1/thread /usr/include/c++/14.2.1/bits/std_thread.h \
  /usr/include/c++/14.2.1/bits/this_thread_sleep.h \
  /usr/include/c++/14.2.1/unordered_set \
@@ -251,9 +239,9 @@ CMakeFiles/test.dir/src/draw/drawable.cpp.o: \
  /usr/include/c++/14.2.1/bits/hashtable_policy.h \
  /usr/include/c++/14.2.1/bits/node_handle.h \
  /usr/include/c++/14.2.1/bits/erase_if.h \
- /home/wlle/code/demo/sfml2/src/draw/drawable.h \
- /home/wlle/code/SFML/include/SFML/Graphics/Sprite.hpp \
- /home/wlle/code/SFML/include/SFML/Graphics/Drawable.hpp \
- /home/wlle/code/SFML/include/SFML/Graphics/Transformable.hpp \
- /usr/include/c++/14.2.1/unordered_map \
- /usr/include/c++/14.2.1/bits/unordered_map.h
+ /home/wlle/code/demo/sfml2/src/base/tools.hpp \
+ /home/wlle/code/demo/sfml2/src/defines.h \
+ /home/wlle/code/demo/sfml2/src/entity/plant.h \
+ /home/wlle/code/demo/sfml2/src/entity/entity.h \
+ /home/wlle/code/demo/sfml2/src/entity/tool.h \
+ /home/wlle/code/demo/sfml2/src/entity/zombie.h
