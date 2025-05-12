@@ -12,15 +12,15 @@ namespace demo {
 
 Texture err_texture(Vector2u{0, 0});
 
-Drawable::Drawable(GameScene* window) :
-    m_master(window), m_sprite(err_texture)
+Drawable::Drawable(GameScene* scene) :
+    m_master(scene), m_sprite(err_texture)
 {
 }
 
 void Drawable::draw()
 {
-    RenderWindow* window = *m_master;
-    window->draw(m_sprite);
+    RenderWindow* scene = m_master->getNativeWindow();
+    scene->draw(m_sprite);
 }
 
 Drawable::~Drawable()

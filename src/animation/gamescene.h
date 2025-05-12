@@ -12,7 +12,7 @@
 
 namespace demo {
 
-class GameEntity;
+class Entity;
 
 class GameScene
 {
@@ -24,11 +24,11 @@ public:
     void update(sf::Event event);
     void update();
 
-    void addEntity(GameEntity* entity)
+    void addEntity(Entity* entity)
     {
         m_entitys.insert(entity);
     }
-    void delEntity(GameEntity* entity)
+    void delEntity(Entity* entity)
     {
         m_entitys.erase(entity);
     }
@@ -37,18 +37,18 @@ public:
     // {
     //     m_close_func = std::move(func);
     // }
-    Vector2u getSize() const;
+    sf::Vector2u getSize() const;
     // bad
     sf::RenderWindow* getNativeWindow()
     {
         return m_window;
     }
     std::optional<sf::Event> getInput() const;
-    const vector<GameEntity*>& getZombiesByPath(int path) const
+    const std::vector<Entity*>& getZombiesByPath(int path) const
     {
         return m_zombies[path];
     }
-    const vector<vector<GameEntity*>>& getZombies() const
+    const std::vector<std::vector<Entity*>>& getZombies() const
     {
         return m_zombies;
     }
@@ -60,10 +60,10 @@ private:
 
 private:
     sf::RenderWindow* m_window;
-    std::unordered_set<GameEntity*> m_entitys;
-    vector<vector<GameEntity*>> m_plants;
-    vector<vector<GameEntity*>> m_zombies;
-    thread::id m_thread_id;
+    std::unordered_set<Entity*> m_entitys;
+    std::vector<std::vector<Entity*>> m_plants;
+    std::vector<std::vector<Entity*>> m_zombies;
+    std::thread::id m_thread_id;
 
     // std::function<bool(const sf::Event&)> m_close_func;
 };

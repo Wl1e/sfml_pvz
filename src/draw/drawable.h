@@ -10,12 +10,16 @@ class GameScene;
 class Drawable
 {
 public:
-    constexpr explicit Drawable(GameScene* window);
+    constexpr explicit Drawable(GameScene* scene);
     ~Drawable();
 
     void setDrawPosition(const sf::Vector2f& pos)
     {
         m_sprite.setPosition(pos);
+    }
+    void setScene(GameScene* scene)
+    {
+        m_master = scene;
     }
 
     const sf::Vector2u& getSize() const
