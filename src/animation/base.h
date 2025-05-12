@@ -25,7 +25,7 @@ read_frames(std::string_view path);
 class BaseAnimation : public Drawable
 {
 public:
-    constexpr explicit BaseAnimation(GameScene* window);
+    explicit BaseAnimation(GameScene* window);
     ~BaseAnimation();
     virtual void update(sf::Event*) = 0;
     virtual void reset() = 0;

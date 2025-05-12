@@ -1,17 +1,8 @@
-// #include <main/attack.hpp>
-// #include <main/bullet.h>
-// #include <main/entity.h>
-// #include <main/game.h>
-// #include <main/plant.h>
-// #include <main/tools.h>
-// #include <main/zombie.h>
 #pragma once
 
 #include <SFML/System/Vector2.hpp>
-#include <memory>
+// #include <memory>
 #include <string_view>
-
-#pragma once
 
 namespace demo {
 
@@ -29,11 +20,7 @@ enum class EntityType
 class Entity
 {
 public:
-    Entity(EntityType type) :
-        m_scene(nullptr), m_type(type), m_pos({0, 0}),
-        m_size({0, 0}), m_animation(nullptr)
-    {
-    }
+    Entity(EntityType type);
     Entity(EntityType type, std::string_view source_path);
     ~Entity() = default;
     void setSize(const sf::Vector2u& size)
@@ -45,6 +32,12 @@ public:
         m_pos = pos;
     }
     void setScene(GameScene* scene);
+    void setAniamtion(std::string_view source_path);
+
+    EntityType getType() const
+    {
+        return m_type;
+    }
 
     virtual void update() = 0;
 
@@ -59,7 +52,8 @@ protected:
     sf::Vector2u m_size;
 
 private:
-    std::unique_ptr<Animation> m_animation;
+    // 考虑使用unique_ptr ?
+    Animation* m_animation;
 };
 
 } // namespace demo

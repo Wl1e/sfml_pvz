@@ -74,4 +74,10 @@ sf::Vector2i pos2axis(const sf::Vector2i& pos)
         .componentWiseDiv({grass_length, grass_wide});
 }
 
+sf::Vector2i axis2pos(const sf::Vector2i& axis)
+{
+    return axis.componentWiseMul({grass_length, grass_wide})
+           + sf::Vector2i(grass_start_x, grass_start_y);
+}
+
 } // namespace demo

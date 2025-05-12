@@ -1,11 +1,10 @@
 
 #include <iostream>
-#include <thread>
 
 #include <SFML/System/Sleep.hpp>
 #include <animation/base.h>
-#include <main/game.h>
-#include <main/tools.h>
+#include <entity/tool.h>
+#include <game.h>
 
 using namespace std;
 using namespace sf;
@@ -20,9 +19,10 @@ int main()
 
     Game game;
     auto t = new Tool();
-    game.addEntity(t);
-    t->setPostion({0, 0});
-    t->setAnimation("source/");
+    // t->setAniamtion("source/sun");
+    // game.addEntity(t);
+    // t->setPos({0, 0});
+    game.run();
 
     return 0;
 }

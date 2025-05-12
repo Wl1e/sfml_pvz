@@ -10,7 +10,7 @@ class GameScene;
 class Drawable
 {
 public:
-    constexpr explicit Drawable(GameScene* scene);
+    explicit Drawable(GameScene* scene);
     ~Drawable();
 
     void setDrawPosition(const sf::Vector2f& pos)
@@ -22,7 +22,7 @@ public:
         m_master = scene;
     }
 
-    const sf::Vector2u& getSize() const
+    sf::Vector2u getSize() const
     {
         return m_sprite.getTexture().getSize();
     }

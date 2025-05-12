@@ -148,7 +148,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=MyProject
+CMAKE_PROJECT_NAME:STATIC=test
 
 //Value Computed by CMake
 CMAKE_PROJECT_VERSION:STATIC=1.0
@@ -241,6 +241,15 @@ MyProject_SOURCE_DIR:STATIC=/home/wlle/code/demo/sfml2
 
 //The directory containing a CMake configuration file for SFML.
 SFML_DIR:PATH=SFML_DIR-NOTFOUND
+
+//Value Computed by CMake
+test_BINARY_DIR:STATIC=/home/wlle/code/demo/sfml2/build
+
+//Value Computed by CMake
+test_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+test_SOURCE_DIR:STATIC=/home/wlle/code/demo/sfml2
 
 
 ########################

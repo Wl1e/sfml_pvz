@@ -7,22 +7,31 @@
 namespace demo {
 
 class Entity;
-class Plant;
-class Zombie;
-class Tool;
-class Bullet;
 
 class Game
 {
-    Game();
-    ~Game();
+public:
+    Game() : m_scene(new GameScene)
+    {
+    }
+    ~Game()
+    {
+        delete m_scene;
+    }
 
-    void addEntity(Entity* entity);
-    void delEntity(Entity* entity);
+    void run()
+    {
+        m_scene->run();
+    }
 
-    void update();
-
-    const std::vector<Zombie*> getZombiesByPath(int path);
+    void addEntity(Entity* entity)
+    {
+        m_scene->addEntity(entity);
+    }
+    void delEntity(Entity* entity)
+    {
+        m_scene->delEntity(entity);
+    }
 
 private:
     bool m_running;

@@ -1,7 +1,10 @@
 #include <animation/gamescene.h>
 #include <base/tools.hpp>
 #include <defines.h>
-#include <main/entity.h>
+#include <entity/plant.h>
+#include <entity/tool.h>
+#include <entity/zombie.h>
+
 #include <thread>
 
 using namespace std;
@@ -23,7 +26,8 @@ GameScene::GameScene() :
     m_window(new sf::RenderWindow(
         VideoMode({800, 600}), "game", State::Windowed
     )),
-    m_thread_id(this_thread::get_id())
+    m_thread_id(this_thread::get_id()),
+    m_plants(6, vector<Plant*>(9, nullptr))
 {
 }
 
@@ -46,16 +50,21 @@ void GameScene::update(Event event)
             plant->update();
         }
     }
+    for(size_t idx = 0; idx < grass_path; ++idx) {
+        for(auto zombie : m_zombies[idx]) {
+            zombie->update();
+        }
+    }
 }
 
 void GameScene::update()
 {
-    if(!assertInThread()) {
-        return;
-    }
-    for(auto& a : m_entitys) {
-        a->update(nullptr);
-    }
+    // if(!assertInThread()) {
+    //     return;
+    // }
+    // for(auto& a : m_entitys) {
+    //     a->update();
+    // }
 }
 
 void GameScene::run()
@@ -86,4 +95,25 @@ optional<Event> GameScene::getInput() const
 bool GameScene::isOpen() const
 {
     return m_window->isOpen();
+}
+
+void GameScene::addEntity(Entity* entity)
+{
+}
+void GameScene::delEntity(Entity* entity)
+{
+}
+
+void GameScene::addPlant(Plant* plant, const Vector2i& pos_axis)
+{
+    plant->setPos(axis2pos(pos_axis));
+    plant->setScene(this);
+    m_plants[pos_axis.x][pos_axis.y] = (plant);
+}
+
+void GameScene::addTool(Tool* tool, const Vector2i& pos)
+{
+    tool->setPos(pos);
+    tool->setScene(this);
+    m_tools.insert(tool);
 }
