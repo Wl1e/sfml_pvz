@@ -143,4 +143,109 @@ CMakeFiles/demo.dir/src/demo.cpp.o: \
  /usr/include/c++/14.2.1/bits/locale_facets.tcc \
  /usr/include/c++/14.2.1/bits/basic_ios.tcc \
  /usr/include/c++/14.2.1/bits/ostream.tcc /usr/include/c++/14.2.1/istream \
- /usr/include/c++/14.2.1/bits/istream.tcc
+ /usr/include/c++/14.2.1/bits/istream.tcc \
+ /home/wlle/code/demo/sfml2/src/entity/tool.h \
+ /home/wlle/code/demo/sfml2/src/entity/entity.h \
+ /home/wlle/code/SFML/include/SFML/System/Vector2.hpp \
+ /home/wlle/code/SFML/include/SFML/System/Export.hpp \
+ /home/wlle/code/SFML/include/SFML/Config.hpp \
+ /home/wlle/code/SFML/include/SFML/System/Angle.hpp \
+ /home/wlle/code/SFML/include/SFML/System/Angle.inl \
+ /usr/include/c++/14.2.1/cassert /usr/include/assert.h \
+ /home/wlle/code/SFML/include/SFML/System/Vector2.inl \
+ /home/wlle/code/demo/sfml2/src/game.h /usr/include/c++/14.2.1/vector \
+ /usr/include/c++/14.2.1/bits/stl_uninitialized.h \
+ /usr/include/c++/14.2.1/bits/stl_vector.h \
+ /usr/include/c++/14.2.1/bits/stl_bvector.h \
+ /usr/include/c++/14.2.1/bits/vector.tcc \
+ /home/wlle/code/demo/sfml2/src/animation/gamescene.h \
+ /home/wlle/code/SFML/include/SFML/Graphics/RenderWindow.hpp \
+ /home/wlle/code/SFML/include/SFML/Graphics/Export.hpp \
+ /home/wlle/code/SFML/include/SFML/Graphics/RenderTarget.hpp \
+ /home/wlle/code/SFML/include/SFML/Graphics/BlendMode.hpp \
+ /home/wlle/code/SFML/include/SFML/Graphics/Color.hpp \
+ /usr/include/c++/14.2.1/cstdint \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/stdint.h \
+ /usr/include/stdint.h /usr/include/bits/stdint-uintn.h \
+ /usr/include/bits/stdint-least.h \
+ /home/wlle/code/SFML/include/SFML/Graphics/Color.inl \
+ /home/wlle/code/SFML/include/SFML/Graphics/CoordinateType.hpp \
+ /home/wlle/code/SFML/include/SFML/Graphics/PrimitiveType.hpp \
+ /home/wlle/code/SFML/include/SFML/Graphics/Rect.hpp \
+ /usr/include/c++/14.2.1/optional \
+ /usr/include/c++/14.2.1/bits/enable_special_members.h \
+ /home/wlle/code/SFML/include/SFML/Graphics/Rect.inl \
+ /home/wlle/code/SFML/include/SFML/Graphics/RenderStates.hpp \
+ /home/wlle/code/SFML/include/SFML/Graphics/StencilMode.hpp \
+ /home/wlle/code/SFML/include/SFML/Graphics/Transform.hpp \
+ /usr/include/c++/14.2.1/array /usr/include/c++/14.2.1/compare \
+ /home/wlle/code/SFML/include/SFML/Graphics/Transform.inl \
+ /home/wlle/code/SFML/include/SFML/Graphics/Vertex.hpp \
+ /home/wlle/code/SFML/include/SFML/Graphics/View.hpp \
+ /home/wlle/code/SFML/include/SFML/Window/ContextSettings.hpp \
+ /home/wlle/code/SFML/include/SFML/Window/VideoMode.hpp \
+ /home/wlle/code/SFML/include/SFML/Window/Export.hpp \
+ /home/wlle/code/SFML/include/SFML/Window/Window.hpp \
+ /home/wlle/code/SFML/include/SFML/Window/GlResource.hpp \
+ /usr/include/c++/14.2.1/memory \
+ /usr/include/c++/14.2.1/bits/stl_tempbuf.h \
+ /usr/include/c++/14.2.1/bits/stl_raw_storage_iter.h \
+ /usr/include/c++/14.2.1/bits/align.h \
+ /usr/include/c++/14.2.1/bits/unique_ptr.h \
+ /usr/include/c++/14.2.1/bits/shared_ptr.h \
+ /usr/include/c++/14.2.1/bits/shared_ptr_base.h \
+ /usr/include/c++/14.2.1/bits/allocated_ptr.h \
+ /usr/include/c++/14.2.1/ext/aligned_buffer.h \
+ /usr/include/c++/14.2.1/ext/concurrence.h \
+ /usr/include/c++/14.2.1/bits/shared_ptr_atomic.h \
+ /usr/include/c++/14.2.1/bits/atomic_base.h \
+ /usr/include/c++/14.2.1/bits/atomic_lockfree_defines.h \
+ /usr/include/c++/14.2.1/backward/auto_ptr.h \
+ /usr/include/c++/14.2.1/pstl/glue_memory_defs.h \
+ /usr/include/c++/14.2.1/pstl/execution_defs.h \
+ /home/wlle/code/SFML/include/SFML/Window/WindowBase.hpp \
+ /home/wlle/code/SFML/include/SFML/Window/Vulkan.hpp \
+ /home/wlle/code/SFML/include/SFML/Window/WindowEnums.hpp \
+ /home/wlle/code/SFML/include/SFML/Window/WindowHandle.hpp \
+ /home/wlle/code/SFML/include/SFML/System/Time.hpp \
+ /usr/include/c++/14.2.1/chrono /usr/include/c++/14.2.1/bits/chrono.h \
+ /usr/include/c++/14.2.1/ratio /usr/include/c++/14.2.1/limits \
+ /usr/include/c++/14.2.1/ctime \
+ /usr/include/c++/14.2.1/bits/parse_numbers.h \
+ /home/wlle/code/SFML/include/SFML/System/Time.inl \
+ /home/wlle/code/SFML/include/SFML/Window/WindowBase.inl \
+ /home/wlle/code/SFML/include/SFML/Window/Event.hpp \
+ /home/wlle/code/SFML/include/SFML/Window/Joystick.hpp \
+ /home/wlle/code/SFML/include/SFML/System/String.hpp \
+ /home/wlle/code/SFML/include/SFML/System/Utf.hpp \
+ /usr/include/c++/14.2.1/locale \
+ /usr/include/c++/14.2.1/bits/locale_facets_nonio.h \
+ /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/time_members.h \
+ /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/messages_members.h \
+ /usr/include/libintl.h /usr/include/c++/14.2.1/bits/codecvt.h \
+ /usr/include/c++/14.2.1/bits/locale_facets_nonio.tcc \
+ /usr/include/c++/14.2.1/bits/locale_conv.h \
+ /home/wlle/code/SFML/include/SFML/System/Utf.inl \
+ /home/wlle/code/SFML/include/SFML/System/String.inl \
+ /usr/include/c++/14.2.1/iterator \
+ /usr/include/c++/14.2.1/bits/stream_iterator.h \
+ /home/wlle/code/SFML/include/SFML/Window/Keyboard.hpp \
+ /home/wlle/code/SFML/include/SFML/Window/Mouse.hpp \
+ /home/wlle/code/SFML/include/SFML/Window/Sensor.hpp \
+ /home/wlle/code/SFML/include/SFML/System/Vector3.hpp \
+ /home/wlle/code/SFML/include/SFML/System/Vector3.inl \
+ /usr/include/c++/14.2.1/variant \
+ /home/wlle/code/SFML/include/SFML/Window/Event.inl \
+ /usr/include/c++/14.2.1/utility \
+ /usr/include/c++/14.2.1/bits/stl_relops.h \
+ /home/wlle/code/SFML/include/SFML/System/Clock.hpp \
+ /usr/include/c++/14.2.1/thread /usr/include/c++/14.2.1/bits/std_thread.h \
+ /usr/include/c++/14.2.1/bits/this_thread_sleep.h \
+ /usr/include/c++/14.2.1/unordered_set \
+ /usr/include/c++/14.2.1/bits/unordered_set.h \
+ /usr/include/c++/14.2.1/bits/hashtable.h \
+ /usr/include/c++/14.2.1/bits/hashtable_policy.h \
+ /usr/include/c++/14.2.1/bits/node_handle.h \
+ /usr/include/c++/14.2.1/bits/erase_if.h \
+ /home/wlle/code/demo/sfml2/src/base/tools.h \
+ /home/wlle/code/demo/sfml2/src/defines.h

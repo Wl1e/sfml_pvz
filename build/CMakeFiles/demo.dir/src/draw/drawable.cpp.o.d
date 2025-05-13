@@ -255,5 +255,5 @@ CMakeFiles/demo.dir/src/draw/drawable.cpp.o: \
  /home/wlle/code/SFML/include/SFML/Graphics/Sprite.hpp \
  /home/wlle/code/SFML/include/SFML/Graphics/Drawable.hpp \
  /home/wlle/code/SFML/include/SFML/Graphics/Transformable.hpp \
- /usr/include/c++/14.2.1/unordered_map \
+ /usr/include/c++/14.2.1/iostream /usr/include/c++/14.2.1/unordered_map \
  /usr/include/c++/14.2.1/bits/unordered_map.h

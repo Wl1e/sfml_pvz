@@ -23,20 +23,22 @@ public:
     Entity(EntityType type);
     Entity(EntityType type, std::string_view source_path);
     ~Entity() = default;
-    void setSize(const sf::Vector2u& size)
-    {
-        m_size = size;
-    }
-    void setPos(const sf::Vector2i& pos)
-    {
-        m_pos = pos;
-    }
+    void setSize(const sf::Vector2u& size);
+    void setPos(const sf::Vector2i& pos);
     void setScene(GameScene* scene);
     void setAniamtion(std::string_view source_path);
 
     EntityType getType() const
     {
         return m_type;
+    }
+    const sf::Vector2i& getPos() const
+    {
+        return m_pos;
+    }
+    const sf::Vector2u& getSize() const
+    {
+        return m_size;
     }
 
     virtual void update() = 0;

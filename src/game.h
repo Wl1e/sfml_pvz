@@ -3,6 +3,7 @@
 #include <vector>
 
 #include <animation/gamescene.h>
+#include <base/tools.h>
 
 namespace demo {
 
@@ -24,26 +25,21 @@ public:
         m_scene->run();
     }
 
-    // void addEntity(Entity* entity)
-    // {
-    //     m_scene->addEntity(entity);
-    // }
-    // void delEntity(Entity* entity)
-    // {
-    //     m_scene->delEntity(entity);
-    // }
     GameScene* scene()
     {
         return m_scene;
+    }
+    void setFrame(int frame)
+    {
+        // 不够准确
+        // internal() = milliseconds(1000 / frame);
+        m_scene->getNativeWindow()->setFramerateLimit(frame);
     }
 
 private:
     bool m_running;
 
     GameScene* m_scene;
-    // std::vector<std::vector<Plant*>> m_plants;
-    // std::vector<std::vector<Zombie*>> m_zombies;
-    // std::vector<Tool*> m_Tools;
 };
 
 } // namespace demo

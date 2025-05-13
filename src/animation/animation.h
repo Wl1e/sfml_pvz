@@ -44,6 +44,9 @@ public:
 
     void setIdx(size_t idx)
     {
+        if(m_idx != idx) {
+            setDrawContent(m_data[idx]);
+        }
         m_idx = idx;
     }
 

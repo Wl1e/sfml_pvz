@@ -12,6 +12,7 @@
 
 namespace demo {
 
+class Animation;
 class Entity;
 class Plant;
 class Zombie;
@@ -28,6 +29,7 @@ public:
     void update(sf::Event event);
     void update();
 
+    void setBackGround(std::string_view path);
     void addEntity(Entity* entity);
     void addPlant(Plant* plant, const sf::Vector2i& pos_axis);
     void addZombie(Zombie* zombie);
@@ -44,7 +46,6 @@ public:
     {
         return m_window;
     }
-    std::optional<sf::Event> getInput() const;
     const std::vector<Zombie*>& getZombiesByPath(int path) const
     {
         return m_zombies[path];
@@ -61,6 +62,7 @@ private:
 
 private:
     sf::RenderWindow* m_window;
+    Animation* m_background;
     std::thread::id m_thread_id;
     std::unordered_set<Tool*> m_tools;
     std::vector<std::vector<Plant*>> m_plants;

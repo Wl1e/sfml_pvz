@@ -6,7 +6,7 @@
 #include <queue>
 #include <unordered_set>
 
-#include <base/tools.hpp>
+#include <base/tools.h>
 
 namespace demo {
 

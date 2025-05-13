@@ -1,7 +1,7 @@
 CMakeFiles/demo.dir/src/entity/entity.cpp.o: \
  /home/wlle/code/demo/sfml2/src/entity/entity.cpp \
  /usr/include/stdc-predef.h \
- /home/wlle/code/demo/sfml2/src/animation/base.h \
+ /home/wlle/code/demo/sfml2/src/animation/animation.h \
  /home/wlle/code/SFML/include/SFML/Graphics/Texture.hpp \
  /home/wlle/code/SFML/include/SFML/Graphics/Export.hpp \
  /home/wlle/code/SFML/include/SFML/Config.hpp \
@@ -234,4 +234,5 @@ CMakeFiles/demo.dir/src/entity/entity.cpp.o: \
  /home/wlle/code/SFML/include/SFML/Graphics/Vertex.hpp \
  /home/wlle/code/SFML/include/SFML/Graphics/Color.hpp \
  /home/wlle/code/SFML/include/SFML/Graphics/Color.inl \
+ /usr/include/c++/14.2.1/iostream \
  /home/wlle/code/demo/sfml2/src/entity/entity.h

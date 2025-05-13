@@ -129,29 +129,29 @@ demo/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/build
 .PHONY : demo/fast
 
-src/animation/base.o: src/animation/base.cpp.o
-.PHONY : src/animation/base.o
+src/animation/animation.o: src/animation/animation.cpp.o
+.PHONY : src/animation/animation.o
 
 # target to build an object file
-src/animation/base.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/animation/base.cpp.o
-.PHONY : src/animation/base.cpp.o
+src/animation/animation.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/animation/animation.cpp.o
+.PHONY : src/animation/animation.cpp.o
 
-src/animation/base.i: src/animation/base.cpp.i
-.PHONY : src/animation/base.i
+src/animation/animation.i: src/animation/animation.cpp.i
+.PHONY : src/animation/animation.i
 
 # target to preprocess a source file
-src/animation/base.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/animation/base.cpp.i
-.PHONY : src/animation/base.cpp.i
+src/animation/animation.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/animation/animation.cpp.i
+.PHONY : src/animation/animation.cpp.i
 
-src/animation/base.s: src/animation/base.cpp.s
-.PHONY : src/animation/base.s
+src/animation/animation.s: src/animation/animation.cpp.s
+.PHONY : src/animation/animation.s
 
 # target to generate assembly for a file
-src/animation/base.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/animation/base.cpp.s
-.PHONY : src/animation/base.cpp.s
+src/animation/animation.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/animation/animation.cpp.s
+.PHONY : src/animation/animation.cpp.s
 
 src/animation/gamescene.o: src/animation/gamescene.cpp.o
 .PHONY : src/animation/gamescene.o
@@ -176,6 +176,30 @@ src/animation/gamescene.s: src/animation/gamescene.cpp.s
 src/animation/gamescene.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/animation/gamescene.cpp.s
 .PHONY : src/animation/gamescene.cpp.s
+
+src/base/tools.o: src/base/tools.cpp.o
+.PHONY : src/base/tools.o
+
+# target to build an object file
+src/base/tools.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/base/tools.cpp.o
+.PHONY : src/base/tools.cpp.o
+
+src/base/tools.i: src/base/tools.cpp.i
+.PHONY : src/base/tools.i
+
+# target to preprocess a source file
+src/base/tools.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/base/tools.cpp.i
+.PHONY : src/base/tools.cpp.i
+
+src/base/tools.s: src/base/tools.cpp.s
+.PHONY : src/base/tools.s
+
+# target to generate assembly for a file
+src/base/tools.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/base/tools.cpp.s
+.PHONY : src/base/tools.cpp.s
 
 src/demo.o: src/demo.cpp.o
 .PHONY : src/demo.o
@@ -249,6 +273,30 @@ src/entity/entity.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/entity/entity.cpp.s
 .PHONY : src/entity/entity.cpp.s
 
+src/entity/tool.o: src/entity/tool.cpp.o
+.PHONY : src/entity/tool.o
+
+# target to build an object file
+src/entity/tool.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/entity/tool.cpp.o
+.PHONY : src/entity/tool.cpp.o
+
+src/entity/tool.i: src/entity/tool.cpp.i
+.PHONY : src/entity/tool.i
+
+# target to preprocess a source file
+src/entity/tool.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/entity/tool.cpp.i
+.PHONY : src/entity/tool.cpp.i
+
+src/entity/tool.s: src/entity/tool.cpp.s
+.PHONY : src/entity/tool.s
+
+# target to generate assembly for a file
+src/entity/tool.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/entity/tool.cpp.s
+.PHONY : src/entity/tool.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -258,12 +306,15 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... demo"
-	@echo "... src/animation/base.o"
-	@echo "... src/animation/base.i"
-	@echo "... src/animation/base.s"
+	@echo "... src/animation/animation.o"
+	@echo "... src/animation/animation.i"
+	@echo "... src/animation/animation.s"
 	@echo "... src/animation/gamescene.o"
 	@echo "... src/animation/gamescene.i"
 	@echo "... src/animation/gamescene.s"
+	@echo "... src/base/tools.o"
+	@echo "... src/base/tools.i"
+	@echo "... src/base/tools.s"
 	@echo "... src/demo.o"
 	@echo "... src/demo.i"
 	@echo "... src/demo.s"
@@ -273,6 +324,9 @@ help:
 	@echo "... src/entity/entity.o"
 	@echo "... src/entity/entity.i"
 	@echo "... src/entity/entity.s"
+	@echo "... src/entity/tool.o"
+	@echo "... src/entity/tool.i"
+	@echo "... src/entity/tool.s"
 .PHONY : help
 
 

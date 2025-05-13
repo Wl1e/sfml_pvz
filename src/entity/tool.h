@@ -4,6 +4,9 @@
 
 namespace demo {
 
+class Tool;
+void moveUpdate(Tool* tool);
+
 class Tool : public Entity
 {
 public:
@@ -12,6 +15,8 @@ public:
     }
     void update() override
     {
+        moveUpdate(this);
+        updateAnimation();
     }
 };
 

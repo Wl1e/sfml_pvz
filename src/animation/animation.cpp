@@ -2,7 +2,7 @@
 #include <iostream>
 #include <unordered_set>
 
-#include <animation/base.h>
+#include <animation/animation.h>
 
 using namespace std;
 using namespace sf;
@@ -80,8 +80,9 @@ BaseAnimation::~BaseAnimation()
 
 Animation::Animation(
     GameScene* window, const vector<anime_frame>& source
-) : BaseAnimation(window), m_data(source), m_idx(1)
+) : BaseAnimation(window), m_data(source), m_idx(0)
 {
+    setDrawContent(m_data[m_idx]);
 }
 
 Animation::Animation(GameScene* window, string_view source_path) :
@@ -93,6 +94,7 @@ Animation::Animation(GameScene* window, string_view source_path) :
     } else {
         m_data = result.value().begin()->second;
     }
+    setDrawContent(m_data[0]);
 }
 
 Animation::~Animation()
@@ -101,11 +103,13 @@ Animation::~Animation()
 
 void Animation::update(Event* event)
 {
+    // setDrawContent(m_data[m_idx]);
+    draw();
 }
 
 void Animation::reset()
 {
-    m_idx = 1;
+    m_idx = 0;
 }
 
 // ===============AutoAnimation===============
@@ -122,7 +126,7 @@ void AutoAnimation::update(Event* event)
         return;
     }
     if(m_idx >= m_data.size()) {
-        m_idx = 1;
+        m_idx = 0;
     }
     setDrawContent(m_data[m_idx++]);
 }

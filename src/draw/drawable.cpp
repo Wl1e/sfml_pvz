@@ -10,7 +10,7 @@ using namespace std;
 
 namespace demo {
 
-Texture err_texture(Vector2u{0, 0});
+Texture err_texture(Vector2u{1, 1});
 
 Drawable::Drawable(GameScene* scene) :
     m_master(scene), m_sprite(err_texture)
@@ -30,11 +30,6 @@ Drawable::~Drawable()
 void Drawable::setDrawContent(const sf::Texture& content)
 {
     m_sprite.setTexture(content, true);
-    auto [x_scale, y_scale] =
-        sf::Vector2f(m_master->getSize())
-            .componentWiseDiv(sf::Vector2f(content.getSize()));
-    float scale = std::min(x_scale, y_scale);
-    m_sprite.setScale({scale, scale});
 }
 
 } // namespace demo

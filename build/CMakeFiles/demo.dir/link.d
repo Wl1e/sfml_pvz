@@ -2,10 +2,12 @@ demo: \
   /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/../../../../lib/Scrt1.o \
   /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/../../../../lib/crti.o \
   /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/crtbeginS.o \
+  CMakeFiles/demo.dir/src/base/tools.cpp.o \
   CMakeFiles/demo.dir/src/draw/drawable.cpp.o \
-  CMakeFiles/demo.dir/src/animation/base.cpp.o \
+  CMakeFiles/demo.dir/src/animation/animation.cpp.o \
   CMakeFiles/demo.dir/src/animation/gamescene.cpp.o \
   CMakeFiles/demo.dir/src/entity/entity.cpp.o \
+  CMakeFiles/demo.dir/src/entity/tool.cpp.o \
   CMakeFiles/demo.dir/src/demo.cpp.o \
   /home/wlle/code/SFML/lib/../lib/libsfml-system.so \
   /home/wlle/code/SFML/lib/../lib/libsfml-window.so \
@@ -83,13 +85,17 @@ demo: \
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/crtbeginS.o:
 
+CMakeFiles/demo.dir/src/base/tools.cpp.o:
+
 CMakeFiles/demo.dir/src/draw/drawable.cpp.o:
 
-CMakeFiles/demo.dir/src/animation/base.cpp.o:
+CMakeFiles/demo.dir/src/animation/animation.cpp.o:
 
 CMakeFiles/demo.dir/src/animation/gamescene.cpp.o:
 
 CMakeFiles/demo.dir/src/entity/entity.cpp.o:
+
+CMakeFiles/demo.dir/src/entity/tool.cpp.o:
 
 CMakeFiles/demo.dir/src/demo.cpp.o:
 

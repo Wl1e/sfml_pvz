@@ -1,23 +1,11 @@
-#pragma once
+#include <SFML/System/Sleep.hpp>
+#include <SFML/System/Time.hpp>
+#include <base/tools.h>
+#include <iostream>
 
-#include <chrono>
-#include <cstdint>
-#include <thread>
-
-#include <SFML/System/Vector2.hpp>
-
-#include <defines.h>
+using namespace std;
 
 namespace demo {
-
-using namespace std::chrono_literals;
-using std::chrono::duration;
-using std::chrono::duration_cast;
-using std::chrono::nanoseconds;
-using std::chrono::system_clock;
-
-using TimerPoint = std::chrono::system_clock::time_point;
-using TimerInterval = std::chrono::milliseconds;
 
 bool isZero(TimerInterval interval)
 {
@@ -50,12 +38,18 @@ void wait()
         return;
     }
     auto nowTime = getNowTime();
-    auto inter = nowTime - last_update_time();
-    last_update_time() = nowTime;
+    auto inter =
+        duration_cast<milliseconds>(nowTime - last_update_time());
+
     if(inter >= internal()) {
+        last_update_time() = nowTime;
         return;
     }
-    std::this_thread::sleep_for(inter);
+    cout << "sleep: "
+         << duration_cast<milliseconds>(internal() - inter).count()
+         << "ms" << std::endl;
+    sf::sleep(internal() - inter);
+    last_update_time() = getNowTime();
 }
 
 int getPath(const sf::Vector2i& pos)

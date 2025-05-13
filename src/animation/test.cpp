@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include <animation/base.h>
+#include <animation/animation.h>
 #include <iostream>
 
 using namespace std;
