@@ -13,8 +13,20 @@
 namespace demo {
 
 class GameScene;
+class Entity;
 
-using PosFunction = std::function<void()>;
+using PosFunction = std::function<const sf::Vector2i&()>;
+using anime_frame = sf::Texture;
+
+// bool demo::read_frames(
+//     const string& path,
+//     unordered_map<string, vector<anime_frame>>& result
+// );
+
+bool demo::read_frames(
+    std::string_view path,
+    unordered_map<string, vector<anime_frame>>& result
+);
 
 class AnimationComp : public Component
 {
@@ -24,10 +36,7 @@ public:
 
     void update();
 
-    void setScene(GameScene* scene)
-    {
-        m_scene = scene;
-    }
+    void setScene(GameScene* scene);
     void setSize(const sf::Vector2u& size)
     {
         auto scale = sf::Vector2f(size).componentWiseDiv(
@@ -35,12 +44,22 @@ public:
         );
         m_sprite->setScale(scale);
     }
+    void setPosFunc(PosFunction func);
+
+    const sf::Vector2i& defaultPosFunction(GameScene* scene);
+
+protected:
+    void updateAnimation();
+    void updateAnimationStatus(string_view status);
+    void updatePos();
 
 private:
-    GameScene* m_scene;
-
+    Entity* m_entity;
     std::unique_ptr<sf::Sprite> m_sprite;
     sf::Vector2i m_animation_offset;
+    // 考虑anime_frame* ？
+    std::unordered_map<std::string, std::vector<anime_frame>>*
+        m_frames;
 
     PosFunction m_pos_func;
 };
