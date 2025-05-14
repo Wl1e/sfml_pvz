@@ -7,7 +7,7 @@
 namespace demo {
 
 class GameScene;
-class Animation;
+class BaseAnimation;
 
 enum class EntityType
 {
@@ -26,6 +26,7 @@ public:
     void setSize(const sf::Vector2u& size);
     void setPos(const sf::Vector2i& pos);
     void setScene(GameScene* scene);
+    template<class T>
     void setAniamtion(std::string_view source_path);
 
     EntityType getType() const
@@ -45,6 +46,7 @@ public:
 
 protected:
     void updateAnimation();
+    void setAniamtionStatus(const std::string& status);
 
 protected:
     GameScene* m_scene;
@@ -55,7 +57,7 @@ protected:
 
 private:
     // 考虑使用unique_ptr ?
-    Animation* m_animation;
+    BaseAnimation* m_animation;
 };
 
 } // namespace demo

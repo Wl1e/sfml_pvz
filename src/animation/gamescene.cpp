@@ -30,6 +30,7 @@ GameScene::GameScene() :
     m_background(nullptr), m_thread_id(this_thread::get_id()),
     m_plants(6, vector<Plant*>(9, nullptr))
 {
+    m_window->setKeyRepeatEnabled(false);
 }
 
 GameScene::~GameScene()
@@ -46,8 +47,14 @@ void GameScene::update(Event event)
     if(!assertInThread()) {
         return;
     }
+
+    for(auto& func : m_handler) {
+        func(this);
+    }
+    m_handler.clear();
+
     if(m_background) {
-        m_background->update(nullptr);
+        m_background->update();
     }
     for(auto tool : m_tools) {
         tool->update();
@@ -72,12 +79,27 @@ void GameScene::update(Event event)
 
 void GameScene::update()
 {
-    // if(!assertInThread()) {
-    //     return;
-    // }
-    // for(auto& a : m_entitys) {
-    //     a->update();
-    // }
+    if(!assertInThread()) {
+        return;
+    }
+    if(m_background) {
+        m_background->update();
+    }
+    for(auto tool : m_tools) {
+        tool->update();
+    }
+    for(size_t idx = 0; idx < grass_path; ++idx) {
+        for(auto plant : m_plants[idx]) {
+            if(plant->isDied()) {
+                delPlant(plant);
+                continue;
+            }
+            if(!plant) {
+                continue;
+            }
+            plant->update();
+        }
+    }
 }
 
 void GameScene::run()
@@ -109,9 +131,9 @@ bool GameScene::isOpen() const
 
 void GameScene::addPlant(Plant* plant, const Vector2i& pos_axis)
 {
-    plant->setPos(axis2pos(pos_axis));
     plant->setScene(this);
-    m_plants[pos_axis.x][pos_axis.y] = (plant);
+    plant->setPlantPos(pos_axis);
+    m_plants[pos_axis.x][pos_axis.y] = plant;
 }
 
 void GameScene::addTool(Tool* tool, const Vector2i& pos)

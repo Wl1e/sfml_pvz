@@ -27,7 +27,7 @@ class BaseAnimation : public Drawable
 public:
     explicit BaseAnimation(GameScene* window);
     ~BaseAnimation();
-    virtual void update(sf::Event*) = 0;
+    virtual void update() = 0;
     virtual void reset() = 0;
 };
 
@@ -39,7 +39,7 @@ public:
     );
     Animation(GameScene* window, std::string_view source_path);
     ~Animation();
-    void update(sf::Event*) override;
+    void update() override;
     void reset() override;
 
     void setIdx(size_t idx)
@@ -61,7 +61,7 @@ public:
     AutoAnimation(
         GameScene* window, const std::vector<anime_frame>& source
     );
-    void update(sf::Event*) override;
+    void update() override;
     void setUpdateCond(std::function<bool(sf::Event*)> func)
     {
         m_update_func = std::move(func);
@@ -82,10 +82,10 @@ public:
     );
     ~MultiAnimation();
 
-    void update(sf::Event*) override;
+    void update() override;
     void reset() override;
 
-    void change_type(const std::string& status)
+    void setAniamtionStatus(const std::string& status)
     {
         m_status = status;
     }

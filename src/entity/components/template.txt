@@ -1,0 +1,16 @@
+#pragma once
+
+#include <entity/components/component.h>
+
+namespace demo {
+
+class AnimationComp : public Component
+{};
+
+} // namespace demo
+
+#include <entity/components/position_comp.h>
+
+using namespace std;
+using namespace sf;
+using namespace demo;

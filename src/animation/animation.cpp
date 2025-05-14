@@ -101,7 +101,7 @@ Animation::~Animation()
 {
 }
 
-void Animation::update(Event* event)
+void Animation::update()
 {
     // setDrawContent(m_data[m_idx]);
     draw();
@@ -120,9 +120,9 @@ AutoAnimation::AutoAnimation(
 {
 }
 
-void AutoAnimation::update(Event* event)
+void AutoAnimation::update()
 {
-    if(m_update_func && !m_update_func(event)) {
+    if(m_update_func && !m_update_func(nullptr)) {
         return;
     }
     if(m_idx >= m_data.size()) {

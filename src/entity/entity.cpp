@@ -25,9 +25,10 @@ void Entity::setScene(GameScene* scene)
     }
 }
 
+template<class T>
 void Entity::setAniamtion(string_view source_path)
 {
-    m_animation = new Animation(m_scene, source_path);
+    m_animation = new T(m_scene, source_path);
     m_size = m_animation->getSize();
 }
 
@@ -48,5 +49,15 @@ void Entity::setSize(const sf::Vector2u& size)
 void Entity::updateAnimation()
 {
     // 这里需要改
-    m_animation->update(nullptr);
+    m_animation->update();
+}
+
+void Entity::setAniamtionStatus(const std::string& status)
+{
+    // 非常不好的设计，后续考虑在BaseAnimation内加type或者使用std::variant
+    auto multiAniamtion = dynamic_cast<MultiAnimation*>(m_animation);
+    if(!multiAniamtion) {
+        return;
+    }
+    multiAniamtion->setAniamtionStatus(status);
 }

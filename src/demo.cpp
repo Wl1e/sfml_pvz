@@ -17,7 +17,9 @@ void test_simple_tool()
     );
     game.setFrame(144);
     auto t = new Tool();
-    t->setAniamtion("/home/wlle/code/demo/sfml2/source/sun");
+    t->setAniamtion<Animation>(
+        "/home/wlle/code/demo/sfml2/source/sun"
+    );
     // t->setSize({10, 10});
 
     cout << t->getSize().x << ' ' << t->getSize().y << '\n';
