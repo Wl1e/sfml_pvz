@@ -1,7 +1,0 @@
-{
-	"InstallScripts" : 
-	[
-		"/home/wlle/code/demo/sfml2/build/cmake_install.cmake"
-	],
-	"Parallel" : false
-}

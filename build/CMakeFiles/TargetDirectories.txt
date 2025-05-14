@@ -1,3 +1,0 @@
-/home/wlle/code/demo/sfml2/build/CMakeFiles/demo.dir
-/home/wlle/code/demo/sfml2/build/CMakeFiles/edit_cache.dir
-/home/wlle/code/demo/sfml2/build/CMakeFiles/rebuild_cache.dir
