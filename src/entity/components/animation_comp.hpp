@@ -1,7 +1,6 @@
 #pragma once
 
 #include <functional>
-#include <memory>
 #include <string>
 
 #include <SFML/Graphics/Sprite.hpp>
@@ -13,9 +12,9 @@
 namespace demo {
 
 class GameScene;
-class Entity;
 
 using PosFunction = std::function<const sf::Vector2i&()>;
+using SceneFunction = std::function<GameScene*()>;
 using anime_frame = sf::Texture;
 
 // bool demo::read_frames(
@@ -23,20 +22,33 @@ using anime_frame = sf::Texture;
 //     unordered_map<string, vector<anime_frame>>& result
 // );
 
-bool demo::read_frames(
+bool read_frames(
     std::string_view path,
-    unordered_map<string, vector<anime_frame>>& result
+    std::unordered_map<std::string, std::vector<anime_frame>>& result
 );
+
+// fixme: 后续可以分成animation和render，拆分功能
 
 class AnimationComp : public Component
 {
 public:
-    AnimationComp(const std::string& resource_path);
-    AnimationComp(std::string_view resource_path);
+    explicit AnimationComp(std::string_view resource_path) :
+        m_entity(nullptr), m_animation_offset({-10, -10}),
+        m_frames(
+            new std::
+                unordered_map<std::string, std::vector<anime_frame>>
+        ),
+        m_status("normal"), m_idx(0)
+    {
+        read_frames(resource_path, *m_frames);
+        m_sprite = std::make_unique<sf::Sprite>(
+            m_frames->at(m_status)[m_idx]
+        );
+    }
 
     void update();
+    void updateAnimationStatus(std::string_view status);
 
-    void setScene(GameScene* scene);
     void setSize(const sf::Vector2u& size)
     {
         auto scale = sf::Vector2f(size).componentWiseDiv(
@@ -44,24 +56,26 @@ public:
         );
         m_sprite->setScale(scale);
     }
-    void setPosFunc(PosFunction func);
 
-    const sf::Vector2i& defaultPosFunction(GameScene* scene);
+    void whenAdded(Entity* entity)
+    {
+        m_entity = entity;
+    }
 
 protected:
     void updateAnimation();
-    void updateAnimationStatus(string_view status);
     void updatePos();
 
 private:
     Entity* m_entity;
     std::unique_ptr<sf::Sprite> m_sprite;
     sf::Vector2i m_animation_offset;
+
     // 考虑anime_frame* ？
     std::unordered_map<std::string, std::vector<anime_frame>>*
         m_frames;
-
-    PosFunction m_pos_func;
+    std::string m_status;
+    size_t m_idx;
 };
 
 } // namespace demo

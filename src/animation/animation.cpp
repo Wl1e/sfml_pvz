@@ -1,5 +1,4 @@
 #include <filesystem>
-#include <iostream>
 #include <unordered_set>
 
 #include <animation/animation.h>

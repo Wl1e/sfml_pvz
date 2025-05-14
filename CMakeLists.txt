@@ -11,11 +11,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 # Add source files
 set(SOURCES
     src/base/tools.cpp
-    src/draw/drawable.cpp
-    src/animation/animation.cpp
-    src/animation/gamescene.cpp
+    # src/draw/drawable.cpp
+    # src/animation/animation.cpp
+    src/entity/components/position_comp.cpp
+    src/entity/components/animation_comp.cpp
     src/entity/entity.cpp
-    src/entity/tool.cpp
+    src/animation/gamescene.cpp
+    # src/entity/tool.cpp
     # src/game.cpp
     src/demo.cpp
     # Add other source files here

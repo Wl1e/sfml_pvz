@@ -1,4 +1,8 @@
+#include <SFML/Graphics/RenderWindow.hpp>
+
+#include <animation/gamescene.h>
 #include <entity/components/animation_comp.hpp>
+#include <entity/entity.hpp>
 
 using namespace std;
 using namespace sf;
@@ -10,7 +14,7 @@ bool read_frames2(
     filesystem::path, unordered_map<string, vector<anime_frame>>&
 );
 
-// bool demo::read_frames(
+// bool read_frames(
 //     const string& path,
 //     unordered_map<string, vector<anime_frame>>& result
 // )
@@ -19,7 +23,7 @@ bool read_frames2(
 //     return read_frames2(frame_path, result);
 // }
 
-bool demo::read_frames(
+bool read_frames(
     string_view path,
     unordered_map<string, vector<anime_frame>>& result
 )
@@ -60,12 +64,33 @@ bool read_frames2(
     return !res.empty();
 }
 
-void AnimationComp::setScene(GameScene* scene)
+} // namespace demo
+
+void AnimationComp::update()
 {
-    m_scene = scene;
-    setPosFunc([scene, this]() -> const sf::Vector2i& {
-        return AnimationComp::defaultPosFunction(scene);
-    });
+    updateAnimation();
+    updatePos();
+    // fixme
+    m_entity->getScene()->getNativeWindow()->draw(*m_sprite);
 }
 
-} // namespace demo
+void AnimationComp::updateAnimation()
+{
+    if(m_idx >= m_frames->at(m_status).size()) {
+        m_idx = 0;
+    }
+    m_sprite->setTexture(m_frames->at(m_status)[m_idx++]);
+}
+void AnimationComp::updateAnimationStatus(string_view status)
+{
+    if(!m_frames->count(status.data())) {
+        return;
+    }
+    m_status = status;
+    m_idx = 0;
+    updateAnimation();
+}
+void AnimationComp::updatePos()
+{
+    m_sprite->setPosition(sf::Vector2f(m_entity->getPos()));
+}

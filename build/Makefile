@@ -129,30 +129,6 @@ demo/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/build
 .PHONY : demo/fast
 
-src/animation/animation.o: src/animation/animation.cpp.o
-.PHONY : src/animation/animation.o
-
-# target to build an object file
-src/animation/animation.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/animation/animation.cpp.o
-.PHONY : src/animation/animation.cpp.o
-
-src/animation/animation.i: src/animation/animation.cpp.i
-.PHONY : src/animation/animation.i
-
-# target to preprocess a source file
-src/animation/animation.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/animation/animation.cpp.i
-.PHONY : src/animation/animation.cpp.i
-
-src/animation/animation.s: src/animation/animation.cpp.s
-.PHONY : src/animation/animation.s
-
-# target to generate assembly for a file
-src/animation/animation.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/animation/animation.cpp.s
-.PHONY : src/animation/animation.cpp.s
-
 src/animation/gamescene.o: src/animation/gamescene.cpp.o
 .PHONY : src/animation/gamescene.o
 
@@ -225,29 +201,53 @@ src/demo.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/demo.cpp.s
 .PHONY : src/demo.cpp.s
 
-src/draw/drawable.o: src/draw/drawable.cpp.o
-.PHONY : src/draw/drawable.o
+src/entity/components/animation_comp.o: src/entity/components/animation_comp.cpp.o
+.PHONY : src/entity/components/animation_comp.o
 
 # target to build an object file
-src/draw/drawable.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/draw/drawable.cpp.o
-.PHONY : src/draw/drawable.cpp.o
+src/entity/components/animation_comp.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/entity/components/animation_comp.cpp.o
+.PHONY : src/entity/components/animation_comp.cpp.o
 
-src/draw/drawable.i: src/draw/drawable.cpp.i
-.PHONY : src/draw/drawable.i
+src/entity/components/animation_comp.i: src/entity/components/animation_comp.cpp.i
+.PHONY : src/entity/components/animation_comp.i
 
 # target to preprocess a source file
-src/draw/drawable.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/draw/drawable.cpp.i
-.PHONY : src/draw/drawable.cpp.i
+src/entity/components/animation_comp.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/entity/components/animation_comp.cpp.i
+.PHONY : src/entity/components/animation_comp.cpp.i
 
-src/draw/drawable.s: src/draw/drawable.cpp.s
-.PHONY : src/draw/drawable.s
+src/entity/components/animation_comp.s: src/entity/components/animation_comp.cpp.s
+.PHONY : src/entity/components/animation_comp.s
 
 # target to generate assembly for a file
-src/draw/drawable.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/draw/drawable.cpp.s
-.PHONY : src/draw/drawable.cpp.s
+src/entity/components/animation_comp.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/entity/components/animation_comp.cpp.s
+.PHONY : src/entity/components/animation_comp.cpp.s
+
+src/entity/components/position_comp.o: src/entity/components/position_comp.cpp.o
+.PHONY : src/entity/components/position_comp.o
+
+# target to build an object file
+src/entity/components/position_comp.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/entity/components/position_comp.cpp.o
+.PHONY : src/entity/components/position_comp.cpp.o
+
+src/entity/components/position_comp.i: src/entity/components/position_comp.cpp.i
+.PHONY : src/entity/components/position_comp.i
+
+# target to preprocess a source file
+src/entity/components/position_comp.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/entity/components/position_comp.cpp.i
+.PHONY : src/entity/components/position_comp.cpp.i
+
+src/entity/components/position_comp.s: src/entity/components/position_comp.cpp.s
+.PHONY : src/entity/components/position_comp.s
+
+# target to generate assembly for a file
+src/entity/components/position_comp.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/entity/components/position_comp.cpp.s
+.PHONY : src/entity/components/position_comp.cpp.s
 
 src/entity/entity.o: src/entity/entity.cpp.o
 .PHONY : src/entity/entity.o
@@ -273,30 +273,6 @@ src/entity/entity.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/entity/entity.cpp.s
 .PHONY : src/entity/entity.cpp.s
 
-src/entity/tool.o: src/entity/tool.cpp.o
-.PHONY : src/entity/tool.o
-
-# target to build an object file
-src/entity/tool.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/entity/tool.cpp.o
-.PHONY : src/entity/tool.cpp.o
-
-src/entity/tool.i: src/entity/tool.cpp.i
-.PHONY : src/entity/tool.i
-
-# target to preprocess a source file
-src/entity/tool.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/entity/tool.cpp.i
-.PHONY : src/entity/tool.cpp.i
-
-src/entity/tool.s: src/entity/tool.cpp.s
-.PHONY : src/entity/tool.s
-
-# target to generate assembly for a file
-src/entity/tool.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/entity/tool.cpp.s
-.PHONY : src/entity/tool.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -306,9 +282,6 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... demo"
-	@echo "... src/animation/animation.o"
-	@echo "... src/animation/animation.i"
-	@echo "... src/animation/animation.s"
 	@echo "... src/animation/gamescene.o"
 	@echo "... src/animation/gamescene.i"
 	@echo "... src/animation/gamescene.s"
@@ -318,15 +291,15 @@ help:
 	@echo "... src/demo.o"
 	@echo "... src/demo.i"
 	@echo "... src/demo.s"
-	@echo "... src/draw/drawable.o"
-	@echo "... src/draw/drawable.i"
-	@echo "... src/draw/drawable.s"
+	@echo "... src/entity/components/animation_comp.o"
+	@echo "... src/entity/components/animation_comp.i"
+	@echo "... src/entity/components/animation_comp.s"
+	@echo "... src/entity/components/position_comp.o"
+	@echo "... src/entity/components/position_comp.i"
+	@echo "... src/entity/components/position_comp.s"
 	@echo "... src/entity/entity.o"
 	@echo "... src/entity/entity.i"
 	@echo "... src/entity/entity.s"
-	@echo "... src/entity/tool.o"
-	@echo "... src/entity/tool.i"
-	@echo "... src/entity/tool.s"
 .PHONY : help
 
 

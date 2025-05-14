@@ -86,52 +86,38 @@ CMakeFiles/demo.dir/src/base/tools.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/demo.dir/src/base/tools.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wlle/code/demo/sfml2/src/base/tools.cpp -o CMakeFiles/demo.dir/src/base/tools.cpp.s
 
-CMakeFiles/demo.dir/src/draw/drawable.cpp.o: CMakeFiles/demo.dir/flags.make
-CMakeFiles/demo.dir/src/draw/drawable.cpp.o: /home/wlle/code/demo/sfml2/src/draw/drawable.cpp
-CMakeFiles/demo.dir/src/draw/drawable.cpp.o: CMakeFiles/demo.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/wlle/code/demo/sfml2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/demo.dir/src/draw/drawable.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/demo.dir/src/draw/drawable.cpp.o -MF CMakeFiles/demo.dir/src/draw/drawable.cpp.o.d -o CMakeFiles/demo.dir/src/draw/drawable.cpp.o -c /home/wlle/code/demo/sfml2/src/draw/drawable.cpp
+CMakeFiles/demo.dir/src/entity/components/position_comp.cpp.o: CMakeFiles/demo.dir/flags.make
+CMakeFiles/demo.dir/src/entity/components/position_comp.cpp.o: /home/wlle/code/demo/sfml2/src/entity/components/position_comp.cpp
+CMakeFiles/demo.dir/src/entity/components/position_comp.cpp.o: CMakeFiles/demo.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/wlle/code/demo/sfml2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/demo.dir/src/entity/components/position_comp.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/demo.dir/src/entity/components/position_comp.cpp.o -MF CMakeFiles/demo.dir/src/entity/components/position_comp.cpp.o.d -o CMakeFiles/demo.dir/src/entity/components/position_comp.cpp.o -c /home/wlle/code/demo/sfml2/src/entity/components/position_comp.cpp
 
-CMakeFiles/demo.dir/src/draw/drawable.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/demo.dir/src/draw/drawable.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wlle/code/demo/sfml2/src/draw/drawable.cpp > CMakeFiles/demo.dir/src/draw/drawable.cpp.i
+CMakeFiles/demo.dir/src/entity/components/position_comp.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/demo.dir/src/entity/components/position_comp.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wlle/code/demo/sfml2/src/entity/components/position_comp.cpp > CMakeFiles/demo.dir/src/entity/components/position_comp.cpp.i
 
-CMakeFiles/demo.dir/src/draw/drawable.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/demo.dir/src/draw/drawable.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wlle/code/demo/sfml2/src/draw/drawable.cpp -o CMakeFiles/demo.dir/src/draw/drawable.cpp.s
+CMakeFiles/demo.dir/src/entity/components/position_comp.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/demo.dir/src/entity/components/position_comp.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wlle/code/demo/sfml2/src/entity/components/position_comp.cpp -o CMakeFiles/demo.dir/src/entity/components/position_comp.cpp.s
 
-CMakeFiles/demo.dir/src/animation/animation.cpp.o: CMakeFiles/demo.dir/flags.make
-CMakeFiles/demo.dir/src/animation/animation.cpp.o: /home/wlle/code/demo/sfml2/src/animation/animation.cpp
-CMakeFiles/demo.dir/src/animation/animation.cpp.o: CMakeFiles/demo.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/wlle/code/demo/sfml2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/demo.dir/src/animation/animation.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/demo.dir/src/animation/animation.cpp.o -MF CMakeFiles/demo.dir/src/animation/animation.cpp.o.d -o CMakeFiles/demo.dir/src/animation/animation.cpp.o -c /home/wlle/code/demo/sfml2/src/animation/animation.cpp
+CMakeFiles/demo.dir/src/entity/components/animation_comp.cpp.o: CMakeFiles/demo.dir/flags.make
+CMakeFiles/demo.dir/src/entity/components/animation_comp.cpp.o: /home/wlle/code/demo/sfml2/src/entity/components/animation_comp.cpp
+CMakeFiles/demo.dir/src/entity/components/animation_comp.cpp.o: CMakeFiles/demo.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/wlle/code/demo/sfml2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/demo.dir/src/entity/components/animation_comp.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/demo.dir/src/entity/components/animation_comp.cpp.o -MF CMakeFiles/demo.dir/src/entity/components/animation_comp.cpp.o.d -o CMakeFiles/demo.dir/src/entity/components/animation_comp.cpp.o -c /home/wlle/code/demo/sfml2/src/entity/components/animation_comp.cpp
 
-CMakeFiles/demo.dir/src/animation/animation.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/demo.dir/src/animation/animation.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wlle/code/demo/sfml2/src/animation/animation.cpp > CMakeFiles/demo.dir/src/animation/animation.cpp.i
+CMakeFiles/demo.dir/src/entity/components/animation_comp.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/demo.dir/src/entity/components/animation_comp.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wlle/code/demo/sfml2/src/entity/components/animation_comp.cpp > CMakeFiles/demo.dir/src/entity/components/animation_comp.cpp.i
 
-CMakeFiles/demo.dir/src/animation/animation.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/demo.dir/src/animation/animation.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wlle/code/demo/sfml2/src/animation/animation.cpp -o CMakeFiles/demo.dir/src/animation/animation.cpp.s
-
-CMakeFiles/demo.dir/src/animation/gamescene.cpp.o: CMakeFiles/demo.dir/flags.make
-CMakeFiles/demo.dir/src/animation/gamescene.cpp.o: /home/wlle/code/demo/sfml2/src/animation/gamescene.cpp
-CMakeFiles/demo.dir/src/animation/gamescene.cpp.o: CMakeFiles/demo.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/wlle/code/demo/sfml2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/demo.dir/src/animation/gamescene.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/demo.dir/src/animation/gamescene.cpp.o -MF CMakeFiles/demo.dir/src/animation/gamescene.cpp.o.d -o CMakeFiles/demo.dir/src/animation/gamescene.cpp.o -c /home/wlle/code/demo/sfml2/src/animation/gamescene.cpp
-
-CMakeFiles/demo.dir/src/animation/gamescene.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/demo.dir/src/animation/gamescene.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wlle/code/demo/sfml2/src/animation/gamescene.cpp > CMakeFiles/demo.dir/src/animation/gamescene.cpp.i
-
-CMakeFiles/demo.dir/src/animation/gamescene.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/demo.dir/src/animation/gamescene.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wlle/code/demo/sfml2/src/animation/gamescene.cpp -o CMakeFiles/demo.dir/src/animation/gamescene.cpp.s
+CMakeFiles/demo.dir/src/entity/components/animation_comp.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/demo.dir/src/entity/components/animation_comp.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wlle/code/demo/sfml2/src/entity/components/animation_comp.cpp -o CMakeFiles/demo.dir/src/entity/components/animation_comp.cpp.s
 
 CMakeFiles/demo.dir/src/entity/entity.cpp.o: CMakeFiles/demo.dir/flags.make
 CMakeFiles/demo.dir/src/entity/entity.cpp.o: /home/wlle/code/demo/sfml2/src/entity/entity.cpp
 CMakeFiles/demo.dir/src/entity/entity.cpp.o: CMakeFiles/demo.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/wlle/code/demo/sfml2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/demo.dir/src/entity/entity.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/wlle/code/demo/sfml2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/demo.dir/src/entity/entity.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/demo.dir/src/entity/entity.cpp.o -MF CMakeFiles/demo.dir/src/entity/entity.cpp.o.d -o CMakeFiles/demo.dir/src/entity/entity.cpp.o -c /home/wlle/code/demo/sfml2/src/entity/entity.cpp
 
 CMakeFiles/demo.dir/src/entity/entity.cpp.i: cmake_force
@@ -142,24 +128,24 @@ CMakeFiles/demo.dir/src/entity/entity.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/demo.dir/src/entity/entity.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wlle/code/demo/sfml2/src/entity/entity.cpp -o CMakeFiles/demo.dir/src/entity/entity.cpp.s
 
-CMakeFiles/demo.dir/src/entity/tool.cpp.o: CMakeFiles/demo.dir/flags.make
-CMakeFiles/demo.dir/src/entity/tool.cpp.o: /home/wlle/code/demo/sfml2/src/entity/tool.cpp
-CMakeFiles/demo.dir/src/entity/tool.cpp.o: CMakeFiles/demo.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/wlle/code/demo/sfml2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/demo.dir/src/entity/tool.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/demo.dir/src/entity/tool.cpp.o -MF CMakeFiles/demo.dir/src/entity/tool.cpp.o.d -o CMakeFiles/demo.dir/src/entity/tool.cpp.o -c /home/wlle/code/demo/sfml2/src/entity/tool.cpp
+CMakeFiles/demo.dir/src/animation/gamescene.cpp.o: CMakeFiles/demo.dir/flags.make
+CMakeFiles/demo.dir/src/animation/gamescene.cpp.o: /home/wlle/code/demo/sfml2/src/animation/gamescene.cpp
+CMakeFiles/demo.dir/src/animation/gamescene.cpp.o: CMakeFiles/demo.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/wlle/code/demo/sfml2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/demo.dir/src/animation/gamescene.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/demo.dir/src/animation/gamescene.cpp.o -MF CMakeFiles/demo.dir/src/animation/gamescene.cpp.o.d -o CMakeFiles/demo.dir/src/animation/gamescene.cpp.o -c /home/wlle/code/demo/sfml2/src/animation/gamescene.cpp
 
-CMakeFiles/demo.dir/src/entity/tool.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/demo.dir/src/entity/tool.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wlle/code/demo/sfml2/src/entity/tool.cpp > CMakeFiles/demo.dir/src/entity/tool.cpp.i
+CMakeFiles/demo.dir/src/animation/gamescene.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/demo.dir/src/animation/gamescene.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wlle/code/demo/sfml2/src/animation/gamescene.cpp > CMakeFiles/demo.dir/src/animation/gamescene.cpp.i
 
-CMakeFiles/demo.dir/src/entity/tool.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/demo.dir/src/entity/tool.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wlle/code/demo/sfml2/src/entity/tool.cpp -o CMakeFiles/demo.dir/src/entity/tool.cpp.s
+CMakeFiles/demo.dir/src/animation/gamescene.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/demo.dir/src/animation/gamescene.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wlle/code/demo/sfml2/src/animation/gamescene.cpp -o CMakeFiles/demo.dir/src/animation/gamescene.cpp.s
 
 CMakeFiles/demo.dir/src/demo.cpp.o: CMakeFiles/demo.dir/flags.make
 CMakeFiles/demo.dir/src/demo.cpp.o: /home/wlle/code/demo/sfml2/src/demo.cpp
 CMakeFiles/demo.dir/src/demo.cpp.o: CMakeFiles/demo.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/wlle/code/demo/sfml2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/demo.dir/src/demo.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/wlle/code/demo/sfml2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/demo.dir/src/demo.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/demo.dir/src/demo.cpp.o -MF CMakeFiles/demo.dir/src/demo.cpp.o.d -o CMakeFiles/demo.dir/src/demo.cpp.o -c /home/wlle/code/demo/sfml2/src/demo.cpp
 
 CMakeFiles/demo.dir/src/demo.cpp.i: cmake_force
@@ -173,27 +159,25 @@ CMakeFiles/demo.dir/src/demo.cpp.s: cmake_force
 # Object files for target demo
 demo_OBJECTS = \
 "CMakeFiles/demo.dir/src/base/tools.cpp.o" \
-"CMakeFiles/demo.dir/src/draw/drawable.cpp.o" \
-"CMakeFiles/demo.dir/src/animation/animation.cpp.o" \
-"CMakeFiles/demo.dir/src/animation/gamescene.cpp.o" \
+"CMakeFiles/demo.dir/src/entity/components/position_comp.cpp.o" \
+"CMakeFiles/demo.dir/src/entity/components/animation_comp.cpp.o" \
 "CMakeFiles/demo.dir/src/entity/entity.cpp.o" \
-"CMakeFiles/demo.dir/src/entity/tool.cpp.o" \
+"CMakeFiles/demo.dir/src/animation/gamescene.cpp.o" \
 "CMakeFiles/demo.dir/src/demo.cpp.o"
 
 # External object files for target demo
 demo_EXTERNAL_OBJECTS =
 
 demo: CMakeFiles/demo.dir/src/base/tools.cpp.o
-demo: CMakeFiles/demo.dir/src/draw/drawable.cpp.o
-demo: CMakeFiles/demo.dir/src/animation/animation.cpp.o
-demo: CMakeFiles/demo.dir/src/animation/gamescene.cpp.o
+demo: CMakeFiles/demo.dir/src/entity/components/position_comp.cpp.o
+demo: CMakeFiles/demo.dir/src/entity/components/animation_comp.cpp.o
 demo: CMakeFiles/demo.dir/src/entity/entity.cpp.o
-demo: CMakeFiles/demo.dir/src/entity/tool.cpp.o
+demo: CMakeFiles/demo.dir/src/animation/gamescene.cpp.o
 demo: CMakeFiles/demo.dir/src/demo.cpp.o
 demo: CMakeFiles/demo.dir/build.make
 demo: CMakeFiles/demo.dir/compiler_depend.ts
 demo: CMakeFiles/demo.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/wlle/code/demo/sfml2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable demo"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/wlle/code/demo/sfml2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable demo"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/demo.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

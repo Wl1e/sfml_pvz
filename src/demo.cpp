@@ -1,7 +1,7 @@
 
 #include <iostream>
 
-#include <entity/tool.h>
+#include <entity/entity.hpp>
 #include <game.h>
 
 using namespace std;
@@ -10,21 +10,19 @@ using namespace demo;
 
 void test_simple_tool()
 {
-    cout << "here" << endl;
     Game game;
     game.scene()->setBackGround(
-        "/home/wlle/code/demo/sfml2/source/background"
+        "/home/wlle/code/demo/sfml2/resource/background"
     );
     game.setFrame(144);
-    auto t = new Tool();
-    t->setAniamtion<Animation>(
-        "/home/wlle/code/demo/sfml2/source/sun"
+    auto t = new Entity();
+    t->addComp<CompType::POSITION>(Vector2i(0, 0));
+    t->addComp<CompType::ANIMATION>(
+        "/home/wlle/code/demo/sfml2/resource/sun"
     );
     // t->setSize({10, 10});
+    game.scene()->addEntity(t);
 
-    cout << t->getSize().x << ' ' << t->getSize().y << '\n';
-
-    game.scene()->addTool(t, {20, 20});
     game.run();
 }
 

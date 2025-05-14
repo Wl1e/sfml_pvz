@@ -1,10 +1,7 @@
-#include <animation/animation.h>
 #include <animation/gamescene.h>
 #include <base/tools.h>
 #include <defines.h>
-#include <entity/plant.h>
-#include <entity/tool.h>
-#include <entity/zombie.h>
+#include <entity/entity.hpp>
 
 #include <thread>
 
@@ -27,8 +24,7 @@ GameScene::GameScene() :
     m_window(new sf::RenderWindow(
         VideoMode({800, 600}), "game", State::Windowed
     )),
-    m_background(nullptr), m_thread_id(this_thread::get_id()),
-    m_plants(6, vector<Plant*>(9, nullptr))
+    m_background(nullptr), m_thread_id(this_thread::get_id())
 {
     m_window->setKeyRepeatEnabled(false);
 }
@@ -48,25 +44,28 @@ void GameScene::update(Event event)
         return;
     }
 
-    for(auto& func : m_handler) {
-        func(this);
-    }
-    m_handler.clear();
+    // for(auto& func : m_handler) {
+    //     func(this);
+    // }
+    // m_handler.clear();
 
     if(m_background) {
-        m_background->update();
+        m_background->updade();
     }
-    for(auto tool : m_tools) {
-        tool->update();
+    for(auto entity : m_entitys) {
+        entity->updade();
     }
-    for(size_t idx = 0; idx < grass_path; ++idx) {
-        for(auto plant : m_plants[idx]) {
-            if(!plant) {
-                continue;
-            }
-            plant->update();
-        }
-    }
+    // for(auto tool : m_tools) {
+    //     tool->update();
+    // }
+    // for(size_t idx = 0; idx < grass_path; ++idx) {
+    //     for(auto plant : m_plants[idx]) {
+    //         if(!plant) {
+    //             continue;
+    //         }
+    //         plant->update();
+    //     }
+    // }
     // for(size_t idx = 0; idx < grass_path; ++idx) {
     //     for(auto zombie : m_zombies[idx]) {
     //         if(!zombie) {
@@ -83,23 +82,26 @@ void GameScene::update()
         return;
     }
     if(m_background) {
-        m_background->update();
+        m_background->updade();
     }
-    for(auto tool : m_tools) {
-        tool->update();
+    for(auto entity : m_entitys) {
+        entity->updade();
     }
-    for(size_t idx = 0; idx < grass_path; ++idx) {
-        for(auto plant : m_plants[idx]) {
-            if(plant->isDied()) {
-                delPlant(plant);
-                continue;
-            }
-            if(!plant) {
-                continue;
-            }
-            plant->update();
-        }
-    }
+    // for(auto tool : m_tools) {
+    //     tool->update();
+    // }
+    // for(size_t idx = 0; idx < grass_path; ++idx) {
+    //     for(auto plant : m_plants[idx]) {
+    //         if(plant->isDied()) {
+    //             delPlant(plant);
+    //             continue;
+    //         }
+    //         if(!plant) {
+    //             continue;
+    //         }
+    //         plant->update();
+    //     }
+    // }
 }
 
 void GameScene::run()
@@ -129,23 +131,34 @@ bool GameScene::isOpen() const
     return m_window->isOpen();
 }
 
-void GameScene::addPlant(Plant* plant, const Vector2i& pos_axis)
-{
-    plant->setScene(this);
-    plant->setPlantPos(pos_axis);
-    m_plants[pos_axis.x][pos_axis.y] = plant;
-}
+// void GameScene::addPlant(Plant* plant, const Vector2i& pos_axis)
+// {
+//     plant->setScene(this);
+//     plant->setPlantPos(pos_axis);
+//     m_plants[pos_axis.x][pos_axis.y] = plant;
+// }
 
-void GameScene::addTool(Tool* tool, const Vector2i& pos)
-{
-    tool->setPos(pos);
-    tool->setScene(this);
-    m_tools.insert(tool);
-}
+// void GameScene::addTool(Tool* tool, const Vector2i& pos)
+// {
+//     tool->setPos(pos);
+//     tool->setScene(this);
+//     m_tools.insert(tool);
+// }
 
 void GameScene::setBackGround(std::string_view path)
 {
-    m_background = new Animation(this, path);
-    m_background->setDrawPosition({0, 0});
-    m_background->setDrawSize(getSize());
+    m_background = new Entity();
+    m_background->addComp<CompType::POSITION>(
+        Vector2i(0, 0), m_window->getSize()
+    );
+    m_background->addComp<CompType::ANIMATION>(
+        "/home/wlle/code/demo/sfml2/resource/background"
+    );
+    m_background->setScene(this);
+}
+
+void GameScene::addEntity(Entity* entity)
+{
+    entity->setScene(this);
+    m_entitys.push_back(entity);
 }
