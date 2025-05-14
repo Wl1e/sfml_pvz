@@ -32,6 +32,10 @@ public:
     {
         // m_position += move;
     }
+    void move(const sf::Vector2i& move)
+    {
+        m_position += move;
+    }
     void whenAdded(Entity*) override
     {
     }

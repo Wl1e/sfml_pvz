@@ -1,4 +1,5 @@
 #include <entity/components/animation_comp.hpp>
+#include <entity/components/movement_comp.hpp>
 #include <entity/components/position_comp.hpp>
 #include <entity/entity.hpp>
 
@@ -13,10 +14,14 @@ const sf::Vector2i& Entity::getPos()
     // }
 
     // fixme: 有的是PositionComp，有的是AxisPositionComp
-    auto& posComp = m_component.at(CompType::POSITION);
-    auto p = dynamic_cast<PositionComp*>(
-        m_component.at(CompType::POSITION).get()
-    );
+    Component* posComp;
+    if(m_component.count(CompType::POSITION)) {
+        posComp = m_component.at(CompType::POSITION).get();
+    } else if(m_component.count(CompType::MOVEMENT)) {
+        posComp = m_component.at(CompType::MOVEMENT).get();
+    }
+
+    auto p = dynamic_cast<PositionComp*>(posComp);
     return p->getPos();
 }
 
@@ -29,20 +34,24 @@ void Entity::updade()
 }
 
 // template<CompType type, typename... Args>
-// void Entity::addComp(Args&&... args)
+// constexpr void Entity::addComp(Args&&... args)
 // {
 //     // fixme
-//     if(type == CompType::POSITION) {
+//     if constexpr(type == CompType::POSITION) {
 //         m_component[type] =
 //             std::make_unique<PositionComp>(std::forward<Args>(args
 //             )...);
-//     } else if(type == CompType::AXIS_POSITION) {
+//     } else if constexpr(type == CompType::AXIS_POSITION) {
 //         m_component[type] = std::make_unique<AxisPositionComp>(
 //             std::forward<Args>(args)...
 //         );
-//     } else if(type == CompType::ANIMATION) {
+//     } else if constexpr(type == CompType::ANIMATION) {
 //         m_component[type] =
 //             std::make_unique<AnimationComp>(std::forward<Args>(args
+//             )...);
+//     } else if constexpr(type == CompType::MOVEMENT) {
+//         m_component[type] =
+//             std::make_unique<MovementComp>(std::forward<Args>(args
 //             )...);
 //     }
 //     m_component[type]->whenAdded(this);

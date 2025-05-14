@@ -6,6 +6,7 @@
 
 #include <entity/components/animation_comp.hpp>
 #include <entity/components/component.hpp>
+#include <entity/components/movement_comp.hpp>
 #include <entity/components/position_comp.hpp>
 
 namespace demo {
@@ -32,6 +33,10 @@ public:
             );
         } else if constexpr(type == CompType::ANIMATION) {
             m_component[type] = std::make_unique<AnimationComp>(
+                std::forward<Args>(args)...
+            );
+        } else if constexpr(type == CompType::MOVEMENT) {
+            m_component[type] = std::make_unique<MovementComp>(
                 std::forward<Args>(args)...
             );
         }

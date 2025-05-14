@@ -11,6 +11,7 @@ enum class CompType
 {
     POSITION = 0,
     AXIS_POSITION,
+    MOVEMENT,
     ANIMATION
 };
 
