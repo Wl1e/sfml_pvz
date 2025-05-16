@@ -1,8 +1,8 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 
 #include <animation/gamescene.h>
-#include <entity/components/animation_comp.hpp>
-#include <entity/components/position_comp.hpp>
+#include <components/animation_comp.hpp>
+#include <components/position_comp.hpp>
 #include <entity/entity.hpp>
 
 using namespace std;

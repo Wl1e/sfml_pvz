@@ -1,4 +1,4 @@
-#include <entity/components/attack_comp.hpp>
+#include <components/attack_comp.hpp>
 
 using namespace std;
 using namespace sf;

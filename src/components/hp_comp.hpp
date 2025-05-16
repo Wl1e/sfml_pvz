@@ -1,6 +1,6 @@
 #pragma once
 
-#include <entity/components/component.hpp>
+#include <components/component.hpp>
 
 namespace demo {
 

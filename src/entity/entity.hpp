@@ -4,8 +4,8 @@
 
 #include <SFML/System/Vector2.hpp>
 
-#include <entity/components/component.hpp>
-#include <entity/components/component_factory.hpp>
+#include <components/component.hpp>
+#include <components/component_factory.hpp>
 
 namespace demo {
 

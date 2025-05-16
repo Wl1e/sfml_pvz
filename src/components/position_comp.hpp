@@ -3,7 +3,7 @@
 #include <SFML/System/Vector2.hpp>
 
 #include <base/tools.h>
-#include <entity/components/component.hpp>
+#include <components/component.hpp>
 #include <entity/entity.hpp>
 
 // FIXME:

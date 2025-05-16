@@ -1,4 +1,4 @@
-#include <entity/components/position_comp.hpp>
+#include <components/position_comp.hpp>
 
 using namespace std;
 using namespace sf;

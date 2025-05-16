@@ -1,6 +1,6 @@
 #pragma once
 
-#include <entity/components/component.hpp>
+#include <components/component.hpp>
 
 namespace demo {
 
@@ -9,7 +9,7 @@ class AnimationComp : public Component
 
 } // namespace demo
 
-#include <entity/components/position_comp.hpp>
+#include <components/position_comp.hpp>
 
 using namespace std;
 using namespace sf;

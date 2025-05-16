@@ -1,5 +1,5 @@
-#include <entity/components/position_comp.hpp>
-#include <entity/components/movement_comp.hpp>
+#include <components/movement_comp.hpp>
+#include <components/position_comp.hpp>
 
 using namespace std;
 using namespace sf;
