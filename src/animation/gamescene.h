@@ -22,7 +22,7 @@ class Tool;
 class Bullet;
 class GameScene;
 
-// FIXME: 换个好名字
+// TODO: 换个好名字
 using sceneHandler = std::function<void(GameScene*)>;
 
 class GameScene
@@ -34,39 +34,35 @@ public:
     void run();
     void update(sf::Event event);
     void update();
-
     void setBackGround(std::string_view path);
-    // void addPlant(Plant* plant, const sf::Vector2i& pos_axis);
-    // void addZombie(Zombie* zombie);
-    // void addTool(Tool* tool, const sf::Vector2i& pos);
-    void addEntity(Entity* entity);
+
+    void addPlant(Plant* plant);
+    void addZombie(Zombie* zombie);
     void addHander(sceneHandler handler)
     {
         m_handler.emplace_back(std::move(handler));
     }
 
-    // void delPlant(const sf::Vector2i& pos_axis)
-    // {
-    //     auto plant = m_plants[pos_axis.x][pos_axis.y];
-    //     delPlant(plant);
-    // }
+    void delPlant(const sf::Vector2i& pos_axis)
+    {
+        delPlant(m_plants[pos_axis.x][pos_axis.y]);
+        m_plants[pos_axis.x][pos_axis.y] = nullptr;
+    }
 
     sf::Vector2u getSize() const;
-    // bad
+    // FIXME: bad
     sf::RenderWindow* getNativeWindow()
     {
         return m_window;
     }
-    // const std::vector<Zombie*>& getZombiesByPath(int path)
-    // const
-    // {
-    //     return m_zombies[path];
-    // }
-    // const std::vector<std::vector<Zombie*>>& getZombies()
-    // const
-    // {
-    //     return m_zombies;
-    // }
+    const std::vector<std::vector<Plant*>>& getAllPlants() const
+    {
+        return m_plants;
+    }
+    const std::vector<Zombie*>& getAllZombies() const
+    {
+        return m_zombies;
+    }
     bool isOpen() const;
 
 private:
@@ -80,10 +76,10 @@ private:
     sf::RenderWindow* m_window;
     Entity* m_background;
     std::thread::id m_thread_id;
-    std::vector<Entity*> m_entitys;
+    // std::vector<Entity*> m_entitys;
     // std::unordered_set<Tool*> m_tools;
-    // std::vector<std::vector<Plant*>> m_plants;
-    // std::vector<std::vector<Zombie*>> m_zombies;
+    std::vector<std::vector<Plant*>> m_plants;
+    std::vector<Zombie*> m_zombies;
 
     std::vector<sceneHandler> m_handler;
 };

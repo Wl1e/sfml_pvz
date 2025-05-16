@@ -26,7 +26,7 @@ public:
 
     void update(Entity*) override
     {
-        // FIXME: 更新实体状态
+        // TODO: 更新实体状态
     }
 
 private:

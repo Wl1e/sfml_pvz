@@ -8,7 +8,6 @@ namespace demo {
 
 class Entity;
 
-// FIXME: movement可以只包含方向和速度
 class MovementComp : public Component
 {
 public:

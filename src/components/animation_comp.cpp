@@ -15,15 +15,6 @@ bool read_frames2(
     filesystem::path, unordered_map<string, vector<anime_frame>>&
 );
 
-// bool read_frames(
-//     const string& path,
-//     unordered_map<string, vector<anime_frame>>& result
-// )
-// {
-//     filesystem::path frame_path(path);
-//     return read_frames2(frame_path, result);
-// }
-
 bool read_frames(
     string_view path,
     unordered_map<string, vector<anime_frame>>& result
@@ -98,6 +89,6 @@ void AnimationComp::updatePos(Entity* entity)
         return;
     }
 
-    auto p = castTo<type2cls<CompType::POSITION>::type>(posComp);
+    auto p = castToComp<type2cls<CompType::POSITION>::type>(posComp);
     m_sprite->setPosition(sf::Vector2f(p->getPos()));
 }

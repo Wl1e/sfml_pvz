@@ -2,7 +2,7 @@
 #include <iostream>
 
 #include <defines.h>
-#include <entity/entity.hpp>
+#include <entity/plant.hpp>
 #include <game.h>
 
 using namespace std;
@@ -16,14 +16,16 @@ void test_simple_tool()
         "/home/wlle/code/demo/sfml2/resource/background"
     );
     game.setFrame(144);
-    auto t = new Entity();
+
+    auto t = new Plant;
     t->addComp<CompType::MOVEMENT>(direction::DOWN, 1);
-    t->addComp<CompType::POSITION>(Vector2i{0, 0}, Vector2u{10, 10});
+    t->addComp<CompType::POSITION>(
+        Vector2i{100, 100}, Vector2u{10, 10}
+    );
     t->addComp<CompType::ANIMATION>(
         "/home/wlle/code/demo/sfml2/resource/sun"
     );
-    // t->setSize({10, 10});
-    game.scene()->addEntity(t);
+    game.scene()->addPlant(t);
 
     game.run();
 }

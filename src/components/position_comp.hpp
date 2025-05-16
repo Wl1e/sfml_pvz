@@ -6,17 +6,18 @@
 #include <components/component.hpp>
 #include <entity/entity.hpp>
 
-// FIXME:
-// 我搞错了，要分成不可移动的和可移动的，目前的position都是不可移动的
-
 namespace demo {
 
 class PositionComp : public Component
 {
 public:
     PositionComp(
-        const sf::Vector2i& pos, const sf::Vector2u& size = {0, 0}
-    ) : m_position(pos), m_size(size)
+        const sf::Vector2i& pos,
+        const sf::Vector2u& size = {0, 0},
+        bool ignoreCollision = false
+    ) :
+        m_position(pos), m_size(size),
+        m_ignoreCollision(ignoreCollision)
     {
     }
     ~PositionComp() = default;
@@ -41,8 +42,14 @@ public:
     }
 
 private:
+    void updateCollision(Entity*);
+    void updateMove(Entity*);
+
+private:
     sf::Vector2i m_position;
     sf::Vector2u m_size; // 暂时将size放在position内
+
+    bool m_ignoreCollision;
 };
 
 bool overlay(const PositionComp&, const PositionComp&);

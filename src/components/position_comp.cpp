@@ -22,12 +22,22 @@ bool demo::overlay(
 
 void PositionComp::update(Entity* entity)
 {
+    updateCollision(entity);
+    updateMove(entity);
+}
+
+void PositionComp::updateCollision(Entity* entity)
+{
+}
+
+void PositionComp::updateMove(Entity* entity)
+{
     auto component = entity->getComp(CompType::MOVEMENT);
     if(!component) {
         return;
     }
     auto movement =
-        castTo<type2cls<CompType::MOVEMENT>::type>(component);
+        castToComp<type2cls<CompType::MOVEMENT>::type>(component);
 
     move(movement->getMoveValue());
 }

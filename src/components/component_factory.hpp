@@ -1,5 +1,6 @@
 #pragma once
 
+// 组件都必须在这里
 #include <components/animation_comp.hpp>
 #include <components/component.hpp>
 // #include <components/attack_comp.hpp>

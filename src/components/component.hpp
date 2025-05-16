@@ -40,7 +40,7 @@ class PositionComp;
 class AnimationComp;
 
 template<class T>
-T* castTo(Component* comp)
+T* castToComp(Component* comp)
 {
     return dynamic_cast<T*>(comp);
 }

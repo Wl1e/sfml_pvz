@@ -38,4 +38,10 @@ sf::Vector2i pos2axis(const sf::Vector2i& pos);
 
 sf::Vector2i axis2pos(const sf::Vector2i& axis);
 
+template<class srcT, class dstT>
+dstT* castTo(srcT* src)
+{
+    return dynamic_cast<dstT*>(src);
+}
+
 } // namespace demo

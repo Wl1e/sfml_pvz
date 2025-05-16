@@ -1,0 +1,10 @@
+#pragma once
+
+#include <entity/entity.hpp>
+
+namespace demo {
+
+class ClassName : public BaseClass
+{};
+
+} // namespace demo
