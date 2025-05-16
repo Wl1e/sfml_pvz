@@ -80,7 +80,7 @@ protected:
     int m_attack_range;
 };
 
-// fixme: 层次有些深入了，后续考虑改为组件模式
+// FIXME: 层次有些深入了，后续考虑改为组件模式
 class BulletAttackPlant : public AttackPlant
 {
 public:

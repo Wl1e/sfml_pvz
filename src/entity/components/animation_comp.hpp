@@ -27,16 +27,17 @@ bool read_frames(
     std::unordered_map<std::string, std::vector<anime_frame>>& result
 );
 
-// fixme: 后续可以分成animation和render，拆分功能
+// FIXME: 后续可以分成animation和render，拆分功能
 
 class AnimationComp : public Component
 {
 public:
     explicit AnimationComp(std::string_view resource_path) :
-        m_entity(nullptr), m_animation_offset({-10, -10}),
+        m_animation_offset({-10, -10}),
         m_frames(
-            new std::
-                unordered_map<std::string, std::vector<anime_frame>>
+            std::make_unique<std::unordered_map<
+                std::string,
+                std::vector<anime_frame>>>()
         ),
         m_status("normal"), m_idx(0)
     {
@@ -45,8 +46,9 @@ public:
             m_frames->at(m_status)[m_idx]
         );
     }
+    ~AnimationComp() = default;
 
-    void update();
+    void update(Entity*) override;
     void updateAnimationStatus(std::string_view status);
 
     void setSize(const sf::Vector2u& size)
@@ -57,22 +59,17 @@ public:
         m_sprite->setScale(scale);
     }
 
-    void whenAdded(Entity* entity)
-    {
-        m_entity = entity;
-    }
-
 protected:
     void updateAnimation();
-    void updatePos();
+    void updatePos(Entity*);
 
 private:
-    Entity* m_entity;
     std::unique_ptr<sf::Sprite> m_sprite;
     sf::Vector2i m_animation_offset;
 
     // 考虑anime_frame* ？
-    std::unordered_map<std::string, std::vector<anime_frame>>*
+    std::unique_ptr<
+        std::unordered_map<std::string, std::vector<anime_frame>>>
         m_frames;
     std::string m_status;
     size_t m_idx;

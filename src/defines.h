@@ -13,4 +13,14 @@ const int grass_start_y = 100;
 
 const int grass_path = 5;
 
+enum class direction
+{
+    NOT = 0,
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT,
+
+};
+
 } // namespace demo

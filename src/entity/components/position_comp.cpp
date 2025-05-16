@@ -1,4 +1,5 @@
 #include <entity/components/position_comp.hpp>
+#include <entity/components/movement_comp.hpp>
 
 using namespace std;
 using namespace sf;
@@ -17,4 +18,16 @@ bool demo::overlay(
         rightDown1.x < leftTop2.x || leftTop1.x > rightDown2.x
         || rightDown1.y < leftTop2.y || leftTop1.y > rightDown2.y
     );
+}
+
+void PositionComp::update(Entity* entity)
+{
+    auto component = entity->getComp(CompType::MOVEMENT);
+    if(!component) {
+        return;
+    }
+    auto movement =
+        castTo<type2cls<CompType::MOVEMENT>::type>(component);
+
+    move(movement->getMoveValue());
 }

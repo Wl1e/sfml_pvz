@@ -9,7 +9,7 @@ using namespace demo;
 
 static const string animation_state[]{"normal", "attack", "died"};
 
-// fixme: 有些冗余
+// FIXME: 有些冗余
 void demo::plantDiedHander(GameScene* scene, Plant* plant)
 {
     scene->addHander([&plant](GameScene* scene) {

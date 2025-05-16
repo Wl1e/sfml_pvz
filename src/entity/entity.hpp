@@ -4,10 +4,8 @@
 
 #include <SFML/System/Vector2.hpp>
 
-#include <entity/components/animation_comp.hpp>
 #include <entity/components/component.hpp>
-#include <entity/components/movement_comp.hpp>
-#include <entity/components/position_comp.hpp>
+#include <entity/components/component_factory.hpp>
 
 namespace demo {
 
@@ -19,38 +17,32 @@ public:
     Entity() = default;
     ~Entity() = default;
 
-    template<CompType type, typename... Args>
-    constexpr void addComp(Args&&... args)
+    template<CompType cType, typename... Args>
+    void addComp(Args&&... args)
     {
-        // fixme
-        if constexpr(type == CompType::POSITION) {
-            m_component[type] = std::make_unique<PositionComp>(
-                std::forward<Args>(args)...
-            );
-        } else if constexpr(type == CompType::AXIS_POSITION) {
-            m_component[type] = std::make_unique<AxisPositionComp>(
-                std::forward<Args>(args)...
-            );
-        } else if constexpr(type == CompType::ANIMATION) {
-            m_component[type] = std::make_unique<AnimationComp>(
-                std::forward<Args>(args)...
-            );
-        } else if constexpr(type == CompType::MOVEMENT) {
-            m_component[type] = std::make_unique<MovementComp>(
-                std::forward<Args>(args)...
-            );
+        m_component[cType] =
+            Factory::getFactory()->create<cType>(args...);
+    }
+    Component* getComp(CompType type)
+    {
+        if(!hasComp(type)) {
+            return nullptr;
         }
-        m_component[type]->whenAdded(this);
+        return m_component.at(type).get();
     }
     void setScene(GameScene* scene)
     {
         m_scene = scene;
     }
+
     GameScene* getScene()
     {
         return m_scene;
     }
-    const sf::Vector2i& getPos();
+    bool hasComp(CompType type)
+    {
+        return m_component.count(type) != 0;
+    }
 
     void updade();
 

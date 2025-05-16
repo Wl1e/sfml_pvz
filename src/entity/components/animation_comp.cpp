@@ -2,6 +2,7 @@
 
 #include <animation/gamescene.h>
 #include <entity/components/animation_comp.hpp>
+#include <entity/components/position_comp.hpp>
 #include <entity/entity.hpp>
 
 using namespace std;
@@ -66,12 +67,12 @@ bool read_frames2(
 
 } // namespace demo
 
-void AnimationComp::update()
+void AnimationComp::update(Entity* entity)
 {
     updateAnimation();
-    updatePos();
-    // fixme
-    m_entity->getScene()->getNativeWindow()->draw(*m_sprite);
+    updatePos(entity);
+    // FIXME
+    entity->getScene()->getNativeWindow()->draw(*m_sprite);
 }
 
 void AnimationComp::updateAnimation()
@@ -90,7 +91,13 @@ void AnimationComp::updateAnimationStatus(string_view status)
     m_idx = 0;
     updateAnimation();
 }
-void AnimationComp::updatePos()
+void AnimationComp::updatePos(Entity* entity)
 {
-    m_sprite->setPosition(sf::Vector2f(m_entity->getPos()));
+    Component* posComp;
+    if(posComp = entity->getComp(CompType::POSITION); !posComp) {
+        return;
+    }
+
+    auto p = castTo<type2cls<CompType::POSITION>::type>(posComp);
+    m_sprite->setPosition(sf::Vector2f(p->getPos()));
 }

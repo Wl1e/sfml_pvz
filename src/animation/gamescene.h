@@ -22,7 +22,7 @@ class Tool;
 class Bullet;
 class GameScene;
 
-// fixme: 换个好名字
+// FIXME: 换个好名字
 using sceneHandler = std::function<void(GameScene*)>;
 
 class GameScene
