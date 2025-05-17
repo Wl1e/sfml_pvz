@@ -9,8 +9,10 @@
 namespace demo {
 
 class Bullet;
+class AttackComp;
 
-using AttackFunction = std::function<void()>;
+// void defaultAttackFunc(Entity*);
+// using AttackFunction = std::function<void(Entity*)>;
 
 class AttackComp : public Component
 {
@@ -20,7 +22,26 @@ public:
     );
     ~AttackComp() = default;
 
-    void update(Entity*) override;
+    void update(Entity*) override
+    {
+    }
+    void attack(Entity*);
+    void attack(std::vector<Entity*>*);
+
+    // void setAttackFunc(AttackFunction func)
+    // {
+    //     m_attack = std::move(func);
+    // }
+    // 为了通用
+    // attackComp可能属于plant、zombie、bullet,分别得获取不同类型的敌人
+    // 或许可以把这片逻辑分出去?
+    template<class enemyType>
+    std::vector<Entity*>
+    getEnemyInRange(const std::vector<enemyType*>& entity)
+    {
+        std::vector<Entity*> res;
+        return res;
+    }
 
 private:
     bool validAttack();
@@ -30,7 +51,7 @@ private:
     sf::Vector2i m_range; // 包括身后判定，比如倭瓜
     int m_cd;
 
-    AttackFunction m_attack;
+    // AttackFunction m_attack;
 };
 
 /*

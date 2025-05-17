@@ -15,8 +15,12 @@ set(SOURCES
     src/components/movement_comp.cpp
     src/components/position_comp.cpp
     src/components/animation_comp.cpp
-    # src/components/attack_comp.cpp
+    src/components/attack_comp.cpp
     src/entity/entity.cpp
+    # src/entity/plant/plant.cpp
+    # src/entity/zombie/zombie.cpp
+    src/entity/attack.cpp
+    src/entity/bullet/bullet.cpp
     src/animation/gamescene.cpp
     # src/game.cpp
     src/demo.cpp

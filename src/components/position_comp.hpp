@@ -26,13 +26,21 @@ public:
     {
         return m_position;
     }
-    const sf::Vector2u getSize() const
+    const sf::Vector2u& getSize() const
     {
         return m_size;
     }
-    const sf::Vector2i getAxisPos() const
+    sf::Vector2i getAxisPos() const
     {
         return axis2pos(getPos());
+    }
+    // sf::Vector2i getCenterPos()
+    // {
+    //     return getPos() + (getSize() / 2);
+    // }
+    bool isIgnoreCollision() const
+    {
+        return m_ignoreCollision;
     }
 
     void update(Entity* entity) override;
@@ -40,6 +48,8 @@ public:
     {
         m_position += move;
     }
+
+    static bool overlay(const PositionComp&, const PositionComp&);
 
 private:
     void updateCollision(Entity*);
@@ -51,7 +61,5 @@ private:
 
     bool m_ignoreCollision;
 };
-
-bool overlay(const PositionComp&, const PositionComp&);
 
 } // namespace demo

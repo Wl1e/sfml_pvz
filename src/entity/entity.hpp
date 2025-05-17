@@ -72,7 +72,10 @@ private:
 
 bool isPlant(Entity*);
 bool isZombie(Entity*);
+bool isBullet(Entity*);
 
 const sf::Vector2i& getEntityPosition(Entity*);
+
+bool overlay(Entity* entity1, Entity* entity2);
 
 } // namespace demo

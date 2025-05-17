@@ -3,8 +3,10 @@
 #include <animation/gamescene.h>
 #include <base/tools.h>
 #include <defines.h>
+#include <entity/attack.hpp>
+#include <entity/bullet/bullet.hpp>
 #include <entity/plant/plant.hpp>
-#include <entity/zombie.hpp>
+#include <entity/zombie/zombie.hpp>
 
 using namespace std;
 using namespace sf;
@@ -26,7 +28,7 @@ GameScene::GameScene() :
         VideoMode({800, 600}), "game", State::Windowed
     )),
     m_background(nullptr), m_thread_id(this_thread::get_id()),
-    m_plants(9, vector<Plant*>(9, nullptr))
+    m_plants(6, vector<Plant*>(9, nullptr))
 {
     m_window->setKeyRepeatEnabled(false);
 }
@@ -77,16 +79,43 @@ void GameScene::update()
     }
     m_handler.clear();
 
+    updateBackground();
+    updateBullets();
+    updatePlants();
+    updateZombies();
+}
+
+void GameScene::updateBackground()
+{
     if(m_background) {
         m_background->updade();
     }
+}
 
+void GameScene::updatePlants()
+{
     for(auto& plants : m_plants) {
         for(auto plant : plants) {
             if(!plant) {
                 continue;
             }
             plant->updade();
+        }
+    }
+}
+void GameScene::updateZombies()
+{
+}
+void GameScene::updateBullets()
+{
+    sf::Vector2i bullet_pos;
+    for(auto bullet : m_bullets) {
+        bullet_pos = getEntityPosition(bullet);
+        auto& zombies = getZombiesByPath(pos2axis(bullet_pos).x);
+        for(auto zombie : zombies) {
+            if(overlay(bullet, zombie)) {
+                bulletAttackZombie(bullet, zombie);
+            }
         }
     }
 }
@@ -143,8 +172,8 @@ void GameScene::addPlant(Plant* plant)
 void GameScene::addZombie(Zombie* zombie)
 {
     zombie->setScene(this);
-    auto& plantPos = getEntityPosition(zombie);
-    m_zombies.push_back(zombie);
+    auto& zombiePos = getEntityPosition(zombie);
+    m_zombies[zombiePos.x].insert(zombie);
 }
 
 void GameScene::_delPlant(Plant* plant)

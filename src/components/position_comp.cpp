@@ -5,10 +5,13 @@ using namespace std;
 using namespace sf;
 using namespace demo;
 
-bool demo::overlay(
+bool PositionComp::overlay(
     const PositionComp& pos1, const PositionComp& pos2
 )
 {
+    if(pos1.isIgnoreCollision() || pos2.isIgnoreCollision()) {
+        return false;
+    }
     auto& leftTop1 = pos1.getPos();
     auto rightDown1 = leftTop1 + Vector2i(pos1.getSize());
     auto& leftTop2 = pos2.getPos();

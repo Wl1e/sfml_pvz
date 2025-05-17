@@ -17,15 +17,6 @@ void Entity::updade()
     }
 }
 
-bool demo::isPlant(Entity* entity)
-{
-    return entity->getType() == EntityType::PLANT;
-}
-bool demo::isZombie(Entity* entity)
-{
-    return entity->getType() == EntityType::ZOMBIE;
-}
-
 const sf::Vector2i& demo::getEntityPosition(Entity* entity)
 {
     Component* posComp;
@@ -35,4 +26,36 @@ const sf::Vector2i& demo::getEntityPosition(Entity* entity)
 
     auto p = castToComp<type2cls<CompType::POSITION>::type>(posComp);
     return p->getPos();
+}
+
+bool demo::overlay(Entity* entity1, Entity* entity2)
+{
+    if(!entity1->hasComp(CompType::POSITION)
+       || !entity2->hasComp(CompType::POSITION)) {
+        return false;
+    }
+
+    // FIXME: type2cls<CompType::POSITION>::type 重复过多
+    auto posComp1 = castToComp<type2cls<CompType::POSITION>::type>(
+        entity1->getComp(CompType::POSITION)
+    );
+    auto posComp2 = castToComp<type2cls<CompType::POSITION>::type>(
+        entity2->getComp(CompType::POSITION)
+    );
+    return type2cls<CompType::POSITION>::type::overlay(
+        *posComp1, *posComp2
+    );
+}
+
+bool demo::isPlant(Entity* entity)
+{
+    return entity->getType() == EntityType::PLANT;
+}
+bool demo::isZombie(Entity* entity)
+{
+    return entity->getType() == EntityType::ZOMBIE;
+}
+bool demo::isBullet(Entity* entity)
+{
+    return entity->getType() == EntityType::BULLET;
 }

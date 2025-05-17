@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 #include <SFML/System/Vector2.hpp>
 
 #include <base/direction.hpp>
@@ -16,6 +18,8 @@ struct BulletData
     Direction dir; // 飞行方向
     int length; // 飞行距离
     int speed; // 飞行速度
+
+    std::string animation; // 动画
 };
 
 class Bullet : public Entity
@@ -27,10 +31,10 @@ private:
     BulletData m_data;
 };
 
-Bullet* CreateBullet(const BulletData& data)
-{
-    Bullet* bullet = new Bullet(data);
-    return bullet;
-}
+// Bullet* CreateBullet(const BulletData& data)
+// {
+//     Bullet* bullet = new Bullet(data);
+//     return bullet;
+// }
 
 } // namespace demo

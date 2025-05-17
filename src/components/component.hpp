@@ -10,7 +10,8 @@ class Entity;
 // update 顺序
 enum class CompType
 {
-    MOVEMENT = 0,
+    HP = 0,
+    MOVEMENT,
     POSITION,
     ANIMATION,
     ATTACK
@@ -38,6 +39,8 @@ using CompPtr = std::unique_ptr<Component>;
 class MovementComp;
 class PositionComp;
 class AnimationComp;
+class AttackComp;
+class HPComp;
 
 template<class T>
 T* castToComp(Component* comp)
@@ -56,8 +59,10 @@ struct type2cls
         using type = class; \
     };
 
+BIND(CompType::HP, HPComp)
 BIND(CompType::MOVEMENT, MovementComp)
 BIND(CompType::POSITION, PositionComp)
 BIND(CompType::ANIMATION, AnimationComp)
+BIND(CompType::ATTACK, AttackComp)
 
 } // namespace demo

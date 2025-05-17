@@ -59,9 +59,14 @@ public:
     {
         return m_plants;
     }
-    const std::vector<Zombie*>& getAllZombies() const
+    Plant* getPlantByAxis(const sf::Vector2i& axis_pos)
     {
-        return m_zombies;
+        return m_plants[axis_pos.x][axis_pos.y];
+    }
+    const std::unordered_set<Zombie*>&
+    getZombiesByPath(int path) const
+    {
+        return m_zombies[path];
     }
     bool isOpen() const;
 
@@ -74,13 +79,19 @@ private:
 
     bool _checkClose(const sf::Event& event);
 
+    void updateBackground();
+    void updatePlants();
+    void updateZombies();
+    void updateBullets();
+
 private:
     sf::RenderWindow* m_window;
     Entity* m_background;
     std::thread::id m_thread_id;
 
+    std::unordered_set<Bullet*> m_bullets;
     std::vector<std::vector<Plant*>> m_plants;
-    std::vector<Zombie*> m_zombies;
+    std::vector<std::unordered_set<Zombie*>> m_zombies;
 
     std::vector<sceneHandler> m_handler;
 };
