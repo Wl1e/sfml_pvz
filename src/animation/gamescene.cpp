@@ -47,14 +47,15 @@ void GameScene::update(Event event)
         return;
     }
 
-    // for(auto& func : m_handler) {
-    //     func(this);
-    // }
-    // m_handler.clear();
+    for(auto& func : m_handler) {
+        func(this);
+    }
+    m_handler.clear();
 
     if(m_background) {
         m_background->updade();
     }
+
     for(auto& plants : m_plants) {
         for(auto plant : plants) {
             if(!plant) {
@@ -70,9 +71,16 @@ void GameScene::update()
     if(!_assertInThread()) {
         return;
     }
+
+    for(auto& func : m_handler) {
+        func(this);
+    }
+    m_handler.clear();
+
     if(m_background) {
         m_background->updade();
     }
+
     for(auto& plants : m_plants) {
         for(auto plant : plants) {
             if(!plant) {

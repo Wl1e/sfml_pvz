@@ -16,6 +16,7 @@ enum class EntityType
     NONE = 0,
     PLANT,
     ZOMBIE,
+    BULLET,
     TOOL
 };
 
