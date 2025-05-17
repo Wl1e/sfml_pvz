@@ -11,6 +11,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 # Add source files
 set(SOURCES
     src/base/tools.cpp
+    src/base/direction.cpp
     src/components/movement_comp.cpp
     src/components/position_comp.cpp
     src/components/animation_comp.cpp

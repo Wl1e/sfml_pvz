@@ -3,7 +3,7 @@
 #include <animation/gamescene.h>
 #include <base/tools.h>
 #include <defines.h>
-#include <entity/plant.hpp>
+#include <entity/plant/plant.hpp>
 #include <entity/zombie.hpp>
 
 using namespace std;
@@ -35,7 +35,7 @@ GameScene::~GameScene()
 {
 }
 
-bool GameScene::assertInThread() const
+bool GameScene::_assertInThread() const
 {
     return m_thread_id == this_thread::get_id();
 }
@@ -43,7 +43,7 @@ bool GameScene::assertInThread() const
 // FIXME: 两个update过于重复
 void GameScene::update(Event event)
 {
-    if(!assertInThread()) {
+    if(!_assertInThread()) {
         return;
     }
 
@@ -67,7 +67,7 @@ void GameScene::update(Event event)
 
 void GameScene::update()
 {
-    if(!assertInThread()) {
+    if(!_assertInThread()) {
         return;
     }
     if(m_background) {
@@ -89,6 +89,10 @@ void GameScene::run()
     while(m_window->isOpen()) {
         m_window->clear();
         if(event = m_window->pollEvent(), event.has_value()) {
+            if(_checkClose(event.value())) {
+                m_window->close();
+                break;
+            }
             update(event.value());
         } else {
             update();
@@ -135,13 +139,24 @@ void GameScene::addZombie(Zombie* zombie)
     m_zombies.push_back(zombie);
 }
 
-void GameScene::delPlant(Plant* plant)
+void GameScene::_delPlant(Plant* plant)
 {
     if(plant == nullptr) {
         return;
     }
     delete plant;
 }
-void GameScene::delZombie(Zombie* zombie)
+void GameScene::_delZombie(Zombie* zombie)
 {
+}
+
+bool GameScene::_checkClose(const Event& event)
+{
+    if(event.is<Event::KeyPressed>()) {
+        if(event.getIf<Event::KeyPressed>()->code
+           == Keyboard::Key::Escape) {
+            return true;
+        }
+    }
+    return false;
 }

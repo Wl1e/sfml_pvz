@@ -11,7 +11,7 @@ namespace demo {
 class PositionComp : public Component
 {
 public:
-    PositionComp(
+    explicit PositionComp(
         const sf::Vector2i& pos,
         const sf::Vector2u& size = {0, 0},
         bool ignoreCollision = false

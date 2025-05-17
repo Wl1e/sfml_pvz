@@ -7,7 +7,7 @@ namespace demo {
 class HPComp : public Component
 {
 public:
-    HPComp(int hp) : m_HP(hp)
+    explicit HPComp(int hp) : m_HP(hp)
     {
     }
     ~HPComp() = default;

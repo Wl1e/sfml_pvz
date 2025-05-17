@@ -1,5 +1,6 @@
 #pragma once
 
+#include <base/direction.hpp>
 #include <components/position_comp.hpp>
 #include <defines.h>
 #include <entity/entity.hpp>
@@ -11,8 +12,8 @@ class Entity;
 class MovementComp : public Component
 {
 public:
-    MovementComp(
-        direction dir,
+    explicit MovementComp(
+        Direction dir,
         int speed,
         int acceleration = 0,
         int max_speed = 0
@@ -39,16 +40,14 @@ public:
 
     sf::Vector2i getMoveValue()
     {
-        return mask[static_cast<int>(m_dir)] * m_speed;
+        return m_dir.getOffset() * m_speed;
     }
 
 private:
-    direction m_dir;
+    Direction m_dir;
     int m_speed;
     int m_acceleration;
     int m_max_speed;
-
-    static sf::Vector2i mask[];
 };
 
 } // namespace demo

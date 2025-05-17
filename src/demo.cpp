@@ -1,8 +1,8 @@
 
 #include <iostream>
 
-#include <defines.h>
-#include <entity/plant.hpp>
+#include <base/direction.hpp>
+#include <entity/plant/plant.hpp>
 #include <game.h>
 
 using namespace std;
@@ -18,7 +18,7 @@ void test_simple_tool()
     game.setFrame(144);
 
     auto t = new Plant;
-    t->addComp<CompType::MOVEMENT>(direction::DOWN, 1);
+    t->addComp<CompType::MOVEMENT>(Direction::DIR::RIGHT, 1);
     t->addComp<CompType::POSITION>(
         Vector2i{100, 100}, Vector2u{10, 10}
     );

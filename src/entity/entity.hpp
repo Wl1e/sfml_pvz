@@ -22,7 +22,8 @@ enum class EntityType
 class Entity
 {
 public:
-    Entity(EntityType type = EntityType::NONE) : m_type(type)
+    explicit Entity(EntityType type = EntityType::NONE) :
+        m_type(type)
     {
     }
     ~Entity() = default;

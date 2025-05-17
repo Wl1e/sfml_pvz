@@ -15,7 +15,9 @@ using AttackFunction = std::function<void()>;
 class AttackComp : public Component
 {
 public:
-    AttackComp(int damage, const sf::Vector2i& range, int cd);
+    explicit AttackComp(
+        int damage, const sf::Vector2i& range, int cd
+    );
     ~AttackComp() = default;
 
     void update(Entity*) override;

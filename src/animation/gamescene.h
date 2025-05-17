@@ -45,7 +45,7 @@ public:
 
     void delPlant(const sf::Vector2i& pos_axis)
     {
-        delPlant(m_plants[pos_axis.x][pos_axis.y]);
+        _delPlant(m_plants[pos_axis.x][pos_axis.y]);
         m_plants[pos_axis.x][pos_axis.y] = nullptr;
     }
 
@@ -66,18 +66,19 @@ public:
     bool isOpen() const;
 
 private:
-    void initUI();
-    bool assertInThread() const;
+    void _initUI();
+    bool _assertInThread() const;
 
-    void delPlant(Plant* plant);
-    void delZombie(Zombie* zombie);
+    void _delPlant(Plant* plant);
+    void _delZombie(Zombie* zombie);
+
+    bool _checkClose(const sf::Event& event);
 
 private:
     sf::RenderWindow* m_window;
     Entity* m_background;
     std::thread::id m_thread_id;
-    // std::vector<Entity*> m_entitys;
-    // std::unordered_set<Tool*> m_tools;
+
     std::vector<std::vector<Plant*>> m_plants;
     std::vector<Zombie*> m_zombies;
 

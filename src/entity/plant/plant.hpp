@@ -15,7 +15,7 @@ struct PlantData
 class Plant : public Entity
 {
 public:
-    Plant() : Entity(EntityType::PLANT)
+    explicit Plant() : Entity(EntityType::PLANT)
     {
     }
 };

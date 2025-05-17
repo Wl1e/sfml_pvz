@@ -7,7 +7,7 @@ namespace demo {
 class Zombie : public Entity
 {
 public:
-    Zombie() : Entity(EntityType::ZOMBIE)
+    explicit Zombie() : Entity(EntityType::ZOMBIE)
     {
     }
 };
