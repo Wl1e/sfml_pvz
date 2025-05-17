@@ -38,6 +38,11 @@ public:
         }
     }
 
+    void setDir(const Direction& dir)
+    {
+        m_dir = dir;
+    }
+
     sf::Vector2i getMoveValue()
     {
         return m_dir.getOffset() * m_speed;

@@ -48,8 +48,10 @@ public:
     {
         m_position += move;
     }
-
-    static bool overlay(const PositionComp&, const PositionComp&);
+    void setIgnoreCollision(bool ignoreCollision)
+    {
+        m_ignoreCollision = ignoreCollision;
+    }
 
 private:
     void updateCollision(Entity*);
@@ -61,5 +63,7 @@ private:
 
     bool m_ignoreCollision;
 };
+
+bool overlay(const PositionComp&, const PositionComp&);
 
 } // namespace demo

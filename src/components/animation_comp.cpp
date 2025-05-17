@@ -84,10 +84,10 @@ void AnimationComp::updateAnimationStatus(string_view status)
 }
 void AnimationComp::updatePos(Entity* entity)
 {
-    Component* posComp;
-    if(posComp = entity->getComp(CompType::POSITION); !posComp) {
+    if(!entity->hasComp(CompType::POSITION)) {
         return;
     }
+    auto posComp = entity->getComp<CompType::POSITION>();
 
     auto p = castToComp<type2cls<CompType::POSITION>::type>(posComp);
     m_sprite->setPosition(sf::Vector2f(p->getPos()));

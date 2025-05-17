@@ -14,25 +14,19 @@ namespace demo {
 // plant必须有AttackComp
 void plantAttackZombie(Plant* plant, Zombie* zombie)
 {
-    auto AttackComp = castToComp<type2cls<CompType::ATTACK>::type>(
-        plant->getComp(CompType::ATTACK)
-    );
+    auto AttackComp = plant->getComp<CompType::ATTACK>();
     AttackComp->attack(zombie);
 }
 void plantAttackZombies(Plant* plant, vector<Zombie*>* zombies)
 {
-    auto AttackComp = castToComp<type2cls<CompType::ATTACK>::type>(
-        plant->getComp(CompType::ATTACK)
-    );
+    auto AttackComp = plant->getComp<CompType::ATTACK>();
     vector<Entity*> targets = AttackComp->getEnemyInRange(*zombies);
     AttackComp->attack(&targets);
 }
 // 函数一模一样...
 void zombieAttackPlant(Zombie* zombie, Plant* plant)
 {
-    auto AttackComp = castToComp<type2cls<CompType::ATTACK>::type>(
-        zombie->getComp(CompType::ATTACK)
-    );
+    auto AttackComp = zombie->getComp<CompType::ATTACK>();
     AttackComp->attack(plant);
 }
 void bulletAttackPlant()
@@ -40,10 +34,9 @@ void bulletAttackPlant()
 }
 void bulletAttackZombie(Bullet* bullet, Zombie* zombie)
 {
-    auto AttackComp = castToComp<type2cls<CompType::ATTACK>::type>(
-        bullet->getComp(CompType::ATTACK)
-    );
+    auto AttackComp = bullet->getComp<CompType::ATTACK>();
     AttackComp->attack(zombie);
+    // bullet->afterAttack();
 }
 
 } // namespace demo

@@ -1,11 +1,13 @@
 #include <components/movement_comp.hpp>
 #include <components/position_comp.hpp>
 
+#include <iostream>
+
 using namespace std;
 using namespace sf;
 using namespace demo;
 
-bool PositionComp::overlay(
+bool demo::overlay(
     const PositionComp& pos1, const PositionComp& pos2
 )
 {
@@ -25,7 +27,7 @@ bool PositionComp::overlay(
 
 void PositionComp::update(Entity* entity)
 {
-    updateCollision(entity);
+    // updateCollision(entity);
     updateMove(entity);
 }
 
@@ -35,12 +37,9 @@ void PositionComp::updateCollision(Entity* entity)
 
 void PositionComp::updateMove(Entity* entity)
 {
-    auto component = entity->getComp(CompType::MOVEMENT);
-    if(!component) {
+    if(!entity->hasComp(CompType::MOVEMENT)) {
         return;
     }
-    auto movement =
-        castToComp<type2cls<CompType::MOVEMENT>::type>(component);
-
+    auto movement = entity->getComp<CompType::MOVEMENT>();
     move(movement->getMoveValue());
 }

@@ -28,7 +28,8 @@ GameScene::GameScene() :
         VideoMode({800, 600}), "game", State::Windowed
     )),
     m_background(nullptr), m_thread_id(this_thread::get_id()),
-    m_plants(6, vector<Plant*>(9, nullptr))
+    m_plants(6, vector<Plant*>(9, nullptr)),
+    m_zombies(6, unordered_set<Zombie*>())
 {
     m_window->setKeyRepeatEnabled(false);
 }
@@ -54,18 +55,10 @@ void GameScene::update(Event event)
     }
     m_handler.clear();
 
-    if(m_background) {
-        m_background->updade();
-    }
-
-    for(auto& plants : m_plants) {
-        for(auto plant : plants) {
-            if(!plant) {
-                continue;
-            }
-            plant->updade();
-        }
-    }
+    _updateBackground();
+    _updateBullets();
+    _updatePlants();
+    _updateZombies();
 }
 
 void GameScene::update()
@@ -79,20 +72,20 @@ void GameScene::update()
     }
     m_handler.clear();
 
-    updateBackground();
-    updateBullets();
-    updatePlants();
-    updateZombies();
+    _updateBackground();
+    _updateBullets();
+    _updatePlants();
+    _updateZombies();
 }
 
-void GameScene::updateBackground()
+void GameScene::_updateBackground()
 {
     if(m_background) {
         m_background->updade();
     }
 }
 
-void GameScene::updatePlants()
+void GameScene::_updatePlants()
 {
     for(auto& plants : m_plants) {
         for(auto plant : plants) {
@@ -103,18 +96,26 @@ void GameScene::updatePlants()
         }
     }
 }
-void GameScene::updateZombies()
+void GameScene::_updateZombies()
 {
+    for(auto& zombies : m_zombies) {
+        for(auto zombie : zombies) {
+            zombie->updade();
+        }
+    }
 }
-void GameScene::updateBullets()
+
+void GameScene::_updateBullets()
 {
     sf::Vector2i bullet_pos;
     for(auto bullet : m_bullets) {
+        bullet->updade();
         bullet_pos = getEntityPosition(bullet);
-        auto& zombies = getZombiesByPath(pos2axis(bullet_pos).x);
+        auto& zombies = getZombiesByPath(getPath(bullet_pos));
         for(auto zombie : zombies) {
-            if(overlay(bullet, zombie)) {
+            if(entityOverlay(bullet, zombie)) {
                 bulletAttackZombie(bullet, zombie);
+                bullet->afterAttack();
             }
         }
     }
@@ -127,13 +128,13 @@ void GameScene::run()
         m_window->clear();
         if(event = m_window->pollEvent(), event.has_value()) {
             if(_checkClose(event.value())) {
-                m_window->close();
-                break;
+                m_handler.push_back([](GameScene* scene) {
+                    scene->close();
+                });
             }
-            update(event.value());
-        } else {
-            update();
+            // update(event.value());
         }
+        update();
         m_window->display();
         // wait();
     }
@@ -166,14 +167,19 @@ void GameScene::addPlant(Plant* plant)
     plant->setScene(this);
     auto& plantPos = getEntityPosition(plant);
     auto axis_pos = pos2axis(plantPos);
-    m_plants[axis_pos.x][axis_pos.y] = plant;
+    m_plants[axis_pos.y][axis_pos.x] = plant;
 }
 
 void GameScene::addZombie(Zombie* zombie)
 {
     zombie->setScene(this);
     auto& zombiePos = getEntityPosition(zombie);
-    m_zombies[zombiePos.x].insert(zombie);
+    m_zombies[getPath(zombiePos)].insert(zombie);
+}
+void GameScene::addBullet(Bullet* bullet)
+{
+    bullet->setScene(this);
+    m_bullets.insert(bullet);
 }
 
 void GameScene::_delPlant(Plant* plant)
@@ -186,6 +192,11 @@ void GameScene::_delPlant(Plant* plant)
 void GameScene::_delZombie(Zombie* zombie)
 {
 }
+void GameScene::_delBullet(Bullet* bullet)
+{
+    // error
+    // m_bullets.erase(bullet);
+}
 
 bool GameScene::_checkClose(const Event& event)
 {
@@ -196,4 +207,9 @@ bool GameScene::_checkClose(const Event& event)
         }
     }
     return false;
+}
+
+void GameScene::close()
+{
+    m_window->close();
 }

@@ -40,12 +40,15 @@ public:
         m_scene = scene;
     }
 
-    Component* getComp(CompType type)
+    template<CompType type>
+    typename type2cls<type>::type* getComp()
     {
         if(!hasComp(type)) {
             return nullptr;
         }
-        return m_component.at(type).get();
+        return castToComp<typename type2cls<type>::type>(
+            m_component.at(type).get()
+        );
     }
     GameScene* getScene()
     {
@@ -76,6 +79,6 @@ bool isBullet(Entity*);
 
 const sf::Vector2i& getEntityPosition(Entity*);
 
-bool overlay(Entity* entity1, Entity* entity2);
+bool entityOverlay(Entity* entity1, Entity* entity2);
 
 } // namespace demo

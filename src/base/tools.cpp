@@ -1,7 +1,7 @@
-#include <SFML/System/Sleep.hpp>
-#include <SFML/System/Time.hpp>
 #include <base/tools.h>
 #include <iostream>
+#include <SFML/System/Sleep.hpp>
+#include <SFML/System/Time.hpp>
 
 using namespace std;
 
@@ -54,12 +54,12 @@ void wait()
 
 int getPath(const sf::Vector2i& pos)
 {
-    return (pos.x - grass_start_x) / grass_length;
+    return (pos.y - grass_start_y) / grass_wide;
 }
 
 int getLength(const sf::Vector2i& pos)
 {
-    return pos.y - grass_start_y;
+    return pos.x - grass_start_x;
 }
 
 sf::Vector2i pos2axis(const sf::Vector2i& pos)

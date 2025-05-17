@@ -38,6 +38,7 @@ public:
 
     void addPlant(Plant* plant);
     void addZombie(Zombie* zombie);
+    void addBullet(Bullet* bullet);
     void addHander(sceneHandler handler)
     {
         m_handler.emplace_back(std::move(handler));
@@ -45,8 +46,8 @@ public:
 
     void delPlant(const sf::Vector2i& pos_axis)
     {
-        _delPlant(m_plants[pos_axis.x][pos_axis.y]);
-        m_plants[pos_axis.x][pos_axis.y] = nullptr;
+        _delPlant(getPlantByAxis(pos_axis));
+        m_plants[pos_axis.y][pos_axis.x] = nullptr;
     }
 
     sf::Vector2u getSize() const;
@@ -61,7 +62,7 @@ public:
     }
     Plant* getPlantByAxis(const sf::Vector2i& axis_pos)
     {
-        return m_plants[axis_pos.x][axis_pos.y];
+        return m_plants[axis_pos.y][axis_pos.x];
     }
     const std::unordered_set<Zombie*>&
     getZombiesByPath(int path) const
@@ -69,6 +70,7 @@ public:
         return m_zombies[path];
     }
     bool isOpen() const;
+    void close();
 
 private:
     void _initUI();
@@ -76,13 +78,14 @@ private:
 
     void _delPlant(Plant* plant);
     void _delZombie(Zombie* zombie);
+    void _delBullet(Bullet* bullet);
 
     bool _checkClose(const sf::Event& event);
 
-    void updateBackground();
-    void updatePlants();
-    void updateZombies();
-    void updateBullets();
+    void _updateBackground();
+    void _updatePlants();
+    void _updateZombies();
+    void _updateBullets();
 
 private:
     sf::RenderWindow* m_window;

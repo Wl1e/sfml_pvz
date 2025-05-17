@@ -30,9 +30,10 @@ AttackComp::AttackComp(int damage, const Vector2i& range, int cd) :
 
 void AttackComp::attack(Entity* entity)
 {
-    auto HPComp = castToComp<type2cls<CompType::HP>::type>(
-        entity->getComp(CompType::HP)
-    );
+    if(!entity->hasComp(CompType::HP)) {
+        return;
+    }
+    auto HPComp = entity->getComp<CompType::HP>();
     HPComp->downHP(m_damage);
 }
 

@@ -12,3 +12,20 @@ Bullet::Bullet(const BulletData& data) :
     addComp<CompType::ANIMATION>(m_data.animation);
     addComp<CompType::ATTACK>(m_data.damage, Vector2i(0, 0), 0);
 }
+
+void Bullet::afterAttack()
+{
+    if(isPiercing()) {
+        return;
+    }
+    if(hasComp(CompType::MOVEMENT)) {
+        getComp<CompType::MOVEMENT>()->setDir(Direction::DIR::STOP);
+    }
+    if(hasComp(CompType::POSITION)) {
+        getComp<CompType::POSITION>()->setIgnoreCollision(true);
+    }
+    if(hasComp(CompType::ANIMATION)) {
+        auto animationComp = getComp<CompType::ANIMATION>();
+        // animationComp->updateAnimationStatus("finish?");
+    }
+}

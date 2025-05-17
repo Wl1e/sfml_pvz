@@ -2,7 +2,9 @@
 #include <iostream>
 
 #include <base/direction.hpp>
+#include <entity/bullet/bullet.hpp>
 #include <entity/plant/plant.hpp>
+#include <entity/zombie/zombie.hpp>
 #include <game.h>
 
 using namespace std;
@@ -17,15 +19,28 @@ void test_simple_tool()
     );
     game.setFrame(144);
 
-    auto t = new Plant;
-    t->addComp<CompType::MOVEMENT>(Direction::DIR::RIGHT, 1);
-    t->addComp<CompType::POSITION>(
-        Vector2i{100, 100}, Vector2u{10, 10}
+    auto bullet = new Bullet(
+        {100,
+         Vector2i(100, 100),
+         Vector2u(10, 10),
+         false,
+         Direction::DIR::RIGHT,
+         10000,
+         1,
+         "/home/wlle/code/demo/sfml2/resource/sun"}
     );
-    t->addComp<CompType::ANIMATION>(
+    game.scene()->addBullet(bullet);
+
+    auto zombie = new Zombie;
+    zombie->addComp<CompType::MOVEMENT>(Direction::DIR::STOP, 1);
+    zombie->addComp<CompType::POSITION>(
+        Vector2i{700, 100}, Vector2u{10, 10}
+    );
+    zombie->addComp<CompType::ANIMATION>(
         "/home/wlle/code/demo/sfml2/resource/sun"
     );
-    game.scene()->addPlant(t);
+    zombie->addComp<CompType::HP>(10);
+    game.scene()->addZombie(zombie);
 
     game.run();
 }
