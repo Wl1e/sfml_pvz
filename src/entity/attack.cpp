@@ -1,6 +1,6 @@
 #include <components/attack_comp.hpp>
 #include <entity/attack.hpp>
-#include <entity/bullet/bullet.hpp>
+#include <entity/bullet/factory.hpp>
 #include <entity/entity.hpp>
 #include <entity/plant/plant.hpp>
 #include <entity/zombie/zombie.hpp>
@@ -37,6 +37,22 @@ void bulletAttackZombie(Bullet* bullet, Zombie* zombie)
     auto AttackComp = bullet->getComp<CompType::ATTACK>();
     AttackComp->attack(zombie);
     // bullet->afterAttack();
+}
+
+void BulletAttackFunc(AttackComp* attackComp, Entity* victim)
+{
+    if(!victim->hasComp(CompType::HP)) {
+        return;
+    }
+    auto HPComp = victim->getComp<CompType::HP>();
+    HPComp->downHP(attackComp->getDamage());
+}
+void PlantAttackFunc(AttackComp* attackComp, Entity* victim)
+{
+    auto bullet = BulletFactory::getFactory()->create("Pea");
+}
+void ZombieAttackFunc(AttackComp* attackComp, Entity* victim)
+{
 }
 
 } // namespace demo

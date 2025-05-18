@@ -8,14 +8,12 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
 
-// namespace sf {
-// class RenderWindow;
-// } // namespace sf
+#include <entity/entity.hpp>
 
 namespace demo {
 
 class Animation;
-class Entity;
+// class Entity;
 class Plant;
 class Zombie;
 class Tool;
@@ -64,8 +62,7 @@ public:
     {
         return m_plants[axis_pos.y][axis_pos.x];
     }
-    const std::unordered_set<Zombie*>&
-    getZombiesByPath(int path) const
+    const std::vector<Zombie*>& getZombiesByPath(int path) const
     {
         return m_zombies[path];
     }
@@ -81,6 +78,7 @@ private:
     void _delBullet(Bullet* bullet);
 
     bool _checkClose(const sf::Event& event);
+    const std::vector<Entity*> const* getEnemys(Entity*);
 
     void _updateBackground();
     void _updatePlants();
@@ -94,7 +92,7 @@ private:
 
     std::unordered_set<Bullet*> m_bullets;
     std::vector<std::vector<Plant*>> m_plants;
-    std::vector<std::unordered_set<Zombie*>> m_zombies;
+    std::vector<std::vector<Zombie*>> m_zombies;
 
     std::vector<sceneHandler> m_handler;
 };

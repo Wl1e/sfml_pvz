@@ -9,6 +9,11 @@
 
 namespace demo {
 
+// enum class BulletType
+// {
+//     PEA = 0,
+// };
+
 struct BulletData
 {
     int damage; // 伤害
@@ -36,11 +41,5 @@ public:
 private:
     BulletData m_data;
 };
-
-// Bullet* CreateBullet(const BulletData& data)
-// {
-//     Bullet* bullet = new Bullet(data);
-//     return bullet;
-// }
 
 } // namespace demo

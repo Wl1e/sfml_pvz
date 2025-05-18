@@ -9,14 +9,6 @@ using namespace demo;
 static const int MIN_RANGE = -10;
 static const int MAX_RANGE = 1000;
 
-// void demo::defaultAttackFunc(Entity* entity)
-// {
-//     auto HPComp = castToComp<type2cls<CompType::HP>::type>(
-//         entity->getComp(CompType::HP)
-//     );
-//     HPComp->downHP()
-// }
-
 AttackComp::AttackComp(int damage, const Vector2i& range, int cd) :
     m_damage(damage), m_range(range), m_cd(cd)
 {
@@ -26,6 +18,10 @@ AttackComp::AttackComp(int damage, const Vector2i& range, int cd) :
     // if(m_range.y > MAX_RANGE) {
     //     m_range.y = MAX_RANGE;
     // }
+}
+
+void AttackComp::update(Entity*)
+{
 }
 
 void AttackComp::attack(Entity* entity)
