@@ -9,8 +9,11 @@ using namespace demo;
 static const int MIN_RANGE = -10;
 static const int MAX_RANGE = 1000;
 
-AttackComp::AttackComp(int damage, const Vector2i& range, int cd) :
-    m_damage(damage), m_range(range), m_cd(cd)
+AttackComp::AttackComp(
+    int damage,
+    const std::variant<sf::CircleShape, RectangleShape>& range,
+    int cd
+) : m_damage(damage), m_range(range), m_cd(cd)
 {
     // if(m_range.x < MIN_RANGE) {
     //     m_range.x = MIN_RANGE;

@@ -1,9 +1,10 @@
 #pragma once
 
 #include <functional>
+#include <variant>
 
 #include <SFML/Graphics/CircleShape.hpp>
-#include <SFML/Graphics/Shape.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/System/Vector2.hpp>
 
 #include <components/component.hpp>
@@ -20,7 +21,9 @@ class AttackComp : public Component
 {
 public:
     explicit AttackComp(
-        int damage, const sf::Vector2i& range, int cd
+        int damage,
+        const std::variant<sf::CircleShape, RectangleShape>& range,
+        int cd
     );
     ~AttackComp() = default;
 
@@ -56,7 +59,8 @@ private:
     // 三线是上中下
     // 毁灭菇、寒冰菇是一个圆
     // 估计还得封装一个类 ?? 直接用sf::shape或许可以?
-    sf::Shape* m_range; // 包括身后判定，比如倭瓜
+    std::variant<sf::CircleShape, RectangleShape>
+        m_range; // 包括身后判定，比如倭瓜
     int m_cd;
 
     AttackFunction m_attack;
