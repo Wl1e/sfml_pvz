@@ -11,8 +11,16 @@ class BulletFactory
 public:
     BulletFactory()
     {
-        // read json
-        // init m_data
+        m_data["Pea"] = BulletData{
+            100,
+            sf::Vector2i(100, 100),
+            sf::Vector2u(10, 10),
+            false,
+            Direction(Direction::DIR::RIGHT),
+            10000,
+            1,
+            "/home/wlle/code/demo/sfml2/resource/sun"
+        };
     }
     ~BulletFactory() = default;
 
@@ -27,7 +35,7 @@ public:
 
     static BulletFactory* getFactory()
     {
-        BulletFactory factory;
+        static BulletFactory factory;
         return &factory;
     }
 

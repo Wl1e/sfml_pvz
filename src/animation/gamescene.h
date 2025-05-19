@@ -66,6 +66,11 @@ public:
     {
         return m_zombies[path];
     }
+    const std::vector<std::vector<Zombie*>>& getAllzombies() const
+    {
+        return m_zombies;
+    }
+
     bool isOpen() const;
     void close();
 
@@ -78,7 +83,6 @@ private:
     void _delBullet(Bullet* bullet);
 
     bool _checkClose(const sf::Event& event);
-    const std::vector<Entity*> const* getEnemys(Entity*);
 
     void _updateBackground();
     void _updatePlants();

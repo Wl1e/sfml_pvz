@@ -29,3 +29,19 @@ void Bullet::afterAttack()
         // animationComp->updateAnimationStatus("finish?");
     }
 }
+
+unordered_map<EntityStatus, string> animationStatus{
+    {EntityStatus::Normal, "normal"},
+    {EntityStatus::Destroying, "destroying"},
+    {EntityStatus::Destroyed, "destroyed"}
+};
+
+void Bullet::_statusFunction()
+{
+    if(!hasComp(CompType::ANIMATION)) {
+        return;
+    }
+    getComp<CompType::ANIMATION>()->updateAnimationStatus(
+        animationStatus[getStatus()]
+    );
+}

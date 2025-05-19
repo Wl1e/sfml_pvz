@@ -10,6 +10,11 @@ public:
     explicit Zombie() : Entity(EntityType::ZOMBIE)
     {
     }
+
+protected:
+    void _statusFunction()
+    {
+    }
 };
 
 } // namespace demo

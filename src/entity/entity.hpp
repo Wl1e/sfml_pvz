@@ -20,11 +20,19 @@ enum class EntityType
     TOOL
 };
 
+enum class EntityStatus
+{
+    Normal,
+    Attack,
+    Destroying,
+    Destroyed
+};
+
 class Entity
 {
 public:
     explicit Entity(EntityType type = EntityType::NONE) :
-        m_type(type)
+        m_type(type), m_status(EntityStatus::Normal)
     {
     }
     ~Entity() = default;
@@ -38,6 +46,11 @@ public:
     void setScene(GameScene* scene)
     {
         m_scene = scene;
+    }
+    void updateStatus(EntityStatus status)
+    {
+        m_status = status;
+        _statusFunction();
     }
 
     template<CompType type>
@@ -58,6 +71,10 @@ public:
     {
         return m_type;
     }
+    EntityStatus getStatus() const
+    {
+        return m_status;
+    }
     bool hasComp(CompType type)
     {
         return m_component.count(type) != 0;
@@ -66,11 +83,16 @@ public:
     // TODO: 可以根据需要新增beforeUpdate和afterUpdate
     void updade();
 
+protected:
+    // 子类重写函数，更新status时调用
+    virtual void _statusFunction() = 0;
+
 private:
     GameScene* m_scene;
     std::map<CompType, CompPtr, Compless> m_component;
 
     EntityType m_type;
+    EntityStatus m_status;
 };
 
 bool isPlant(Entity*);

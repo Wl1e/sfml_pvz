@@ -29,7 +29,7 @@ GameScene::GameScene() :
     )),
     m_background(nullptr), m_thread_id(this_thread::get_id()),
     m_plants(6, vector<Plant*>(9, nullptr)),
-    m_zombies(6, unordered_set<Zombie*>())
+    m_zombies(6, vector<Zombie*>())
 {
     m_window->setKeyRepeatEnabled(false);
 }
@@ -110,14 +110,15 @@ void GameScene::_updateBullets()
     sf::Vector2i bullet_pos;
     for(auto bullet : m_bullets) {
         bullet->updade();
-        bullet_pos = getEntityPosition(bullet);
-        auto& zombies = getZombiesByPath(getPath(bullet_pos));
-        for(auto zombie : zombies) {
-            if(entityOverlay(bullet, zombie)) {
-                bulletAttackZombie(bullet, zombie);
-                bullet->afterAttack();
-            }
-        }
+        // bullet_pos = getEntityPosition(bullet);
+        // auto& zombies = getZombiesByPath(getPath(bullet_pos));
+        // for(auto zombie : zombies) {
+        //     // if(entityOverlay(bullet, zombie)) {
+        //     //     bulletAttackZombie(bullet, zombie);
+        //     //     bullet->afterAttack();
+        //     // }
+
+        // }
     }
 }
 
@@ -174,7 +175,7 @@ void GameScene::addZombie(Zombie* zombie)
 {
     zombie->setScene(this);
     auto& zombiePos = getEntityPosition(zombie);
-    m_zombies[getPath(zombiePos)].insert(zombie);
+    m_zombies[getPath(zombiePos)].push_back(zombie);
 }
 void GameScene::addBullet(Bullet* bullet)
 {

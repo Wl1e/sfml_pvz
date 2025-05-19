@@ -1,3 +1,4 @@
+#include <animation/gamescene.h>
 #include <components/attack_comp.hpp>
 #include <entity/attack.hpp>
 #include <entity/bullet/factory.hpp>
@@ -11,48 +12,108 @@ using namespace demo;
 
 namespace demo {
 
-// plant必须有AttackComp
-void plantAttackZombie(Plant* plant, Zombie* zombie)
-{
-    auto AttackComp = plant->getComp<CompType::ATTACK>();
-    AttackComp->attack(zombie);
-}
-void plantAttackZombies(Plant* plant, vector<Zombie*>* zombies)
-{
-    auto AttackComp = plant->getComp<CompType::ATTACK>();
-    vector<Entity*> targets = AttackComp->getEnemyInRange(*zombies);
-    AttackComp->attack(&targets);
-}
-// 函数一模一样...
-void zombieAttackPlant(Zombie* zombie, Plant* plant)
-{
-    auto AttackComp = zombie->getComp<CompType::ATTACK>();
-    AttackComp->attack(plant);
-}
-void bulletAttackPlant()
-{
-}
-void bulletAttackZombie(Bullet* bullet, Zombie* zombie)
-{
-    auto AttackComp = bullet->getComp<CompType::ATTACK>();
-    AttackComp->attack(zombie);
-    // bullet->afterAttack();
-}
+// 这里的plant必须有AttackComp
+// 这些函数在写完Attack内的函数后似乎就没必要了?
 
-void BulletAttackFunc(AttackComp* attackComp, Entity* victim)
+// 2.
+// 想了下，攻击函数里自己获取敌人，然后攻击，全有attackComp完成会更繁琐（不同实体获取的敌人类型、数量都不同）
+void plantAttackZombie(Plant* plant)
 {
-    if(!victim->hasComp(CompType::HP)) {
+    auto AttackComp = plant->getComp<CompType::ATTACK>();
+    // 只支持同一行的僵尸检测，三线和毁灭菇用不了
+    auto& enemys = plant->getScene()->getZombiesByPath(
+        getPath(plant->getComp<CompType::POSITION>()->getPos())
+    );
+    if(enemys.empty()) {
         return;
     }
-    auto HPComp = victim->getComp<CompType::HP>();
-    HPComp->downHP(attackComp->getDamage());
+    // 性能消耗、性能消耗、性能消耗、性能消耗、性能消耗、性能消耗、性能消耗
+    auto targets =
+        AttackComp->getEnemyInRange({enemys.begin(), enemys.end()});
+    if(targets.empty()) {
+        return;
+    }
+    // FIXME
+    // update animation
+    BulletFactory::getFactory()->create("Pea");
 }
-void PlantAttackFunc(AttackComp* attackComp, Entity* victim)
+
+void zombieAttackPlant(Zombie* zombie)
 {
-    auto bullet = BulletFactory::getFactory()->create("Pea");
+    auto AttackComp = zombie->getComp<CompType::ATTACK>();
+    auto enemys = zombie->getScene()->getPlantByAxis(
+        pos2axis(zombie->getComp<CompType::POSITION>()->getPos())
+    );
+    if(!enemys) {
+        return;
+    }
+    auto targets = AttackComp->getEnemyInRange({enemys});
+    if(targets.empty()) {
+        return;
+    }
+    auto enemy = targets.front();
+    if(!enemy->hasComp(CompType::HP)) {
+        return;
+    }
+    // FIXME: update zombie status, not update animation
+    if(zombie->hasComp(CompType::ANIMATION)) {
+        zombie->getComp<CompType::ANIMATION>()
+            ->updateAnimationStatus("attack");
+    }
+    enemy->getComp<CompType::HP>()->downHP(AttackComp->getDamage());
 }
-void ZombieAttackFunc(AttackComp* attackComp, Entity* victim)
+void bulletAttackPlant(Bullet* bullet)
 {
 }
+void bulletAttackZombie(Bullet* bullet)
+{
+    auto AttackComp = bullet->getComp<CompType::ATTACK>();
+    auto& enemys = bullet->getScene()->getZombiesByPath(
+        getPath(bullet->getComp<CompType::POSITION>()->getPos())
+    );
+    if(enemys.empty()) {
+        return;
+    }
+
+    // 子弹只有触碰才会造成伤害
+    for(auto enemy : enemys) {
+        if(!enemy->hasComp(CompType::HP)) {
+            continue;
+        }
+        if(entityOverlay(bullet, enemy)) {
+            enemy->getComp<CompType::HP>()->downHP(
+                AttackComp->getDamage()
+            );
+            if(!bullet->isPiercing()) {
+                // update
+            }
+        }
+    }
+}
+
+// void BulletAttackFunc(
+//     AttackComp* attackComp, std::vector<Entity*>* victims
+// )
+// {
+//     auto victim = victims->front();
+//     if(!victim->hasComp(CompType::HP)) {
+//         return;
+//     }
+//     auto HPComp = victim->getComp<CompType::HP>();
+//     HPComp->downHP(attackComp->getDamage());
+// }
+// void PlantAttackFunc(
+//     AttackComp* attackComp, std::vector<Entity*>* victims
+// )
+// {
+//     // FIXME: Pea应该从Entity中得到
+//     auto bullet = BulletFactory::getFactory()->create("Pea");
+//     // 需要将bullet加到scene中
+// }
+// void ZombieAttackFunc(
+//     AttackComp* attackComp, std::vector<Entity*>* victims
+// )
+// {
+// }
 
 } // namespace demo
