@@ -8,12 +8,10 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
 
-#include <entity/entity.hpp>
-
 namespace demo {
 
 class Animation;
-// class Entity;
+class Background;
 class Plant;
 class Zombie;
 class Tool;
@@ -91,7 +89,7 @@ private:
 
 private:
     sf::RenderWindow* m_window;
-    Entity* m_background;
+    Background* m_background;
     std::thread::id m_thread_id;
 
     std::unordered_set<Bullet*> m_bullets;
@@ -99,6 +97,7 @@ private:
     std::vector<std::vector<Zombie*>> m_zombies;
 
     std::vector<sceneHandler> m_handler;
+    // 需要一个eventHandler来处理外部输入
 };
 
 } // namespace demo

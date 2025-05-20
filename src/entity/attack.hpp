@@ -17,9 +17,9 @@ class Bullet;
 // void PlantAttackFunc(AttackComp*, Entity*);
 // void ZombieAttackFunc(AttackComp*, Entity*);
 
-void plantAttackZombie(Plant* plant);
-void zombieAttackPlant(Zombie* zombie);
-void bulletAttackPlant(Bullet* bullet);
-void bulletAttackZombie(Bullet* bullet);
+void plantAttackZombie(Entity*);
+void zombieAttackPlant(Entity*);
+void bulletAttackPlant(Entity*);
+void bulletAttackZombie(Entity*);
 
 } // namespace demo

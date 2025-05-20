@@ -1,3 +1,4 @@
+#include <entity/attack.hpp>
 #include <entity/bullet/bullet.hpp>
 
 using namespace std;
@@ -7,10 +8,17 @@ using namespace demo;
 Bullet::Bullet(const BulletData& data) :
     Entity(EntityType::BULLET), m_data(data)
 {
-    addComp<CompType::POSITION>(m_data.start, m_data.size);
-    addComp<CompType::MOVEMENT>(m_data.dir, m_data.speed);
-    addComp<CompType::ANIMATION>(m_data.animation);
-    addComp<CompType::ATTACK>(m_data.damage, Vector2i(0, 0), 0);
+    addComp<CompType::POSITION>(
+        m_data.plantData.start, m_data.bulletData.size
+    );
+    addComp<CompType::MOVEMENT>(
+        m_data.plantData.dir, m_data.bulletData.speed
+    );
+    addComp<CompType::ANIMATION>(m_data.bulletData.animation);
+    addComp<CompType::ATTACK>(
+        m_data.plantData.damage, sf::RectangleShape(), 0
+    );
+    getComp<CompType::ATTACK>()->setAttackFunc(bulletAttackZombie);
 }
 
 void Bullet::afterAttack()
@@ -38,10 +46,20 @@ unordered_map<EntityStatus, string> animationStatus{
 
 void Bullet::_statusFunction()
 {
-    if(!hasComp(CompType::ANIMATION)) {
-        return;
+    auto status = getStatus();
+
+    if(hasComp(CompType::ANIMATION)) {
+        getComp<CompType::ANIMATION>()->updateAnimationStatus(
+            animationStatus[status]
+        );
     }
-    getComp<CompType::ANIMATION>()->updateAnimationStatus(
-        animationStatus[getStatus()]
-    );
+
+    if(hasComp(CompType::MOVEMENT)) {
+        if(status == EntityStatus::Destroying
+           || status == EntityStatus::Destroyed) {
+            getComp<CompType::MOVEMENT>()->setDir(
+                Direction::DIR::STOP
+            );
+        }
+    }
 }

@@ -17,8 +17,9 @@ namespace demo {
 
 // 2.
 // 想了下，攻击函数里自己获取敌人，然后攻击，全有attackComp完成会更繁琐（不同实体获取的敌人类型、数量都不同）
-void plantAttackZombie(Plant* plant)
+void plantAttackZombie(Entity* entity)
 {
+    auto plant = dynamic_cast<Plant*>(entity);
     auto AttackComp = plant->getComp<CompType::ATTACK>();
     // 只支持同一行的僵尸检测，三线和毁灭菇用不了
     auto& enemys = plant->getScene()->getZombiesByPath(
@@ -38,8 +39,9 @@ void plantAttackZombie(Plant* plant)
     BulletFactory::getFactory()->create("Pea");
 }
 
-void zombieAttackPlant(Zombie* zombie)
+void zombieAttackPlant(Entity* entity)
 {
+    auto zombie = dynamic_cast<Zombie*>(entity);
     auto AttackComp = zombie->getComp<CompType::ATTACK>();
     auto enemys = zombie->getScene()->getPlantByAxis(
         pos2axis(zombie->getComp<CompType::POSITION>()->getPos())
@@ -65,8 +67,9 @@ void zombieAttackPlant(Zombie* zombie)
 void bulletAttackPlant(Bullet* bullet)
 {
 }
-void bulletAttackZombie(Bullet* bullet)
+void bulletAttackZombie(Entity* entity)
 {
+    auto bullet = dynamic_cast<Bullet*>(entity);
     auto AttackComp = bullet->getComp<CompType::ATTACK>();
     auto& enemys = bullet->getScene()->getZombiesByPath(
         getPath(bullet->getComp<CompType::POSITION>()->getPos())
@@ -85,7 +88,7 @@ void bulletAttackZombie(Bullet* bullet)
                 AttackComp->getDamage()
             );
             if(!bullet->isPiercing()) {
-                // update
+                bullet->updateStatus(EntityStatus::Destroying);
             }
         }
     }

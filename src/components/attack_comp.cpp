@@ -56,6 +56,7 @@ bool AttackComp::_inAttackRange(Entity* entity)
         // 不涉及range旋转
         return range->getGlobalBounds().contains(Vector2f(pos));
     }
+    return false;
 }
 
 std::vector<Entity*>

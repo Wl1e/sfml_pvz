@@ -17,6 +17,7 @@ public:
 
     };
 
+    Direction() = delete;
     Direction(DIR dir) :
         m_dir(Direction::mask[static_cast<int>(dir)])
     {

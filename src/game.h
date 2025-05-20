@@ -7,7 +7,7 @@
 
 namespace demo {
 
-class Entity;
+class FrameTimerQueue;
 
 class Game
 {

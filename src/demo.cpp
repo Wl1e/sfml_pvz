@@ -21,11 +21,12 @@ void test_simple_tool()
 
     auto bullet = new Bullet(
         {100,
-         Vector2i(100, 100),
-         Vector2u(10, 10),
-         false,
-         Direction::DIR::RIGHT,
+         sf::Vector2i(100, 100),
+         Direction(Direction::DIR::RIGHT),
          10000,
+
+         sf::Vector2u(10, 10),
+         false,
          1,
          "/home/wlle/code/demo/sfml2/resource/sun"}
     );

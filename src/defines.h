@@ -13,4 +13,7 @@ const int grass_start_y = 0;
 
 const int grass_path = 5;
 
+using Frame = unsigned long long;
+using FrameInterval = unsigned long long;
+
 } // namespace demo

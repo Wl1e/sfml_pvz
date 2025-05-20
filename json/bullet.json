@@ -1,0 +1,15 @@
+{
+    "Pea": {
+        // 大小
+        "size": [
+            10,
+            10
+        ],
+        // 灵体
+        "piercing": false,
+        // 飞行速度
+        "speed": 1,
+        // 动画
+        "animation": "/home/wlle/code/demo/sfml2/resource/sun"
+    }
+}
