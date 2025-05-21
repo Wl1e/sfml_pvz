@@ -14,13 +14,17 @@ namespace demo {
 
 // 这里的plant必须有AttackComp
 // 这些函数在写完Attack内的函数后似乎就没必要了?
+// 目前这个函数只支持射手类植物(不包括多线射手)使用
 
 // 2.
 // 想了下，攻击函数里自己获取敌人，然后攻击，全有attackComp完成会更繁琐（不同实体获取的敌人类型、数量都不同）
+
+// 几个函数重复度有些高
 void plantAttackZombie(Entity* entity)
 {
-    printf("attack\n");
     auto plant = dynamic_cast<Plant*>(entity);
+    assert(plant->hasComp(CompType::ATTACK));
+    assert(plant->hasComp(CompType::POSITION));
     auto attackComp = plant->getComp<CompType::ATTACK>();
     auto posCmp = plant->getComp<CompType::POSITION>();
     // 只支持同一行的僵尸检测，三线和毁灭菇用不了
@@ -36,10 +40,11 @@ void plantAttackZombie(Entity* entity)
     if(targets.empty()) {
         return;
     }
-    // FIXME
-    // update animation
+    plant->updateStatus(EntityStatus::Attack);
+
+    // 子弹创建可以考虑加到updateStatus的更新回调里去
     auto bullet = BulletFactory::getFactory()->create(
-        "Pea",
+        "Pea", // FIXME: 应该从植物身上获取；或者加个映射表
         {attackComp->getDamage(),
          posCmp->getPos(),
          Direction::DIR::RIGHT,
@@ -55,6 +60,8 @@ void plantAttackZombie(Entity* entity)
 void zombieAttackPlant(Entity* entity)
 {
     auto zombie = dynamic_cast<Zombie*>(entity);
+    assert(zombie->hasComp(CompType::ATTACK));
+    assert(zombie->hasComp(CompType::POSITION));
     auto attackComp = zombie->getComp<CompType::ATTACK>();
     auto enemys = zombie->getScene()->getPlantByAxis(
         pos2axis(zombie->getComp<CompType::POSITION>()->getPos())
@@ -83,6 +90,8 @@ void bulletAttackPlant(Bullet* bullet)
 void bulletAttackZombie(Entity* entity)
 {
     auto bullet = dynamic_cast<Bullet*>(entity);
+    assert(bullet->hasComp(CompType::ATTACK));
+    assert(bullet->hasComp(CompType::POSITION));
     auto attackComp = bullet->getComp<CompType::ATTACK>();
     auto& enemys = bullet->getScene()->getZombiesByPath(
         getPath(bullet->getComp<CompType::POSITION>()->getPos())
@@ -91,18 +100,20 @@ void bulletAttackZombie(Entity* entity)
         return;
     }
 
-    // 子弹只有触碰才会造成伤害
-    for(auto enemy : enemys) {
+    auto targets =
+        attackComp->getEnemyInRange({enemys.begin(), enemys.end()});
+    if(targets.empty()) {
+        return;
+    }
+    for(auto enemy : targets) {
         if(!enemy->hasComp(CompType::HP)) {
             continue;
         }
-        if(entityOverlay(bullet, enemy)) {
-            enemy->getComp<CompType::HP>()->downHP(
-                attackComp->getDamage()
-            );
-            if(!bullet->isPiercing()) {
-                bullet->updateStatus(EntityStatus::Destroying);
-            }
+        bullet->updateStatus(EntityStatus::Attack);
+        enemy->getComp<CompType::HP>()->downHP(attackComp->getDamage(
+        ));
+        if(!bullet->isPiercing()) {
+            break;
         }
     }
 }

@@ -22,6 +22,7 @@ using AttackRange =
     std::variant<sf::CircleShape, sf::RectangleShape>;
 using AttackFunction = std::function<void(Entity*)>;
 
+// 目前AttackComp包含的东西有些多了，可以考虑分割
 class AttackComp : public Component
 {
 public:
@@ -59,13 +60,10 @@ private:
     bool _validAttack();
     void _attack(Entity*);
 
+    void _updateAttackRange(const sf::Vector2f& move);
+
 private:
     int m_damage;
-    // 局限性太大了，导致getEnemyInRange都不好写
-    // 普通植物是一行
-    // 三线是上中下
-    // 毁灭菇、寒冰菇是一个圆
-    // 估计还得封装一个类 ?? 直接用sf::shape或许可以?
     AttackRange m_range;
     bool m_ban_attack;
 

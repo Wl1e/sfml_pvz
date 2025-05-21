@@ -18,23 +18,7 @@ struct PlantData
 class Plant : public Entity
 {
 public:
-    explicit Plant(const PlantData& data, const sf::Vector2i& pos) :
-        Entity(EntityType::PLANT)
-    {
-        addComp<CompType::POSITION>(PositionType(pos), data.size);
-        addComp<CompType::HP>(data.HP);
-        addComp<CompType::ANIMATION>(data.animation);
-        addComp<CompType::ATTACK>(
-            data.damage,
-            data.CD,
-            data.range,
-            getComp<CompType::POSITION>()->getPos()
-        );
-        getComp<CompType::ATTACK>()->setAttackFunc(
-            plantAttackZombie
-        );
-        getComp<CompType::ATTACK>()->setBanAttack(true);
-    }
+    explicit Plant(const PlantData& data, const sf::Vector2i& pos);
 
     // 比如玉米加农炮
     void click() override

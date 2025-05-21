@@ -69,4 +69,5 @@ Plant* PlantFactory::create(const string& name, const Vector2i& pos)
     }
 
     return new Plant(*m_data[name], pos);
+    // 或许factory应该负责plant组件的添加
 }

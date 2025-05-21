@@ -5,6 +5,8 @@ using namespace std;
 using namespace sf;
 using namespace demo;
 
+static const PositionType BULLET_ATTACK_OFFSET{0, 0};
+
 Bullet::Bullet(const BulletData& data) :
     Entity(EntityType::BULLET), m_data(data)
 {
@@ -18,8 +20,9 @@ Bullet::Bullet(const BulletData& data) :
     addComp<CompType::ATTACK>(
         m_data.plantData.damage,
         0,
-        sf::RectangleShape(),
+        sf::RectangleShape(m_data.bulletData.size),
         getComp<CompType::POSITION>()->getPos()
+            + BULLET_ATTACK_OFFSET
     );
     getComp<CompType::ATTACK>()->setAttackFunc(bulletAttackZombie);
 }
@@ -58,8 +61,7 @@ void Bullet::_statusFunction()
     }
 
     if(hasComp(CompType::MOVEMENT)) {
-        if(status == EntityStatus::Destroying
-           || status == EntityStatus::Destroyed) {
+        if(status == EntityStatus::Attack) {
             getComp<CompType::MOVEMENT>()->setDir(
                 Direction::DIR::STOP
             );

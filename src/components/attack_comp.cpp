@@ -49,6 +49,12 @@ void AttackComp::update(Entity* entity)
         entity->getScene()->draw(*range);
     }
 #endif
+    // 和position分开更新有些奇怪，应该依赖position组件的
+    if(entity->hasComp(CompType::MOVEMENT)) {
+        _updateAttackRange(
+            entity->getComp<CompType::MOVEMENT>()->getMoveValue()
+        );
+    }
     if(!_validAttack()) {
         return;
     }
@@ -60,6 +66,7 @@ bool AttackComp::_validAttack()
     if(m_ban_attack) {
         return false;
     }
+    // cd检查；也可以换成定时器的模式，cd时长的定时器，到点重置
     Frame nowFrame = FrameManager::getInstance().getFrame();
     if(nowFrame - m_attackFrame >= m_cd) {
         m_attackFrame = nowFrame;
@@ -109,4 +116,11 @@ AttackComp::getEnemyInRange(const vector<Entity*>& enemys)
         }
     }
     return res;
+}
+
+void AttackComp::_updateAttackRange(const Vector2f& move)
+{
+    if(auto range = get_if<RectangleShape>(&m_range); range) {
+        range->move(move);
+    }
 }

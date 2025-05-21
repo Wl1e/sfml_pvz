@@ -17,7 +17,7 @@ set(SOURCES
     src/components/animation_comp.cpp
     src/components/attack_comp.cpp
     src/entity/entity.cpp
-    # src/entity/plant/plant.cpp
+    src/entity/plant/plant.cpp
     # src/entity/zombie/zombie.cpp
     src/entity/attack.cpp
     src/entity/bullet/bullet.cpp
