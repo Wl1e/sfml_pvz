@@ -5,6 +5,7 @@
 #include <thread>
 #include <unordered_set>
 
+#include <entity/entity.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
 
@@ -39,11 +40,10 @@ public:
         m_handler.emplace_back(std::move(handler));
     }
 
-    void delPlant(const sf::Vector2i& pos_axis)
-    {
-        _delPlant(getPlantByAxis(pos_axis));
-        m_plants[pos_axis.y][pos_axis.x] = nullptr;
-    }
+    void delPlant(const sf::Vector2i& pos_axis);
+    void delBullet(Bullet* bullet);
+    void delZombie(Zombie* zombie);
+    void delEntity(Entity*);
 
     sf::Vector2u getSize() const;
     // FIXME: bad
@@ -57,6 +57,12 @@ public:
     }
     Plant* getPlantByAxis(const sf::Vector2i& axis_pos)
     {
+        printf("%d %d\n", axis_pos.y, axis_pos.x);
+        if(axis_pos.y < 0 || axis_pos.y >= m_plants.size()
+           || axis_pos.x < 0
+           || axis_pos.x >= m_plants[axis_pos.y].size()) {
+            return nullptr;
+        }
         return m_plants[axis_pos.y][axis_pos.x];
     }
     const std::vector<Zombie*>& getZombiesByPath(int path) const

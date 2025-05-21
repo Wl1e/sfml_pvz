@@ -15,9 +15,9 @@ using namespace demo;
 void test_simple_tool()
 {
     Game game;
-    // game.scene()->setBackGround(
-    //     "/home/wlle/code/demo/sfml2/resource/background"
-    // );
+    game.scene()->setBackGround(
+        "/home/wlle/code/demo/sfml2/resource/Background.jpg"
+    );
     game.setFrame(60);
 
     auto plant =
@@ -29,7 +29,9 @@ void test_simple_tool()
     game.scene()->addPlant(plant);
 
     auto zombie = new Zombie;
-    zombie->addComp<CompType::MOVEMENT>(Direction::DIR::STOP, 1);
+    zombie->addComp<CompType::MOVEMENT>(
+        Direction::DIR::STOP, 1, 999
+    );
     zombie->addComp<CompType::POSITION>(
         PositionType{700, 100}, SizeType{50, 50}
     );

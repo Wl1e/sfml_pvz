@@ -109,10 +109,10 @@ void bulletAttackZombie(Entity* entity)
         if(!enemy->hasComp(CompType::HP)) {
             continue;
         }
-        bullet->updateStatus(EntityStatus::Attack);
         enemy->getComp<CompType::HP>()->downHP(attackComp->getDamage(
         ));
         if(!bullet->isPiercing()) {
+            bullet->updateStatus(EntityStatus::Destroyed);
             break;
         }
     }

@@ -15,6 +15,7 @@ public:
     {
         addComp<CompType::POSITION>(pos, size);
         addComp<CompType::ANIMATION>(resource_path);
+        getComp<CompType::ANIMATION>()->setSize(size);
     }
 
     void click() override

@@ -17,12 +17,7 @@ using PosFunction = std::function<const sf::Vector2i&()>;
 using SceneFunction = std::function<GameScene*()>;
 using anime_frame = sf::Texture;
 
-// bool demo::read_frames(
-//     const string& path,
-//     unordered_map<string, vector<anime_frame>>& result
-// );
-
-bool read_frames(
+std::string read_frames(
     std::string_view path,
     std::unordered_map<std::string, std::vector<anime_frame>>& result
 );
@@ -33,15 +28,14 @@ class AnimationComp : public Component
 {
 public:
     explicit AnimationComp(std::string_view resource_path) :
-        m_animation_offset({-10, -10}),
         m_frames(
             std::make_unique<std::unordered_map<
                 std::string,
                 std::vector<anime_frame>>>()
         ),
-        m_status("normal"), m_idx(0)
+        m_idx(0)
     {
-        read_frames(resource_path, *m_frames);
+        m_status = read_frames(resource_path, *m_frames);
         m_sprite = std::make_unique<sf::Sprite>(
             m_frames->at(m_status)[m_idx]
         );
@@ -65,7 +59,6 @@ protected:
 
 private:
     std::unique_ptr<sf::Sprite> m_sprite;
-    sf::Vector2i m_animation_offset;
 
     // 考虑anime_frame* ？
     std::unique_ptr<

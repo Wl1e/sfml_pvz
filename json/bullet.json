@@ -8,14 +8,14 @@
     "Pea": {
         // 大小
         "size": [
-            40,
-            40
+            28,
+            28
         ],
         // 灵体
         "piercing": false,
         // 飞行速度
-        "speed": 1,
+        "speed": 2.3,
         // 动画
-        "animation": "/home/wlle/code/demo/sfml2/resource/sun"
+        "animation": "/home/wlle/code/demo/sfml2/resource/bullet/Pea.png"
     }
 }

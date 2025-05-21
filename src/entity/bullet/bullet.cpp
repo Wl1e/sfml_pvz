@@ -1,3 +1,4 @@
+#include <animation/gamescene.hpp>
 #include <entity/attack.hpp>
 #include <entity/bullet/bullet.hpp>
 
@@ -14,7 +15,9 @@ Bullet::Bullet(const BulletData& data) :
         m_data.plantData.start, m_data.bulletData.size
     );
     addComp<CompType::MOVEMENT>(
-        m_data.plantData.dir, m_data.bulletData.speed
+        m_data.plantData.dir,
+        m_data.bulletData.speed,
+        m_data.plantData.length
     );
     addComp<CompType::ANIMATION>(m_data.bulletData.animation);
     addComp<CompType::ATTACK>(
@@ -54,17 +57,14 @@ void Bullet::_statusFunction()
 {
     auto status = getStatus();
 
-    if(hasComp(CompType::ANIMATION)) {
-        getComp<CompType::ANIMATION>()->updateAnimationStatus(
-            animationStatus[status]
-        );
-    }
-
-    if(hasComp(CompType::MOVEMENT)) {
-        if(status == EntityStatus::Attack) {
+    if(status == EntityStatus::Destroyed) {
+        if(hasComp(CompType::MOVEMENT)) {
             getComp<CompType::MOVEMENT>()->setDir(
                 Direction::DIR::STOP
             );
         }
+        getScene()->addHander([this](GameScene* scene) {
+            scene->delBullet(this);
+        });
     }
 }

@@ -23,7 +23,6 @@ public:
     // 比如玉米加农炮
     void click() override
     {
-        plantAttackZombie(this);
     }
 
 protected:

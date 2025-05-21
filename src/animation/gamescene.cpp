@@ -30,7 +30,7 @@ using namespace demo;
 
 GameScene::GameScene() :
     m_window(new sf::RenderWindow(
-        VideoMode({800, 600}), "game", State::Windowed
+        VideoMode({1280, 720}), "game", State::Windowed
     )),
     m_background(nullptr), m_thread_id(this_thread::get_id()),
     m_plants(6, vector<Plant*>(9, nullptr)),
@@ -203,11 +203,14 @@ void GameScene::click(const sf::Vector2i& pos)
         target = tool;
         break;
     }
+
     // try plants or zombies?
     if(!target) {
         auto plant = getPlantByAxis(pos2axis(clickPos));
-        if(plant->hasComp(CompType::POSITION),
-           plant->getComp<CompType::POSITION>()->clicked(clickPos)) {
+        if(plant && plant->hasComp(CompType::POSITION)
+           && plant->getComp<CompType::POSITION>()->clicked(
+               clickPos
+           )) {
             target = plant;
         }
     }
@@ -217,4 +220,31 @@ void GameScene::click(const sf::Vector2i& pos)
     }
 
     target->click();
+}
+
+void GameScene::delPlant(const sf::Vector2i& pos_axis)
+{
+    _delPlant(getPlantByAxis(pos_axis));
+    m_plants[pos_axis.y][pos_axis.x] = nullptr;
+}
+void GameScene::delBullet(Bullet* bullet)
+{
+    if(m_bullets.find(bullet) != m_bullets.end()) {
+        m_bullets.erase(bullet);
+    }
+}
+void GameScene::delZombie(Zombie* zombie)
+{
+}
+void GameScene::delEntity(Entity* entity)
+{
+    if(isPlant(entity)) {
+        _delPlant(dynamic_cast<Plant*>(entity));
+    } else if(isZombie(entity)) {
+        _delZombie(dynamic_cast<Zombie*>(entity));
+    } else if(isBullet(entity)) {
+        _delBullet(dynamic_cast<Bullet*>(entity));
+    } else {
+        // ...
+    }
 }

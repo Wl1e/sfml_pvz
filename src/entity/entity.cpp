@@ -1,3 +1,4 @@
+#include <animation/gamescene.hpp>
 #include <components/animation_comp.hpp>
 #include <components/movement_comp.hpp>
 #include <components/position_comp.hpp>
@@ -15,6 +16,16 @@ void Entity::updade()
     for(auto& it : m_component) {
         it.second->update(this);
     }
+}
+
+void Entity::kill()
+{
+    if(hasComp(CompType::MOVEMENT)) {
+        getComp<CompType::MOVEMENT>()->setDir(Direction::DIR::STOP);
+    }
+    getScene()->addHander([this](GameScene* scene) {
+        scene->delEntity(this);
+    });
 }
 
 PositionType demo::getEntityPosition(Entity* entity)

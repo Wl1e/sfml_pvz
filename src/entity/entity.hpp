@@ -24,6 +24,8 @@ enum class EntityStatus
 {
     Normal,
     Attack,
+    Died,
+
     Destroying,
     Destroyed,
 
@@ -54,6 +56,7 @@ public:
         m_status = status;
         _statusFunction();
     }
+    void kill();
 
     template<CompType type>
     typename type2cls<type>::type* getComp()

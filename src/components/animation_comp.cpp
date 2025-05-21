@@ -11,11 +11,11 @@ using namespace demo;
 
 namespace demo {
 
-bool read_frames2(
+std::string read_frames2(
     filesystem::path, unordered_map<string, vector<anime_frame>>&
 );
 
-bool read_frames(
+std::string read_frames(
     string_view path,
     unordered_map<string, vector<anime_frame>>& result
 )
@@ -24,16 +24,21 @@ bool read_frames(
     return read_frames2(frame_path, result);
 }
 
-bool read_frames2(
+std::string read_frames2(
     filesystem::path frame_path,
     unordered_map<string, vector<anime_frame>>& res
 )
 {
     if(!filesystem::exists(frame_path)) {
-        return false;
+        return "";
     }
     if(!filesystem::is_directory(frame_path)) {
-        return false;
+        if(filesystem::is_regular_file(frame_path)) {
+            std::string name = frame_path.filename().stem();
+            res[name].emplace_back(frame_path);
+            return name;
+        }
+        return "";
     }
 
     for(const auto& entity :
@@ -53,7 +58,7 @@ bool read_frames2(
         }
         res[pre_idx][suf_idx] = Texture(entity.path());
     }
-    return !res.empty();
+    return "normal";
 }
 
 } // namespace demo
