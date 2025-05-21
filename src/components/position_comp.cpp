@@ -35,6 +35,6 @@ void PositionComp::update(Entity* entity)
 
     // FIXME: 后续分离出renderComp就替换
 #ifdef DEMO_DEBUG
-    entity->getScene()->getNativeWindow()->draw(m_hitbox);
+    entity->getScene()->draw(m_hitbox);
 #endif
 }

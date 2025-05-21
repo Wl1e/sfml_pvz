@@ -1,4 +1,10 @@
 {
+    /*
+    size; // 大小
+    piercing; // 灵体
+    speed; // 飞行速度
+    animation; // 动画
+    */
     "Pea": {
         // 大小
         "size": [

@@ -11,6 +11,10 @@ public:
     {
     }
 
+    void click() override
+    {
+    }
+
 protected:
     void _statusFunction()
     {

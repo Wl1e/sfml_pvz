@@ -10,7 +10,8 @@ using namespace sf;
 using namespace demo;
 
 void initBulletData(
-    string_view path, unordered_map<string, BulletSupport*>& res
+    string_view path,
+    unordered_map<string, std::unique_ptr<BulletSupport>>& res
 )
 {
     if(!filesystem::is_regular_file(path)) {
@@ -30,7 +31,8 @@ void initBulletData(
     for(auto it = root.begin(); it != root.end(); ++it) {
         const auto& key = it.name();
         const auto& value = *it;
-        auto data = new BulletSupport{
+
+        res[key] = make_unique<BulletSupport>(BulletSupport{
             SizeType(
                 value["size"][0].asFloat(),
                 value["size"][1].asFloat()
@@ -38,8 +40,7 @@ void initBulletData(
             value["piercing"].asBool(),
             value["speed"].asInt(),
             value["animation"].asString()
-        };
-        res[key] = data;
+        });
     }
 }
 

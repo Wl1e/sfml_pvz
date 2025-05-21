@@ -22,6 +22,7 @@ set(SOURCES
     src/entity/attack.cpp
     src/entity/bullet/bullet.cpp
     src/entity/bullet/factory.cpp
+    src/entity/plant/factory.cpp
     src/animation/event_handler.cpp
     src/animation/gamescene.cpp
     # src/game.cpp

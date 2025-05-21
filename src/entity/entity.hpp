@@ -85,6 +85,8 @@ public:
     // TODO: 可以根据需要新增beforeUpdate和afterUpdate
     void updade();
 
+    virtual void click() = 0;
+
 protected:
     // 子类重写函数，更新status时调用
     virtual void _statusFunction() = 0;

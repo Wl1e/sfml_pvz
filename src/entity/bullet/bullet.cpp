@@ -16,7 +16,10 @@ Bullet::Bullet(const BulletData& data) :
     );
     addComp<CompType::ANIMATION>(m_data.bulletData.animation);
     addComp<CompType::ATTACK>(
-        m_data.plantData.damage, sf::RectangleShape(), 0
+        m_data.plantData.damage,
+        0,
+        sf::RectangleShape(),
+        getComp<CompType::POSITION>()->getPos()
     );
     getComp<CompType::ATTACK>()->setAttackFunc(bulletAttackZombie);
 }

@@ -1,6 +1,11 @@
 #include <components/attack_comp.hpp>
 #include <components/hp_comp.hpp>
 #include <entity/entity.hpp>
+#include <entity/frame.hpp>
+
+#ifdef DEMO_DEBUG
+    #include <animation/gamescene.hpp>
+#endif
 
 using namespace std;
 using namespace sf;
@@ -10,9 +15,25 @@ static const int MIN_RANGE = -10;
 static const int MAX_RANGE = 1000;
 
 AttackComp::AttackComp(
-    int damage, const AttackRange& range, int cd
-) : m_damage(damage), m_range(range), m_cd(cd)
+    int damage,
+    Frame cd,
+    const AttackRange& range,
+    const PositionType& pos
+) :
+    m_damage(damage), m_range(range), m_ban_attack(false), m_cd(cd),
+    m_attackFrame(0)
 {
+    auto aRange = get_if<RectangleShape>(&m_range);
+    if(aRange) {
+        aRange->setPosition(pos);
+    }
+#ifdef DEMO_DEBUG
+    if(aRange) {
+        aRange->setFillColor(sf::Color::Transparent);
+        aRange->setOutlineColor(sf::Color::Red);
+        aRange->setOutlineThickness(1);
+    }
+#endif
     // if(m_range.x < MIN_RANGE) {
     //     m_range.x = MIN_RANGE;
     // }
@@ -23,18 +44,37 @@ AttackComp::AttackComp(
 
 void AttackComp::update(Entity* entity)
 {
-    m_attack(entity);
+#ifdef DEMO_DEBUG
+    if(auto range = get_if<RectangleShape>(&m_range)) {
+        entity->getScene()->draw(*range);
+    }
+#endif
+    if(!_validAttack()) {
+        return;
+    }
+    _attack(entity);
 }
 
-// bool AttackComp::_validAttack(Entity* entity)
-// {
-//     return entity->getScene()->getEnemys(entity) != nullptr;
-// }
+bool AttackComp::_validAttack()
+{
+    if(m_ban_attack) {
+        return false;
+    }
+    Frame nowFrame = FrameManager::getInstance().getFrame();
+    if(nowFrame - m_attackFrame >= m_cd) {
+        m_attackFrame = nowFrame;
+        return true;
+    }
+    return false;
+}
 
-// void AttackComp::attack(std::vector<Entity*>* enemys)
-// {
-//     // m_attack(enemys);
-// }
+void AttackComp::_attack(Entity* entity)
+{
+    if(!m_attack) {
+        return;
+    }
+    m_attack(entity);
+}
 
 // 被重复调用，计算可能导致性能下降，合并到下方函数可以提速，但是会导致但函数体量过大
 bool AttackComp::_inAttackRange(Entity* entity)

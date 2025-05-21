@@ -7,6 +7,7 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/System/Vector2.hpp>
 
+#include <base/tools.hpp>
 #include <components/component.hpp>
 
 namespace demo {
@@ -24,18 +25,24 @@ using AttackFunction = std::function<void(Entity*)>;
 class AttackComp : public Component
 {
 public:
+    // 还需要传攻击范围的位置，有点丑陋
     explicit AttackComp(
-        int damage, const AttackRange& range, int cd
+        int damage,
+        Frame cd,
+        const AttackRange& range,
+        const PositionType& pos
     );
     ~AttackComp() = default;
 
     void update(Entity*) override;
-    // void attack(Entity*);
-    // void attack(std::vector<Entity*>*);
 
     void setAttackFunc(AttackFunction func)
     {
         m_attack = std::move(func);
+    }
+    void setBanAttack(bool value)
+    {
+        m_ban_attack = value;
     }
     // 为了通用
     // attackComp可能属于plant、zombie、bullet,分别得获取不同类型的敌人
@@ -49,7 +56,8 @@ public:
 
 private:
     bool _inAttackRange(Entity*);
-    // bool _validAttack(Entity*);
+    bool _validAttack();
+    void _attack(Entity*);
 
 private:
     int m_damage;
@@ -58,8 +66,11 @@ private:
     // 三线是上中下
     // 毁灭菇、寒冰菇是一个圆
     // 估计还得封装一个类 ?? 直接用sf::shape或许可以?
-    AttackRange m_range; // 包括身后判定，比如倭瓜
-    int m_cd;
+    AttackRange m_range;
+    bool m_ban_attack;
+
+    Frame m_cd;
+    Frame m_attackFrame;
 
     AttackFunction m_attack;
 };

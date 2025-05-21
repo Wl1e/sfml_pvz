@@ -39,7 +39,7 @@ void EventHandler::OnMouseButtonReleased(
 )
 {
     if(event.button == pressed_button) {
-        if(event.position != pressed_pos) {
+        if((event.position - pressed_pos).lengthSquared() > 10) {
             return;
         }
         scene->click(event.position);

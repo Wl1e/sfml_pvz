@@ -191,30 +191,30 @@ void GameScene::_delBullet(Bullet* bullet)
 
 void GameScene::click(const sf::Vector2i& pos)
 {
-    cout << "clicked\n";
+    PositionType clickPos = PositionType(pos);
     Entity* target = nullptr;
     for(auto tool : m_bullets) {
         if(!tool->hasComp(CompType::POSITION)) {
             continue;
         }
-        if(!tool->getComp<CompType::POSITION>()->clicked(
-               PositionType(pos)
-           )) {
+        if(!tool->getComp<CompType::POSITION>()->clicked(clickPos)) {
             continue;
         }
         target = tool;
         break;
     }
     // try plants or zombies?
-    // ...
+    if(!target) {
+        auto plant = getPlantByAxis(pos2axis(clickPos));
+        if(plant->hasComp(CompType::POSITION),
+           plant->getComp<CompType::POSITION>()->clicked(clickPos)) {
+            target = plant;
+        }
+    }
 
     if(!target) {
         return;
     }
 
-    if(target->hasComp(CompType::MOVEMENT)) {
-        target->getComp<CompType::MOVEMENT>()->setDir(
-            Direction::DIR::STOP
-        );
-    }
+    target->click();
 }

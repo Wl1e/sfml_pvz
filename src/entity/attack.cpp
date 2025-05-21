@@ -19,6 +19,7 @@ namespace demo {
 // 想了下，攻击函数里自己获取敌人，然后攻击，全有attackComp完成会更繁琐（不同实体获取的敌人类型、数量都不同）
 void plantAttackZombie(Entity* entity)
 {
+    printf("attack\n");
     auto plant = dynamic_cast<Plant*>(entity);
     auto attackComp = plant->getComp<CompType::ATTACK>();
     auto posCmp = plant->getComp<CompType::POSITION>();
@@ -37,13 +38,18 @@ void plantAttackZombie(Entity* entity)
     }
     // FIXME
     // update animation
-    BulletFactory::getFactory()->create(
+    auto bullet = BulletFactory::getFactory()->create(
         "Pea",
         {attackComp->getDamage(),
          posCmp->getPos(),
          Direction::DIR::RIGHT,
          1000}
     );
+    if(!bullet) {
+        printf("plantAttackZombie: create bullet error\n");
+        return;
+    }
+    entity->getScene()->addBullet(bullet);
 }
 
 void zombieAttackPlant(Entity* entity)

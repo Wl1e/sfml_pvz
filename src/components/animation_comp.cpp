@@ -62,8 +62,7 @@ void AnimationComp::update(Entity* entity)
 {
     updateAnimation();
     updatePos(entity);
-    // FIXME
-    entity->getScene()->getNativeWindow()->draw(*m_sprite);
+    entity->getScene()->draw(*m_sprite);
 }
 
 void AnimationComp::updateAnimation()

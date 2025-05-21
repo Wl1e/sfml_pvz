@@ -72,6 +72,11 @@ public:
 
     bool isOpen() const;
 
+    void draw(sf::Drawable& object)
+    {
+        m_window->draw(object);
+    }
+
 private:
     void _initUI();
     bool _assertInThread() const;

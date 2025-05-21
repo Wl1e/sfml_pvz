@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <unordered_map>
 
 #include <entity/bullet/bullet.hpp>
@@ -12,7 +13,7 @@ public:
     ~BulletFactory() = default;
 
     // FIXME: 后续参考component改成枚举
-    Bullet* create(const std::string& type, PlantSupport data)
+    Bullet* create(const std::string& type, const PlantSupport& data)
     {
         if(m_data.find(type) == m_data.end()) {
             return nullptr;
@@ -30,7 +31,8 @@ private:
     BulletFactory();
 
 private:
-    std::unordered_map<std::string, BulletSupport*> m_data;
+    std::unordered_map<std::string, std::unique_ptr<BulletSupport>>
+        m_data;
 };
 
 } // namespace demo

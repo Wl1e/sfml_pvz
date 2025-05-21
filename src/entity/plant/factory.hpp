@@ -1,5 +1,7 @@
 #include <entity/plant/plant.hpp>
 
+#include <memory>
+
 namespace demo {
 
 class PlantFactory
@@ -7,7 +9,7 @@ class PlantFactory
 public:
     ~PlantFactory() = default;
 
-    Plant* create(std::string_view name);
+    Plant* create(const std::string& name, const sf::Vector2i& pos);
 
     static PlantFactory* getFactory()
     {
@@ -19,7 +21,8 @@ private:
     PlantFactory();
 
 private:
-    std::unordered_map<std::string, PlantData*> m_data;
+    std::unordered_map<std::string, std::unique_ptr<PlantData>>
+        m_data;
 };
 
 } // namespace demo

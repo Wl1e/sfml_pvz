@@ -10,7 +10,8 @@ using namespace sf;
 using namespace demo;
 
 void initPlantData(
-    string_view path, unordered_map<string, PlantData*>& res
+    string_view path,
+    unordered_map<string, std::unique_ptr<PlantData>>& res
 )
 {
     if(!filesystem::is_regular_file(path)) {
@@ -40,17 +41,32 @@ void initPlantData(
         } else if(range_type == "Circle") {
             range = CircleShape(value["range"]["data"].asFloat());
         }
-        auto data = new PlantData{
+        res[key] = make_unique<PlantData>(PlantData{
             value["HP"].asInt(),
             value["CD"].asInt(),
             value["damage"].asInt(),
             std::move(range),
-            value["animation"].asString()
-        };
-        res[key] = data;
+            value["animation"].asString(),
+            SizeType(
+                value["size"][0].asFloat(),
+                value["size"][1].asFloat()
+            )
+        });
     }
 }
 
 PlantFactory::PlantFactory()
 {
+    initPlantData(
+        "/home/wlle/code/demo/sfml2/json/plant.json", m_data
+    );
+}
+
+Plant* PlantFactory::create(const string& name, const Vector2i& pos)
+{
+    if(m_data.find(name) == m_data.end()) {
+        return nullptr;
+    }
+
+    return new Plant(*m_data[name], pos);
 }

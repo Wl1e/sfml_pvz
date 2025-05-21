@@ -17,6 +17,10 @@ public:
         addComp<CompType::ANIMATION>(resource_path);
     }
 
+    void click() override
+    {
+    }
+
 protected:
     void _statusFunction() override
     {
