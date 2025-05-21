@@ -17,7 +17,7 @@ void Entity::updade()
     }
 }
 
-const sf::Vector2i& demo::getEntityPosition(Entity* entity)
+PositionType demo::getEntityPosition(Entity* entity)
 {
     if(!entity->hasComp(CompType::POSITION)) {
         throw "dont have position";
@@ -37,7 +37,7 @@ bool demo::entityOverlay(Entity* entity1, Entity* entity2)
     // FIXME: type2cls<CompType::POSITION>::type 重复过多
     auto posComp1 = entity1->getComp<CompType::POSITION>();
     auto posComp2 = entity2->getComp<CompType::POSITION>();
-    return overlay(*posComp1, *posComp2);
+    return posComp1->intersection(*posComp2);
 }
 
 bool demo::isPlant(Entity* entity)

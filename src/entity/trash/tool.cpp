@@ -1,4 +1,4 @@
-#include <entity/tool.h>
+#include <entity/too.h>
 
 using namespace std;
 using namespace sf;

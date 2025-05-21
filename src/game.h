@@ -2,8 +2,8 @@
 
 #include <vector>
 
-#include <animation/gamescene.h>
-#include <base/tools.h>
+#include <animation/gamescene.hpp>
+#include <base/tools.hpp>
 
 namespace demo {
 

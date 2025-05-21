@@ -51,9 +51,9 @@ public:
     void update(Entity*) override;
     void updateAnimationStatus(std::string_view status);
 
-    void setSize(const sf::Vector2u& size)
+    void setSize(const sf::Vector2f& size)
     {
-        auto scale = sf::Vector2f(size).componentWiseDiv(
+        auto scale = size.componentWiseDiv(
             sf::Vector2f(m_sprite->getTexture().getSize())
         );
         m_sprite->setScale(scale);

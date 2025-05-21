@@ -1,5 +1,5 @@
 #!/bin/bash
-g++ src/base/tools.hpp \
+g++ src/base/tools.hpppp \
     src/draw/drawable.cpp \
     src/animation/animation.cpp \
     src/animation/gamescene.cpp \

@@ -27,7 +27,7 @@ public:
     {
     }
 
-    void setDir(const sf::Vector2i& dir)
+    void setDir(const sf::Vector2f& dir)
     {
         m_dir = dir.normalized();
     }
@@ -36,15 +36,15 @@ public:
         m_dir = Direction::mask[static_cast<int>(dir)];
     }
 
-    const sf::Vector2i& getOffset() const
+    const sf::Vector2f& getOffset() const
     {
         return m_dir;
     }
 
 private:
-    sf::Vector2i m_dir;
+    sf::Vector2f m_dir;
 
-    static sf::Vector2i mask[];
+    static sf::Vector2f mask[];
 };
 
 } // namespace demo

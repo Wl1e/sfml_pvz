@@ -9,8 +9,8 @@ class Background : public Entity
 public:
     explicit Background(
         std::string_view resource_path,
-        const sf::Vector2i& pos,
-        const sf::Vector2u& size
+        const PositionType& pos,
+        const SizeType& size
     )
     {
         addComp<CompType::POSITION>(pos, size);

@@ -1,6 +1,6 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 
-#include <animation/gamescene.h>
+#include <animation/gamescene.hpp>
 #include <components/animation_comp.hpp>
 #include <components/position_comp.hpp>
 #include <entity/entity.hpp>

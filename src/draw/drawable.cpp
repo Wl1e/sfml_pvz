@@ -1,7 +1,7 @@
+#include <animation/gamescene.hpp>
+#include <draw/drawable.h>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Texture.hpp>
-#include <animation/gamescene.h>
-#include <draw/drawable.h>
 #include <unordered_map>
 #include <unordered_set>
 

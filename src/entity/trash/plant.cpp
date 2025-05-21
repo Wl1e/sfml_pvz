@@ -1,4 +1,4 @@
-#include <animation/gamescene.h>
+#include <animation/gamescene.hpp>
 #include <entity/bullet.h>
 #include <entity/plant.h>
 #include <game.h>

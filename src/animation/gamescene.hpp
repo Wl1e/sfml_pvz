@@ -28,7 +28,6 @@ public:
     ~GameScene();
 
     void run();
-    void update(sf::Event event);
     void update();
     void setBackGround(std::string_view path);
 
@@ -69,18 +68,18 @@ public:
         return m_zombies;
     }
 
+    void click(const sf::Vector2i& pos);
+
     bool isOpen() const;
-    void close();
 
 private:
     void _initUI();
     bool _assertInThread() const;
+    void _handleEvent();
 
     void _delPlant(Plant* plant);
     void _delZombie(Zombie* zombie);
     void _delBullet(Bullet* bullet);
-
-    bool _checkClose(const sf::Event& event);
 
     void _updateBackground();
     void _updatePlants();
@@ -95,6 +94,7 @@ private:
     std::unordered_set<Bullet*> m_bullets;
     std::vector<std::vector<Plant*>> m_plants;
     std::vector<std::vector<Zombie*>> m_zombies;
+    std::unordered_set<Tool*> m_tools;
 
     std::vector<sceneHandler> m_handler;
     // 需要一个eventHandler来处理外部输入

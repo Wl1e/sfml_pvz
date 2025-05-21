@@ -1,30 +1,32 @@
 #include <iostream>
 #include <thread>
 
-#include <animation/gamescene.h>
-#include <base/tools.h>
+#include <animation/event_handler.hpp>
+#include <animation/gamescene.hpp>
+#include <base/tools.hpp>
 #include <defines.h>
 #include <entity/attack.hpp>
 #include <entity/background.hpp>
 #include <entity/bullet/bullet.hpp>
 #include <entity/frame.hpp>
 #include <entity/plant/plant.hpp>
+#include <entity/tool/tool.hpp>
 #include <entity/zombie/zombie.hpp>
 
 using namespace std;
 using namespace sf;
 using namespace demo;
 
-bool defaultCloseFunc(const Event& event)
-{
-    if(event.is<Event::KeyPressed>()) {
-        auto keyPressedEvent = event.getIf<Event::KeyPressed>();
-        if(keyPressedEvent->code == Keyboard::Key::Escape) {
-            return true;
-        }
-    }
-    return false;
-}
+// bool defaultCloseFunc(const Event::Closed& event)
+// {
+//     if(event.is<Event::KeyPressed>()) {
+//         auto keyPressedEvent = event.getIf<Event::KeyPressed>();
+//         if(keyPressedEvent->code == Keyboard::Key::Escape) {
+//             return true;
+//         }
+//     }
+//     return false;
+// }
 
 GameScene::GameScene() :
     m_window(new sf::RenderWindow(
@@ -44,24 +46,6 @@ GameScene::~GameScene()
 bool GameScene::_assertInThread() const
 {
     return m_thread_id == this_thread::get_id();
-}
-
-// FIXME: 两个update过于重复
-void GameScene::update(Event event)
-{
-    if(!_assertInThread()) {
-        return;
-    }
-
-    for(auto& func : m_handler) {
-        func(this);
-    }
-    m_handler.clear();
-
-    _updateBackground();
-    _updateBullets();
-    _updatePlants();
-    _updateZombies();
 }
 
 void GameScene::update()
@@ -115,23 +99,37 @@ void GameScene::_updateBullets()
     }
 }
 
+void GameScene::_handleEvent()
+{
+    m_window->handleEvents(
+        bind(
+            &EventHandler::OnKeyPressed, m_window, placeholders::_1
+        ),
+        bind(&EventHandler::OnClosed, m_window, placeholders::_1),
+        bind(
+            &EventHandler::OnMouseButtonPressed,
+            this,
+            placeholders::_1
+        ),
+        bind(
+            &EventHandler::OnMouseButtonReleased,
+            this,
+            placeholders::_1
+        )
+    );
+}
+
 void GameScene::run()
 {
     optional<Event> event;
     while(m_window->isOpen()) {
 
         FrameManager::getInstance().update();
-        cout << "frame: " << FrameManager::getInstance().getFrame()
-             << '\n';
+        // cout << "frame: " <<
+        // FrameManager::getInstance().getFrame()
+        //      << '\n';
 
-        if(event = m_window->pollEvent(), event.has_value()) {
-            cout << "click\n";
-            if(_checkClose(event.value())) {
-                m_handler.push_back([](GameScene* scene) {
-                    scene->close();
-                });
-            }
-        }
+        _handleEvent();
 
         m_window->clear();
         update();
@@ -151,24 +149,23 @@ bool GameScene::isOpen() const
 
 void GameScene::setBackGround(std::string_view path)
 {
-    m_background =
-        new Background(path, Vector2i(0, 0), m_window->getSize());
+    m_background = new Background(
+        path, PositionType(0, 0), SizeType(m_window->getSize())
+    );
     m_background->setScene(this);
 }
 
 void GameScene::addPlant(Plant* plant)
 {
     plant->setScene(this);
-    auto& plantPos = getEntityPosition(plant);
-    auto axis_pos = pos2axis(plantPos);
+    auto axis_pos = pos2axis(getEntityPosition(plant));
     m_plants[axis_pos.y][axis_pos.x] = plant;
 }
 
 void GameScene::addZombie(Zombie* zombie)
 {
     zombie->setScene(this);
-    auto& zombiePos = getEntityPosition(zombie);
-    m_zombies[getPath(zombiePos)].push_back(zombie);
+    m_zombies[getPath(getEntityPosition(zombie))].push_back(zombie);
 }
 void GameScene::addBullet(Bullet* bullet)
 {
@@ -192,18 +189,32 @@ void GameScene::_delBullet(Bullet* bullet)
     // m_bullets.erase(bullet);
 }
 
-bool GameScene::_checkClose(const Event& event)
+void GameScene::click(const sf::Vector2i& pos)
 {
-    if(event.is<Event::KeyPressed>()) {
-        if(event.getIf<Event::KeyPressed>()->code
-           == Keyboard::Key::Escape) {
-            return true;
+    cout << "clicked\n";
+    Entity* target = nullptr;
+    for(auto tool : m_bullets) {
+        if(!tool->hasComp(CompType::POSITION)) {
+            continue;
         }
+        if(!tool->getComp<CompType::POSITION>()->clicked(
+               PositionType(pos)
+           )) {
+            continue;
+        }
+        target = tool;
+        break;
     }
-    return false;
-}
+    // try plants or zombies?
+    // ...
 
-void GameScene::close()
-{
-    m_window->close();
+    if(!target) {
+        return;
+    }
+
+    if(target->hasComp(CompType::MOVEMENT)) {
+        target->getComp<CompType::MOVEMENT>()->setDir(
+            Direction::DIR::STOP
+        );
+    }
 }

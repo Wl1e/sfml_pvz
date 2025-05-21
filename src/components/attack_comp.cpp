@@ -43,7 +43,7 @@ bool AttackComp::_inAttackRange(Entity* entity)
         return false;
     }
     // FIXME: 换成centerPos
-    auto& pos = entity->getComp<CompType::POSITION>()->getPos();
+    auto pos = entity->getComp<CompType::POSITION>()->getPos();
 
     if(auto range = get_if<CircleShape>(&m_range); range) {
         const float radius = range->getRadius();

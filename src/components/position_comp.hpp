@@ -2,37 +2,45 @@
 
 #include <SFML/System/Vector2.hpp>
 
-#include <base/tools.h>
+#include <base/tools.hpp>
 #include <components/component.hpp>
 #include <entity/entity.hpp>
 
 namespace demo {
 
+// 兼顾position和hitbox
 class PositionComp : public Component
 {
 public:
     explicit PositionComp(
-        const sf::Vector2i& pos,
-        const sf::Vector2u& size = {0, 0},
+        const PositionType& pos,
+        const SizeType& size = {0.0f, 0.0f},
         bool ignoreCollision = false
     ) :
-        m_position(pos), m_size(size),
-        m_ignoreCollision(ignoreCollision)
+        m_ignoreCollision(ignoreCollision),
+        m_hitbox(sf::RectangleShape(size))
     {
+        m_hitbox.setPosition(pos);
+#ifdef DEMO_DEBUG
+        m_hitbox.setFillColor(sf::Color::Transparent);
+        m_hitbox.setOutlineColor(sf::Color::White);
+        m_hitbox.setOutlineThickness(1);
+#endif
     }
     ~PositionComp() = default;
 
-    const sf::Vector2i& getPos() const
+    // 要不然position和size都改成Vector2f得了
+    PositionType getPos() const
     {
-        return m_position;
+        return m_hitbox.getPosition();
     }
-    const sf::Vector2u& getSize() const
+    SizeType getSize() const
     {
-        return m_size;
+        return m_hitbox.getSize();
     }
     sf::Vector2i getAxisPos() const
     {
-        return axis2pos(getPos());
+        return pos2axis(getPos());
     }
     // sf::Vector2i getCenterPos()
     // {
@@ -44,26 +52,34 @@ public:
     }
 
     void update(Entity* entity) override;
-    void move(const sf::Vector2i& move)
+    void move(const sf::Vector2f& move)
     {
-        m_position += move;
+        m_hitbox.move(move);
     }
     void setIgnoreCollision(bool ignoreCollision)
     {
         m_ignoreCollision = ignoreCollision;
     }
 
-private:
-    void updateCollision(Entity*);
-    void updateMove(Entity*);
+    bool intersection(const PositionComp& pos)
+    {
+        if(m_ignoreCollision || pos.m_ignoreCollision) {
+            return false;
+        }
+        return m_hitbox.getGlobalBounds()
+            .findIntersection(pos.m_hitbox.getGlobalBounds())
+            .has_value();
+    }
+    bool clicked(const PositionType& clickPos)
+    {
+        return m_hitbox.getGlobalBounds().contains(clickPos);
+    }
 
 private:
-    sf::Vector2i m_position;
-    sf::Vector2u m_size; // 暂时将size放在position内
-
     bool m_ignoreCollision;
+    sf::RectangleShape m_hitbox;
 };
 
-bool overlay(const PositionComp&, const PositionComp&);
+// bool overlay(const PositionComp&, const PositionComp&);
 
 } // namespace demo

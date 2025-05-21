@@ -9,17 +9,16 @@ struct PlantData
     int HP;
     int CD;
     int damage;
-    int range;
+    AttackRange range;
+    std::string animation;
 };
 
 class Plant : public Entity
 {
 public:
-    explicit Plant() : Entity(EntityType::PLANT)
+    explicit Plant(const PlantData& data) : Entity(EntityType::PLANT)
     {
     }
 };
-
-Plant* createPlant(const PlantData& data);
 
 } // namespace demo

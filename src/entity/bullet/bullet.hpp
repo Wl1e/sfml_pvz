@@ -12,13 +12,13 @@ namespace demo {
 struct PlantSupport
 {
     int damage; // 伤害
-    sf::Vector2i start; // 起始位置
+    PositionType start; // 起始位置
     Direction dir; // 飞行方向
     int length; // 飞行距离
 };
 struct BulletSupport
 {
-    sf::Vector2u size; // 大小
+    SizeType size; // 大小
     bool piercing; // 灵体
     int speed; // 飞行速度
     std::string animation; // 动画
@@ -27,8 +27,8 @@ struct BulletSupport
 struct BulletData
 {
     BulletData() = delete;
-    PlantSupport plantData;
     BulletSupport bulletData;
+    PlantSupport plantData;
 };
 
 class Bullet : public Entity

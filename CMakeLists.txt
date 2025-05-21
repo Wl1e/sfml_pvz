@@ -21,6 +21,8 @@ set(SOURCES
     # src/entity/zombie/zombie.cpp
     src/entity/attack.cpp
     src/entity/bullet/bullet.cpp
+    src/entity/bullet/factory.cpp
+    src/animation/event_handler.cpp
     src/animation/gamescene.cpp
     # src/game.cpp
     src/demo.cpp
@@ -36,3 +38,6 @@ target_include_directories(${PROJECT_NAME} PRIVATE src/)
 # Link libraries (e.g., SFML)
 # find_package(SFML 2.5 COMPONENTS system window graphics REQUIRED)
 target_link_libraries(${PROJECT_NAME} sfml-system sfml-window sfml-graphics)
+target_link_libraries(${PROJECT_NAME} jsoncpp)
+
+target_compile_definitions(${PROJECT_NAME} PRIVATE DEMO_DEBUG)

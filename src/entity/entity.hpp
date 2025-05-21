@@ -25,7 +25,9 @@ enum class EntityStatus
     Normal,
     Attack,
     Destroying,
-    Destroyed
+    Destroyed,
+
+    Clicked,
 };
 
 class Entity
@@ -99,7 +101,7 @@ bool isPlant(Entity*);
 bool isZombie(Entity*);
 bool isBullet(Entity*);
 
-const sf::Vector2i& getEntityPosition(Entity*);
+PositionType getEntityPosition(Entity*);
 
 bool entityOverlay(Entity* entity1, Entity* entity2);
 

@@ -1,4 +1,4 @@
-#include <animation/gamescene.h>
+#include <animation/gamescene.hpp>
 #include <components/attack_comp.hpp>
 #include <entity/attack.hpp>
 #include <entity/bullet/factory.hpp>
@@ -20,36 +20,43 @@ namespace demo {
 void plantAttackZombie(Entity* entity)
 {
     auto plant = dynamic_cast<Plant*>(entity);
-    auto AttackComp = plant->getComp<CompType::ATTACK>();
+    auto attackComp = plant->getComp<CompType::ATTACK>();
+    auto posCmp = plant->getComp<CompType::POSITION>();
     // 只支持同一行的僵尸检测，三线和毁灭菇用不了
-    auto& enemys = plant->getScene()->getZombiesByPath(
-        getPath(plant->getComp<CompType::POSITION>()->getPos())
-    );
+    auto& enemys =
+        plant->getScene()->getZombiesByPath(getPath(posCmp->getPos())
+        );
     if(enemys.empty()) {
         return;
     }
     // 性能消耗、性能消耗、性能消耗、性能消耗、性能消耗、性能消耗、性能消耗
     auto targets =
-        AttackComp->getEnemyInRange({enemys.begin(), enemys.end()});
+        attackComp->getEnemyInRange({enemys.begin(), enemys.end()});
     if(targets.empty()) {
         return;
     }
     // FIXME
     // update animation
-    BulletFactory::getFactory()->create("Pea");
+    BulletFactory::getFactory()->create(
+        "Pea",
+        {attackComp->getDamage(),
+         posCmp->getPos(),
+         Direction::DIR::RIGHT,
+         1000}
+    );
 }
 
 void zombieAttackPlant(Entity* entity)
 {
     auto zombie = dynamic_cast<Zombie*>(entity);
-    auto AttackComp = zombie->getComp<CompType::ATTACK>();
+    auto attackComp = zombie->getComp<CompType::ATTACK>();
     auto enemys = zombie->getScene()->getPlantByAxis(
         pos2axis(zombie->getComp<CompType::POSITION>()->getPos())
     );
     if(!enemys) {
         return;
     }
-    auto targets = AttackComp->getEnemyInRange({enemys});
+    auto targets = attackComp->getEnemyInRange({enemys});
     if(targets.empty()) {
         return;
     }
@@ -62,7 +69,7 @@ void zombieAttackPlant(Entity* entity)
         zombie->getComp<CompType::ANIMATION>()
             ->updateAnimationStatus("attack");
     }
-    enemy->getComp<CompType::HP>()->downHP(AttackComp->getDamage());
+    enemy->getComp<CompType::HP>()->downHP(attackComp->getDamage());
 }
 void bulletAttackPlant(Bullet* bullet)
 {
@@ -70,7 +77,7 @@ void bulletAttackPlant(Bullet* bullet)
 void bulletAttackZombie(Entity* entity)
 {
     auto bullet = dynamic_cast<Bullet*>(entity);
-    auto AttackComp = bullet->getComp<CompType::ATTACK>();
+    auto attackComp = bullet->getComp<CompType::ATTACK>();
     auto& enemys = bullet->getScene()->getZombiesByPath(
         getPath(bullet->getComp<CompType::POSITION>()->getPos())
     );
@@ -85,7 +92,7 @@ void bulletAttackZombie(Entity* entity)
         }
         if(entityOverlay(bullet, enemy)) {
             enemy->getComp<CompType::HP>()->downHP(
-                AttackComp->getDamage()
+                attackComp->getDamage()
             );
             if(!bullet->isPiercing()) {
                 bullet->updateStatus(EntityStatus::Destroying);

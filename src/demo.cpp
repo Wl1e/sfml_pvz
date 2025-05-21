@@ -2,7 +2,7 @@
 #include <iostream>
 
 #include <base/direction.hpp>
-#include <entity/bullet/bullet.hpp>
+#include <entity/bullet/factory.hpp>
 #include <entity/plant/plant.hpp>
 #include <entity/zombie/zombie.hpp>
 #include <game.h>
@@ -19,23 +19,23 @@ void test_simple_tool()
     );
     game.setFrame(144);
 
-    auto bullet = new Bullet(
+    auto bullet = BulletFactory::getFactory()->create(
+        "Pea",
         {100,
-         sf::Vector2i(100, 100),
+         PositionType(100, 100),
          Direction(Direction::DIR::RIGHT),
-         10000,
-
-         sf::Vector2u(10, 10),
-         false,
-         1,
-         "/home/wlle/code/demo/sfml2/resource/sun"}
+         10000}
     );
+    if(!bullet) {
+        cout << "create bullet error\n";
+        return;
+    }
     game.scene()->addBullet(bullet);
 
     auto zombie = new Zombie;
     zombie->addComp<CompType::MOVEMENT>(Direction::DIR::STOP, 1);
     zombie->addComp<CompType::POSITION>(
-        Vector2i{700, 100}, Vector2u{10, 10}
+        PositionType{700, 100}, SizeType{10, 10}
     );
     zombie->addComp<CompType::ANIMATION>(
         "/home/wlle/code/demo/sfml2/resource/sun"

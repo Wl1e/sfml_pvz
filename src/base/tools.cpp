@@ -1,4 +1,4 @@
-#include <base/tools.h>
+#include <base/tools.hpp>
 #include <iostream>
 #include <SFML/System/Sleep.hpp>
 #include <SFML/System/Time.hpp>
@@ -52,7 +52,7 @@ void wait()
     last_update_time() = getNowTime();
 }
 
-int getPath(const sf::Vector2i& pos)
+int getPath(const PositionType& pos)
 {
     return (pos.y - grass_start_y) / grass_wide;
 }
@@ -62,16 +62,21 @@ int getLength(const sf::Vector2i& pos)
     return pos.x - grass_start_x;
 }
 
-sf::Vector2i pos2axis(const sf::Vector2i& pos)
+sf::Vector2i pos2axis(const sf::Vector2f& pos)
 {
-    return (pos - sf::Vector2i(grass_start_x, grass_start_y))
-        .componentWiseDiv({grass_length, grass_wide});
+
+    return sf::Vector2i(
+        (pos - sf::Vector2f(grass_start_x, grass_start_y))
+            .componentWiseDiv({grass_length, grass_wide})
+    );
 }
 
-sf::Vector2i axis2pos(const sf::Vector2i& axis)
+sf::Vector2f axis2pos(const sf::Vector2i& axis)
 {
-    return axis.componentWiseMul({grass_length, grass_wide})
-           + sf::Vector2i(grass_start_x, grass_start_y);
+    return sf::Vector2f(
+        axis.componentWiseMul({grass_length, grass_wide})
+        + sf::Vector2i(grass_start_x, grass_start_y)
+    );
 }
 
 } // namespace demo

@@ -43,16 +43,16 @@ public:
         m_dir = dir;
     }
 
-    sf::Vector2i getMoveValue()
+    sf::Vector2f getMoveValue()
     {
         return m_dir.getOffset() * m_speed;
     }
 
 private:
     Direction m_dir;
-    int m_speed;
+    float m_speed;
     int m_acceleration;
-    int m_max_speed;
+    float m_max_speed;
 };
 
 } // namespace demo

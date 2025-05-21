@@ -30,13 +30,17 @@ TimerPoint getNowTime();
 
 void wait();
 
-int getPath(const sf::Vector2i& pos);
+// 我是真不知道该用Vector2i、Vector2u还是Vector2f
+using PositionType = sf::Vector2f;
+using SizeType = sf::Vector2f;
 
-int getLength(const sf::Vector2i& pos);
+int getPath(const PositionType& pos);
 
-sf::Vector2i pos2axis(const sf::Vector2i& pos);
+int getLength(const PositionType& pos);
 
-sf::Vector2i axis2pos(const sf::Vector2i& axis);
+sf::Vector2i pos2axis(const sf::Vector2f& pos);
+
+sf::Vector2f axis2pos(const sf::Vector2i& axis);
 
 template<class srcT, class dstT>
 dstT* castTo(srcT* src)
