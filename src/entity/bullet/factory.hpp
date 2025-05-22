@@ -28,7 +28,7 @@ public:
     }
 
 private:
-    BulletFactory();
+    explicit BulletFactory();
 
 private:
     std::unordered_map<std::string, std::unique_ptr<BulletSupport>>

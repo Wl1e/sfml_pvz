@@ -1,0 +1,8 @@
+{
+    "normal": {
+        "HP": 100,
+        "speed": 7,
+        "damage": 20,
+        "animation": ""
+    }
+}

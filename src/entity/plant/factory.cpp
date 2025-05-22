@@ -50,7 +50,8 @@ void initPlantData(
             SizeType(
                 value["size"][0].asFloat(),
                 value["size"][1].asFloat()
-            )
+            ),
+            value["bullet_type"].asString()
         });
     }
 }

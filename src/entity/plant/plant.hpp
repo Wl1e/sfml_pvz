@@ -13,6 +13,7 @@ struct PlantData
     AttackRange range;
     std::string animation;
     SizeType size;
+    std::string bullet_type;
 };
 
 class Plant : public Entity
@@ -29,6 +30,9 @@ protected:
     void _statusFunction() override
     {
     }
+
+private:
+    std::string m_bullet_type;
 };
 
 } // namespace demo

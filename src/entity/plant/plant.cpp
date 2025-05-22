@@ -8,7 +8,7 @@ using namespace demo;
 static const PositionType PLANT_ATTACK_OFFSET{10, 0};
 
 Plant::Plant(const PlantData& data, const Vector2i& pos) :
-    Entity(EntityType::PLANT)
+    Entity(EntityType::PLANT), m_bullet_type(data.bullet_type)
 {
     addComp<CompType::POSITION>(PositionType(pos), data.size);
     addComp<CompType::HP>(data.HP);

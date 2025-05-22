@@ -4,10 +4,20 @@
 
 namespace demo {
 
+struct ZombieData
+{
+    int HP;
+    int speed;
+    int Damage;
+    std::string animation;
+    int path;
+};
+
 class Zombie : public Entity
 {
 public:
-    explicit Zombie() : Entity(EntityType::ZOMBIE)
+    explicit Zombie(const ZombieData&, int path) :
+        Entity(EntityType::ZOMBIE)
     {
     }
 

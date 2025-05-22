@@ -43,6 +43,8 @@ void plantAttackZombie(Entity* entity)
     plant->updateStatus(EntityStatus::Attack);
 
     // 子弹创建可以考虑加到updateStatus的更新回调里去
+    // FIXME: 做不到和动画同步，有些麻烦
+    // 要依赖动画组件吗?
     auto bullet = BulletFactory::getFactory()->create(
         "Pea", // FIXME: 应该从植物身上获取；或者加个映射表
         {attackComp->getDamage(),

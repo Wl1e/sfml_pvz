@@ -18,7 +18,7 @@ public:
     }
 
 private:
-    PlantFactory();
+    explicit PlantFactory();
 
 private:
     std::unordered_map<std::string, std::unique_ptr<PlantData>>
