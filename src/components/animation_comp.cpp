@@ -4,6 +4,7 @@
 #include <components/animation_comp.hpp>
 #include <components/position_comp.hpp>
 #include <entity/entity.hpp>
+#include <entity/frame.hpp>
 
 using namespace std;
 using namespace sf;
@@ -72,6 +73,12 @@ void AnimationComp::update(Entity* entity)
 
 void AnimationComp::updateAnimation()
 {
+    Frame now = FrameManager::getInstance().getFrame();
+    if(now - m_last_frame < m_interval) {
+        return;
+    }
+    m_last_frame = now;
+
     if(m_idx >= m_frames->at(m_status).size()) {
         m_idx = 0;
     }

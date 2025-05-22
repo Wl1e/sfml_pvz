@@ -33,7 +33,7 @@ public:
                 std::string,
                 std::vector<anime_frame>>>()
         ),
-        m_idx(0)
+        m_idx(0), m_last_frame(0), m_interval(1)
     {
         m_status = read_frames(resource_path, *m_frames);
         m_sprite = std::make_unique<sf::Sprite>(
@@ -52,6 +52,10 @@ public:
         );
         m_sprite->setScale(scale);
     }
+    void setUpdateInterval(int interval)
+    {
+        m_interval = interval;
+    }
 
 protected:
     void updateAnimation();
@@ -66,6 +70,9 @@ private:
         m_frames;
     std::string m_status;
     size_t m_idx;
+
+    int m_last_frame;
+    int m_interval;
 };
 
 } // namespace demo

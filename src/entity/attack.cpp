@@ -46,7 +46,7 @@ void plantAttackZombie(Entity* entity)
     auto bullet = BulletFactory::getFactory()->create(
         "Pea", // FIXME: 应该从植物身上获取；或者加个映射表
         {attackComp->getDamage(),
-         posCmp->getPos(),
+         posCmp->getPos() + PositionType(61, 5),
          Direction::DIR::RIGHT,
          1000}
     );

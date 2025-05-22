@@ -60,6 +60,10 @@ public:
     {
         m_ignoreCollision = ignoreCollision;
     }
+    const sf::RectangleShape& getHitbox() const
+    {
+        return m_hitbox;
+    }
 
     bool intersection(const PositionComp& pos)
     {

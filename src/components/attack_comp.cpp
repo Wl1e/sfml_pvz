@@ -90,18 +90,19 @@ bool AttackComp::_inAttackRange(Entity* entity)
         return false;
     }
     // FIXME: 换成centerPos
-    auto pos = entity->getComp<CompType::POSITION>()->getPos();
+    auto posComp = entity->getComp<CompType::POSITION>();
 
     if(auto range = get_if<CircleShape>(&m_range); range) {
-        const float radius = range->getRadius();
-        const Vector2f center =
-            range->getPosition() + sf::Vector2f(radius, radius);
-        auto vector = center - Vector2f(pos);
-        return vector.lengthSquared() <= radius;
+        return range->getGlobalBounds()
+            .findIntersection(posComp->getHitbox().getGlobalBounds())
+            .has_value();
 
     } else if(auto range = get_if<RectangleShape>(&m_range); range) {
         // 不涉及range旋转
-        return range->getGlobalBounds().contains(Vector2f(pos));
+        // 有些粗糙了
+        return range->getGlobalBounds()
+            .findIntersection(posComp->getHitbox().getGlobalBounds())
+            .has_value();
     }
     return false;
 }

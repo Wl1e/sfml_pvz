@@ -20,4 +20,5 @@ Plant::Plant(const PlantData& data, const Vector2i& pos) :
         getComp<CompType::POSITION>()->getPos() + PLANT_ATTACK_OFFSET
     );
     getComp<CompType::ATTACK>()->setAttackFunc(plantAttackZombie);
+    getComp<CompType::ANIMATION>()->setUpdateInterval(6);
 }
