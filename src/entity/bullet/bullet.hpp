@@ -42,10 +42,6 @@ public:
         return m_data.bulletData.piercing;
     }
 
-    void click() override
-    {
-    }
-
 protected:
     void _statusFunction() override;
 

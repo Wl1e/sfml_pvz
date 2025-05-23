@@ -4,14 +4,12 @@
 
 namespace demo {
 
+// class HandTool;
+
 class Tool : public Entity
 {
 public:
     explicit Tool() : Entity(EntityType::TOOL)
-    {
-    }
-
-    void click() override
     {
     }
 
@@ -20,5 +18,19 @@ protected:
     {
     }
 };
+
+// class HandTool : public Tool
+// {
+// public:
+//     virtual void use(const sf::Vector2i& pos) = 0;
+//     HandTool* createHand(const sf::Vector2i& pos) override
+//     {
+//     }
+
+// protected:
+//     void _statusFunction()
+//     {
+//     }
+// };
 
 } // namespace demo

@@ -38,9 +38,9 @@ int getPath(const PositionType& pos);
 
 int getLength(const PositionType& pos);
 
-sf::Vector2i pos2axis(const sf::Vector2f& pos);
+sf::Vector2i pos2axis(const PositionType& pos);
 
-sf::Vector2f axis2pos(const sf::Vector2i& axis);
+PositionType axis2pos(const sf::Vector2i& axis);
 
 template<class srcT, class dstT>
 dstT* castTo(srcT* src)

@@ -42,6 +42,10 @@ public:
     {
         return pos2axis(getPos());
     }
+    const sf::RectangleShape& getHitbox() const
+    {
+        return m_hitbox;
+    }
     // sf::Vector2i getCenterPos()
     // {
     //     return getPos() + (getSize() / 2);
@@ -60,9 +64,9 @@ public:
     {
         m_ignoreCollision = ignoreCollision;
     }
-    const sf::RectangleShape& getHitbox() const
+    void setPosition(const PositionType& pos)
     {
-        return m_hitbox;
+        m_hitbox.setPosition(pos);
     }
 
     bool intersection(const PositionComp& pos)

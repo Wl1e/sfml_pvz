@@ -1,17 +1,37 @@
-#include <entity/entity.hpp>
+#include <entity/tool/tool.hpp>
+
+#include <animation/gamescene.hpp>
 
 namespace demo {
 
-class spade : public Entity
+// class SpadeHandler : public HandTool
+// {
+// public:
+//     SpadeHandler() = default;
+//     ~SpadeHandler() = default;
+
+//     void use(const sf::Vector2i& pos)
+//     {
+//         getScene()->delPlant(pos2axis(PositionType(pos)));
+//     }
+
+// protected:
+//     void _statusFunction() override;
+// };
+
+class Spade : public Tool
 {
-    spade() : Entity(EntityType::TOOL)
+    Spade() = default;
+    ~Spade() = default;
+
+    void click(const sf::Vector2i& pos) override
     {
     }
 
-    void use();
-
 protected:
-    void _statusFunction() override;
+    void _statusFunction() override
+    {
+    }
 };
 
 } // namespace demo

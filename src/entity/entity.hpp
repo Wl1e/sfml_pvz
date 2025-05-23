@@ -80,15 +80,17 @@ public:
     {
         return m_status;
     }
-    bool hasComp(CompType type)
+    bool hasComp(CompType type) const
     {
-        return m_component.count(type) != 0;
+        return m_component.find(type) != m_component.end();
     }
 
     // TODO: 可以根据需要新增beforeUpdate和afterUpdate
     void updade();
 
-    virtual void click() = 0;
+    virtual void click(const sf::Vector2i& pos)
+    {
+    }
 
 protected:
     // 子类重写函数，更新status时调用

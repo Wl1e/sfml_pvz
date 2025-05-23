@@ -73,6 +73,10 @@ public:
     {
         return m_zombies;
     }
+    Tool* getHand() const
+    {
+        return m_hand;
+    }
 
     void click(const sf::Vector2i& pos);
 
@@ -108,7 +112,8 @@ private:
     std::unordered_set<Tool*> m_tools;
 
     std::vector<sceneHandler> m_handler;
-    // 需要一个eventHandler来处理外部输入
+
+    Tool* m_hand;
 };
 
 } // namespace demo

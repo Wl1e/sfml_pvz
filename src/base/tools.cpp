@@ -62,18 +62,18 @@ int getLength(const sf::Vector2i& pos)
     return pos.x - grass_start_x;
 }
 
-sf::Vector2i pos2axis(const sf::Vector2f& pos)
+sf::Vector2i pos2axis(const PositionType& pos)
 {
 
     return sf::Vector2i(
-        (pos - sf::Vector2f(grass_start_x, grass_start_y))
+        (pos - PositionType(grass_start_x, grass_start_y))
             .componentWiseDiv({grass_length, grass_wide})
     );
 }
 
-sf::Vector2f axis2pos(const sf::Vector2i& axis)
+PositionType axis2pos(const sf::Vector2i& axis)
 {
-    return sf::Vector2f(
+    return PositionType(
         axis.componentWiseMul({grass_length, grass_wide})
         + sf::Vector2i(grass_start_x, grass_start_y)
     );

@@ -1,5 +1,7 @@
 #include <animation/event_handler.hpp>
 #include <animation/gamescene.hpp>
+#include <components/position_comp.hpp>
+#include <entity/tool/tool.hpp>
 
 using namespace std;
 using namespace sf;
@@ -44,4 +46,21 @@ void EventHandler::OnMouseButtonReleased(
         }
         scene->click(event.position);
     }
+}
+
+void EventHandler::OnMounseMove(
+    GameScene* scene, const sf::Event::MouseMoved& event
+)
+{
+    auto hand = scene->getHand();
+    if(!hand) {
+        return;
+    }
+
+    if(!hand->hasComp(CompType::POSITION)) {
+        return;
+    }
+    hand->getComp<CompType::POSITION>()->setPosition(
+        PositionType(event.position)
+    );
 }

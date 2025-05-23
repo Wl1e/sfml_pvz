@@ -191,35 +191,33 @@ void GameScene::_delBullet(Bullet* bullet)
 
 void GameScene::click(const sf::Vector2i& pos)
 {
+    if(m_hand) {
+        m_hand->click(pos);
+        m_hand = nullptr;
+        return;
+    }
     PositionType clickPos = PositionType(pos);
-    Entity* target = nullptr;
-    for(auto tool : m_bullets) {
+    for(auto tool : m_tools) {
         if(!tool->hasComp(CompType::POSITION)) {
             continue;
         }
         if(!tool->getComp<CompType::POSITION>()->clicked(clickPos)) {
             continue;
         }
-        target = tool;
+        m_hand = tool;
         break;
     }
 
     // try plants or zombies?
-    if(!target) {
-        auto plant = getPlantByAxis(pos2axis(clickPos));
-        if(plant && plant->hasComp(CompType::POSITION)
-           && plant->getComp<CompType::POSITION>()->clicked(
-               clickPos
-           )) {
-            target = plant;
-        }
-    }
-
-    if(!target) {
-        return;
-    }
-
-    target->click();
+    // if(!target) {
+    //     auto plant = getPlantByAxis(pos2axis(clickPos));
+    //     if(plant && plant->hasComp(CompType::POSITION)
+    //        && plant->getComp<CompType::POSITION>()->clicked(
+    //            clickPos
+    //        )) {
+    //         target = plant;
+    //     }
+    // }
 }
 
 void GameScene::delPlant(const sf::Vector2i& pos_axis)

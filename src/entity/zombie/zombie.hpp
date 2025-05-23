@@ -21,11 +21,6 @@ public:
     {
     }
 
-    // 比如锤僵尸小游戏
-    void click() override
-    {
-    }
-
 protected:
     void _statusFunction()
     {

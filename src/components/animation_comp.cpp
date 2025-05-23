@@ -82,7 +82,7 @@ void AnimationComp::updateAnimation()
     if(m_idx >= m_frames->at(m_status).size()) {
         m_idx = 0;
     }
-    m_sprite->setTexture(m_frames->at(m_status)[m_idx++]);
+    m_sprite->setTexture(m_frames->at(m_status)[m_idx++], true);
 }
 void AnimationComp::updateAnimationStatus(string_view status)
 {

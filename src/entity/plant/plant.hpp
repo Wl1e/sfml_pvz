@@ -21,11 +21,6 @@ class Plant : public Entity
 public:
     explicit Plant(const PlantData& data, const sf::Vector2i& pos);
 
-    // 比如玉米加农炮
-    void click() override
-    {
-    }
-
 protected:
     void _statusFunction() override
     {
