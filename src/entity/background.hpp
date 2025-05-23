@@ -18,10 +18,6 @@ public:
         getComp<CompType::ANIMATION>()->setSize(size);
     }
 
-    void click() override
-    {
-    }
-
 protected:
     void _statusFunction() override
     {

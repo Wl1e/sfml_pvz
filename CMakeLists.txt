@@ -12,22 +12,26 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(SOURCES
     src/base/tools.cpp
     src/base/direction.cpp
+
     src/components/movement_comp.cpp
     src/components/position_comp.cpp
     src/components/animation_comp.cpp
     src/components/attack_comp.cpp
+
     src/entity/entity.cpp
-    src/entity/plant/plant.cpp
-    # src/entity/zombie/zombie.cpp
     src/entity/attack.cpp
+    src/entity/plant/plant.cpp
+    src/entity/zombie/zombie.cpp
     src/entity/bullet/bullet.cpp
+
     src/entity/bullet/factory.cpp
     src/entity/plant/factory.cpp
+    src/entity/zombie/factory.cpp
+
     src/animation/event_handler.cpp
     src/animation/gamescene.cpp
-    # src/game.cpp
+    
     src/demo.cpp
-    # Add other source files here
 )
 
 # Add executable target

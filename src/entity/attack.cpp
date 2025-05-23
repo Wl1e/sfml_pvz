@@ -27,6 +27,7 @@ void plantAttackZombie(Entity* entity)
     assert(plant->hasComp(CompType::POSITION));
     auto attackComp = plant->getComp<CompType::ATTACK>();
     auto posCmp = plant->getComp<CompType::POSITION>();
+    printf("plant path: %d\n", getPath(posCmp->getPos()));
     // 只支持同一行的僵尸检测，三线和毁灭菇用不了
     auto& enemys =
         plant->getScene()->getZombiesByPath(getPath(posCmp->getPos())
@@ -38,6 +39,7 @@ void plantAttackZombie(Entity* entity)
     auto targets =
         attackComp->getEnemyInRange({enemys.begin(), enemys.end()});
     if(targets.empty()) {
+        plant->updateStatus(EntityStatus::Normal);
         return;
     }
     plant->updateStatus(EntityStatus::Attack);
@@ -46,16 +48,18 @@ void plantAttackZombie(Entity* entity)
     // FIXME: 做不到和动画同步，有些麻烦
     // 要依赖动画组件吗?
     auto bullet = BulletFactory::getFactory()->create(
-        "Pea", // FIXME: 应该从植物身上获取；或者加个映射表
+        plant->getBulletType(),
         {attackComp->getDamage(),
          posCmp->getPos() + PositionType(61, 5),
          Direction::DIR::RIGHT,
          1000}
     );
+    printf("attack\n");
     if(!bullet) {
         printf("plantAttackZombie: create bullet error\n");
         return;
     }
+    printf("attack2\n");
     entity->getScene()->addBullet(bullet);
 }
 

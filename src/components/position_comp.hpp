@@ -14,7 +14,7 @@ class PositionComp : public Component
 public:
     explicit PositionComp(
         const PositionType& pos,
-        const SizeType& size = {0.0f, 0.0f},
+        const SizeType& size,
         bool ignoreCollision = false
     ) :
         m_ignoreCollision(ignoreCollision),

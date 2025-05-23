@@ -50,3 +50,14 @@ BulletFactory::BulletFactory()
         "/home/wlle/code/demo/sfml2/json/bullet.json", m_data
     );
 }
+
+// FIXME: 后续参考component改成枚举
+Bullet* BulletFactory::create(
+    const std::string& type, const PlantSupport& data
+)
+{
+    if(m_data.find(type) == m_data.end()) {
+        return nullptr;
+    }
+    return new Bullet(BulletData{*m_data[type], data});
+}

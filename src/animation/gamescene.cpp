@@ -30,10 +30,12 @@ using namespace demo;
 
 GameScene::GameScene() :
     m_window(new sf::RenderWindow(
-        VideoMode({1280, 720}), "game", State::Windowed
+        VideoMode({WINDOW_LENGTH, WINDOW_WIDE}),
+        "game",
+        State::Windowed
     )),
     m_background(nullptr), m_thread_id(this_thread::get_id()),
-    m_plants(6, vector<Plant*>(9, nullptr)),
+    m_plants(GRASS_PATH, vector<Plant*>(GRASS_COUNT, nullptr)),
     m_zombies(6, vector<Zombie*>())
 {
     m_window->setKeyRepeatEnabled(false);
@@ -165,7 +167,11 @@ void GameScene::addPlant(Plant* plant)
 void GameScene::addZombie(Zombie* zombie)
 {
     zombie->setScene(this);
-    m_zombies[getPath(getEntityPosition(zombie))].push_back(zombie);
+    auto path = getPath(getEntityPosition(zombie));
+    if(path >= GRASS_PATH) {
+        return;
+    }
+    m_zombies[path].push_back(zombie);
 }
 void GameScene::addBullet(Bullet* bullet)
 {

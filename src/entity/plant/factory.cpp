@@ -42,9 +42,9 @@ void initPlantData(
             range = CircleShape(value["range"]["data"].asFloat());
         }
         res[key] = make_unique<PlantData>(PlantData{
-            value["HP"].asInt(),
+            value["HP"].asFloat(),
             value["CD"].asInt(),
-            value["damage"].asInt(),
+            value["damage"].asFloat(),
             std::move(range),
             value["animation"].asString(),
             SizeType(

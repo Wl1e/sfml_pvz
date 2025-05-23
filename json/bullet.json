@@ -14,7 +14,7 @@
         // 灵体
         "piercing": false,
         // 飞行速度
-        "speed": 2.3,
+        "speed": 4,
         // 动画
         "animation": "/home/wlle/code/demo/sfml2/resource/bullet/Pea.png"
     }

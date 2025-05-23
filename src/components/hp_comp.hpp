@@ -7,15 +7,15 @@ namespace demo {
 class HPComp : public Component
 {
 public:
-    explicit HPComp(int hp) : m_HP(hp)
+    explicit HPComp(float hp) : m_HP(hp)
     {
     }
     ~HPComp() = default;
-    void downHP(int value)
+    void downHP(float value)
     {
         m_HP -= value;
     }
-    int getHP() const
+    float getHP() const
     {
         return m_HP;
     }
@@ -30,7 +30,7 @@ public:
     }
 
 private:
-    int m_HP;
+    float m_HP;
 };
 
 } // namespace demo

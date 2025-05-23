@@ -6,20 +6,17 @@ namespace demo {
 
 struct ZombieData
 {
-    int HP;
-    int speed;
-    int Damage;
+    float HP;
+    Direction dir;
+    float speed;
+    float damage;
     std::string animation;
-    int path;
 };
 
 class Zombie : public Entity
 {
 public:
-    explicit Zombie(const ZombieData&, int path) :
-        Entity(EntityType::ZOMBIE)
-    {
-    }
+    explicit Zombie(const ZombieData&, int);
 
 protected:
     void _statusFunction()

@@ -1,8 +1,9 @@
 {
     "normal": {
         "HP": 100,
-        "speed": 7,
+        "speed": 0,
         "damage": 20,
-        "animation": ""
+        "dir": "left",
+        "animation": "/home/wlle/code/demo/sfml2/resource/sun"
     }
 }

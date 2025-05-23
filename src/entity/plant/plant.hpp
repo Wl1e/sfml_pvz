@@ -7,9 +7,9 @@ namespace demo {
 
 struct PlantData
 {
-    int HP;
+    float HP;
     int CD;
-    int damage;
+    float damage;
     AttackRange range;
     std::string animation;
     SizeType size;
@@ -20,6 +20,11 @@ class Plant : public Entity
 {
 public:
     explicit Plant(const PlantData& data, const sf::Vector2i& pos);
+
+    const std::string& getBulletType() const
+    {
+        return m_bullet_type;
+    }
 
 protected:
     void _statusFunction() override

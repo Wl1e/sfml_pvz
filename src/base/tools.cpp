@@ -54,28 +54,28 @@ void wait()
 
 int getPath(const PositionType& pos)
 {
-    return (pos.y - grass_start_y) / grass_wide;
+    return (pos.y - GRASS_START_Y) / GRASS_WIDE;
 }
 
 int getLength(const sf::Vector2i& pos)
 {
-    return pos.x - grass_start_x;
+    return pos.x - GRASS_START_X;
 }
 
 sf::Vector2i pos2axis(const PositionType& pos)
 {
 
     return sf::Vector2i(
-        (pos - PositionType(grass_start_x, grass_start_y))
-            .componentWiseDiv({grass_length, grass_wide})
+        (pos - PositionType(GRASS_START_X, GRASS_START_Y))
+            .componentWiseDiv({GRASS_LENGTH, GRASS_WIDE})
     );
 }
 
 PositionType axis2pos(const sf::Vector2i& axis)
 {
     return PositionType(
-        axis.componentWiseMul({grass_length, grass_wide})
-        + sf::Vector2i(grass_start_x, grass_start_y)
+        axis.componentWiseMul({GRASS_LENGTH, GRASS_WIDE})
+        + sf::Vector2i(GRASS_START_X, GRASS_START_Y)
     );
 }
 

@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include <animation/event_handler.hpp>
 #include <animation/gamescene.hpp>
 #include <components/position_comp.hpp>
@@ -31,6 +33,7 @@ void EventHandler::OnMouseButtonPressed(
     GameScene* scene, const sf::Event::MouseButtonPressed& event
 )
 {
+    cout << event.position.x << ' ' << event.position.y << '\n';
     pressed_button = event.button;
     pressed_pos = event.position;
     // scene->click(pos);
