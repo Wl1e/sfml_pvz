@@ -12,6 +12,7 @@ struct PlantData
     float damage;
     AttackRange range;
     std::string animation;
+    int frame2animation;
     SizeType size;
     std::string bullet_type;
 };
@@ -27,9 +28,7 @@ public:
     }
 
 protected:
-    void _statusFunction() override
-    {
-    }
+    void _statusFunction() override;
 
 private:
     std::string m_bullet_type;

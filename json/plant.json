@@ -21,6 +21,7 @@
             ]
         },
         "animation": "/home/wlle/code/demo/sfml2/resource/plant/PeaShooter",
+        "frame2animation": 6,
         "size": [
             71,
             71

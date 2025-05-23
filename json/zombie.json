@@ -1,9 +1,18 @@
 {
     "normal": {
-        "HP": 100,
-        "speed": 0,
-        "damage": 20,
+        "HP": 10000,
+        "size": [
+            70,
+            120
+        ],
+        // move
+        "speed": 5,
         "dir": "left",
-        "animation": "/home/wlle/code/demo/sfml2/resource/sun"
+        // animation
+        "animation": "/home/wlle/code/demo/sfml2/resource/zombie/normal",
+        "frame2animation": 6,
+        // attack
+        "damage": 20,
+        "CD": 10
     }
 }

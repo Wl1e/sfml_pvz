@@ -10,6 +10,15 @@ using namespace demo;
 
 const Vector2i err_pos = {-1, -1};
 
+unordered_map<EntityStatus, string> animationStatus{
+    {EntityStatus::Normal, "normal"},
+    {EntityStatus::Attack, "attack"},
+    {EntityStatus::Died, "died"},
+    {EntityStatus::Destroying, "destroying"},
+    {EntityStatus::Destroyed, "destroyed"},
+    {EntityStatus::Clicked, "clicked"}
+};
+
 void Entity::updade()
 {
     // TODO: 后续将计算分离出去，只有animation才在主线程更新
@@ -20,9 +29,6 @@ void Entity::updade()
 
 void Entity::kill()
 {
-    if(hasComp(CompType::MOVEMENT)) {
-        getComp<CompType::MOVEMENT>()->setDir(Direction::DIR::STOP);
-    }
     getScene()->addHander([this](GameScene* scene) {
         scene->delEntity(this);
     });

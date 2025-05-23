@@ -7,10 +7,19 @@ namespace demo {
 struct ZombieData
 {
     float HP;
+    SizeType size;
+
+    // move
     Direction dir;
     float speed;
-    float damage;
+
+    // animation
     std::string animation;
+    int frame2animation;
+
+    // attack
+    float CD;
+    float damage;
 };
 
 class Zombie : public Entity
@@ -19,9 +28,7 @@ public:
     explicit Zombie(const ZombieData&, int);
 
 protected:
-    void _statusFunction()
-    {
-    }
+    void _statusFunction();
 };
 
 } // namespace demo

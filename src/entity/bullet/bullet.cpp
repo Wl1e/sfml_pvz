@@ -6,6 +6,7 @@ using namespace std;
 using namespace sf;
 using namespace demo;
 
+extern unordered_map<EntityStatus, string> animationStatus;
 static const PositionType BULLET_ATTACK_OFFSET{0, 0};
 
 Bullet::Bullet(const BulletData& data) :
@@ -47,24 +48,14 @@ void Bullet::afterAttack()
     }
 }
 
-unordered_map<EntityStatus, string> animationStatus{
-    {EntityStatus::Normal, "normal"},
-    {EntityStatus::Destroying, "destroying"},
-    {EntityStatus::Destroyed, "destroyed"}
-};
-
 void Bullet::_statusFunction()
 {
     auto status = getStatus();
 
     if(status == EntityStatus::Destroyed) {
-        if(hasComp(CompType::MOVEMENT)) {
-            getComp<CompType::MOVEMENT>()->setDir(
-                Direction::DIR::STOP
-            );
+        if(auto move = getComp<CompType::MOVEMENT>(); move) {
+            move->setDir(Direction::DIR::STOP);
         }
-        getScene()->addHander([this](GameScene* scene) {
-            scene->delBullet(this);
-        });
+        kill();
     }
 }

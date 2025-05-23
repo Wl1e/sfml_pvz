@@ -47,6 +47,7 @@ void initPlantData(
             value["damage"].asFloat(),
             std::move(range),
             value["animation"].asString(),
+            value["frame2animation"].asInt(),
             SizeType(
                 value["size"][0].asFloat(),
                 value["size"][1].asFloat()

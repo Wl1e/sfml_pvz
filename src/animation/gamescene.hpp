@@ -57,19 +57,19 @@ public:
     }
     Plant* getPlantByAxis(const sf::Vector2i& axis_pos)
     {
-        printf("%d %d\n", axis_pos.y, axis_pos.x);
-        if(axis_pos.y < 0 || axis_pos.y >= m_plants.size()
-           || axis_pos.x < 0
-           || axis_pos.x >= m_plants[axis_pos.y].size()) {
+        if(axis_pos.y < 0 || axis_pos.y >= GRASS_PATH
+           || axis_pos.x < 0 || axis_pos.x >= GRASS_COUNT) {
             return nullptr;
         }
         return m_plants[axis_pos.y][axis_pos.x];
     }
-    const std::vector<Zombie*>& getZombiesByPath(int path) const
+    const std::unordered_set<Zombie*>&
+    getZombiesByPath(int path) const
     {
         return m_zombies[path];
     }
-    const std::vector<std::vector<Zombie*>>& getAllzombies() const
+    const std::vector<std::unordered_set<Zombie*>>& getAllzombies(
+    ) const
     {
         return m_zombies;
     }
@@ -108,7 +108,7 @@ private:
 
     std::unordered_set<Bullet*> m_bullets;
     std::vector<std::vector<Plant*>> m_plants;
-    std::vector<std::vector<Zombie*>> m_zombies;
+    std::vector<std::unordered_set<Zombie*>> m_zombies;
     std::unordered_set<Tool*> m_tools;
 
     std::vector<sceneHandler> m_handler;

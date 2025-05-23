@@ -12,6 +12,12 @@ using namespace demo;
 
 namespace demo {
 
+static unordered_map<EntityType, Vector2i> ANIMATION_OFFSET{
+    {EntityType::PLANT, Vector2i(0, 0)},
+    {EntityType::ZOMBIE, Vector2i(-10, -10)},
+    {EntityType::BULLET, Vector2i(0, 0)},
+};
+
 std::string read_frames2(
     filesystem::path, unordered_map<string, vector<anime_frame>>&
 );
@@ -67,7 +73,17 @@ std::string read_frames2(
 void AnimationComp::update(Entity* entity)
 {
     updateAnimation();
-    updatePos(entity);
+    if(auto posComp = entity->getComp<CompType::POSITION>();
+       posComp) {
+        auto pos = posComp->getPos();
+        if(ANIMATION_OFFSET.find(entity->getType())
+           != ANIMATION_OFFSET.end()) {
+            pos += PositionType(ANIMATION_OFFSET[entity->getType()]);
+        }
+        updatePos(pos);
+        ;
+    };
+
     entity->getScene()->draw(*m_sprite);
 }
 
@@ -86,20 +102,14 @@ void AnimationComp::updateAnimation()
 }
 void AnimationComp::updateAnimationStatus(string_view status)
 {
-    if(!m_frames->count(status.data())) {
+    if(m_frames->find(status.data()) == m_frames->end()) {
         return;
     }
     m_status = status;
     m_idx = 0;
     updateAnimation();
 }
-void AnimationComp::updatePos(Entity* entity)
+void AnimationComp::updatePos(const PositionType& pos)
 {
-    if(!entity->hasComp(CompType::POSITION)) {
-        return;
-    }
-    auto posComp = entity->getComp<CompType::POSITION>();
-
-    auto p = castToComp<type2cls<CompType::POSITION>::type>(posComp);
-    m_sprite->setPosition(sf::Vector2f(p->getPos()));
+    m_sprite->setPosition(pos);
 }

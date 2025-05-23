@@ -24,10 +24,7 @@ public:
         return getHP() <= 0;
     }
 
-    void update(Entity*) override
-    {
-        // TODO: 更新实体状态
-    }
+    void update(Entity*) override;
 
 private:
     float m_HP;

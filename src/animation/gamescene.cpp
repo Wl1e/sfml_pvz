@@ -36,7 +36,7 @@ GameScene::GameScene() :
     )),
     m_background(nullptr), m_thread_id(this_thread::get_id()),
     m_plants(GRASS_PATH, vector<Plant*>(GRASS_COUNT, nullptr)),
-    m_zombies(6, vector<Zombie*>())
+    m_zombies(6, unordered_set<Zombie*>())
 {
     m_window->setKeyRepeatEnabled(false);
 }
@@ -171,7 +171,7 @@ void GameScene::addZombie(Zombie* zombie)
     if(path >= GRASS_PATH) {
         return;
     }
-    m_zombies[path].push_back(zombie);
+    m_zombies[path].insert(zombie);
 }
 void GameScene::addBullet(Bullet* bullet)
 {
@@ -188,11 +188,14 @@ void GameScene::_delPlant(Plant* plant)
 }
 void GameScene::_delZombie(Zombie* zombie)
 {
+    if(auto pos = zombie->getComp<CompType::POSITION>(); pos) {
+        m_zombies[getPath(pos->getPos())].erase(zombie);
+    }
 }
 void GameScene::_delBullet(Bullet* bullet)
 {
     // error
-    // m_bullets.erase(bullet);
+    m_bullets.erase(bullet);
 }
 
 void GameScene::click(const sf::Vector2i& pos)
@@ -239,6 +242,10 @@ void GameScene::delBullet(Bullet* bullet)
 }
 void GameScene::delZombie(Zombie* zombie)
 {
+    if(auto pos = zombie->getComp<CompType::POSITION>();
+       pos != nullptr) {
+        m_zombies[getPath(pos->getPos())].erase(zombie);
+    }
 }
 void GameScene::delEntity(Entity* entity)
 {

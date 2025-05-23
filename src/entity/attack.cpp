@@ -27,7 +27,6 @@ void plantAttackZombie(Entity* entity)
     assert(plant->hasComp(CompType::POSITION));
     auto attackComp = plant->getComp<CompType::ATTACK>();
     auto posCmp = plant->getComp<CompType::POSITION>();
-    printf("plant path: %d\n", getPath(posCmp->getPos()));
     // 只支持同一行的僵尸检测，三线和毁灭菇用不了
     auto& enemys =
         plant->getScene()->getZombiesByPath(getPath(posCmp->getPos())
@@ -54,17 +53,16 @@ void plantAttackZombie(Entity* entity)
          Direction::DIR::RIGHT,
          1000}
     );
-    printf("attack\n");
     if(!bullet) {
         printf("plantAttackZombie: create bullet error\n");
         return;
     }
-    printf("attack2\n");
     entity->getScene()->addBullet(bullet);
 }
 
 void zombieAttackPlant(Entity* entity)
 {
+    printf("here-1\n");
     auto zombie = dynamic_cast<Zombie*>(entity);
     assert(zombie->hasComp(CompType::ATTACK));
     assert(zombie->hasComp(CompType::POSITION));
@@ -75,20 +73,29 @@ void zombieAttackPlant(Entity* entity)
     if(!enemys) {
         return;
     }
+    printf("here\n");
     auto targets = attackComp->getEnemyInRange({enemys});
     if(targets.empty()) {
         return;
     }
-    auto enemy = targets.front();
-    if(!enemy->hasComp(CompType::HP)) {
+    printf("here2\n");
+    auto enemy = targets[0];
+    printf("here2-1\n");
+    if(!enemy || enemy->getStatus() == EntityStatus::Died) {
         return;
     }
-    // FIXME: update zombie status, not update animation
-    if(zombie->hasComp(CompType::ANIMATION)) {
-        zombie->getComp<CompType::ANIMATION>()
-            ->updateAnimationStatus("attack");
+    printf("here2-2\n");
+    auto hp = enemy->getComp<CompType::HP>();
+    printf("here2-3\n");
+    if(!hp || hp->isDied()) {
+        return;
     }
-    enemy->getComp<CompType::HP>()->downHP(attackComp->getDamage());
+    printf("here3\n");
+    // FIXME: update zombie status, not update animation
+    zombie->updateStatus(EntityStatus::Attack);
+    printf("here4\n");
+    hp->downHP(attackComp->getDamage());
+    printf("here5\n");
 }
 void bulletAttackPlant(Bullet* bullet)
 {

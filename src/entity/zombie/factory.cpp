@@ -42,10 +42,19 @@ void initPlantData(
         }
         res[key] = make_unique<ZombieData>(ZombieData{
             value["HP"].asFloat(),
+            SizeType(
+                value["size"][0].asFloat(),
+                value["size"][1].asFloat()
+            ),
+
             Direction(dir),
             value["speed"].asFloat(),
+
+            value["animation"].asString(),
+            value["frame2animation"].asInt(),
+
+            value["cd"].asFloat(),
             value["damage"].asFloat(),
-            value["animation"].asString()
         });
     }
 }

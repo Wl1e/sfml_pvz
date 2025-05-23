@@ -16,6 +16,7 @@
         // 飞行速度
         "speed": 4,
         // 动画
-        "animation": "/home/wlle/code/demo/sfml2/resource/bullet/Pea.png"
+        "animation": "/home/wlle/code/demo/sfml2/resource/bullet/Pea.png",
+        "frame2animation": 6
     }
 }

@@ -7,6 +7,7 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/System/Vector2.hpp>
 
+#include <base/tools.hpp>
 #include <components/component.hpp>
 
 namespace demo {
@@ -59,7 +60,7 @@ public:
 
 protected:
     void updateAnimation();
-    void updatePos(Entity*);
+    void updatePos(const PositionType&);
 
 private:
     std::unique_ptr<sf::Sprite> m_sprite;
