@@ -2,7 +2,6 @@
 
 #include <base/direction.hpp>
 #include <components/position_comp.hpp>
-#include <defines.h>
 
 namespace demo {
 

@@ -1,0 +1,23 @@
+#pragma once
+
+namespace demo {
+
+class UI_DEFINE
+{
+public:
+    static const uint WINDOW_LENGTH;
+    static const uint WINDOW_WIDE;
+
+    // 草地横向长度
+    static const int GRASS_LENGTH;
+    // 草地纵向长度
+    static const int GRASS_WIDE;
+
+    static const int GRASS_START_X;
+    static const int GRASS_START_Y;
+
+    static const int GRASS_PATH;
+    static const int GRASS_COUNT;
+};
+
+} // namespace demo

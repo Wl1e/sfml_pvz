@@ -1,0 +1,13 @@
+{
+    "window_length": 1280,
+    "window_wide": 720,
+    // 草地横向长度
+    "grass_length": 75,
+    // 草地纵向长度
+    "grass_wide": 90,
+    "road_wide": 10,
+    "grass_start_x": 234,
+    "grass_start_y": 100,
+    "grass_path": 5,
+    "grass_count": 9
+}

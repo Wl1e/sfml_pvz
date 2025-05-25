@@ -58,6 +58,7 @@ public:
 private:
     bool _inAttackRange(Entity*);
     bool _validAttack();
+    bool _checkCD();
     void _attack(Entity*);
 
     void _updateAttackRange(const sf::Vector2f& move);

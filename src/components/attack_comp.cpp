@@ -66,6 +66,14 @@ bool AttackComp::_validAttack()
     if(m_ban_attack) {
         return false;
     }
+    if(!_checkCD()) {
+        return false;
+    }
+    return true;
+}
+
+bool AttackComp::_checkCD()
+{
     // cd检查；也可以换成定时器的模式，cd时长的定时器，到点重置
     Frame nowFrame = FrameManager::getInstance().getFrame();
     if(nowFrame - m_attackFrame >= m_cd) {

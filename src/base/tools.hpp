@@ -6,7 +6,7 @@
 
 #include <SFML/System/Vector2.hpp>
 
-#include <defines.h>
+#include <defines.hpp>
 
 namespace demo {
 

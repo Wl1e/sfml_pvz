@@ -4,7 +4,6 @@
 #include <animation/event_handler.hpp>
 #include <animation/gamescene.hpp>
 #include <base/tools.hpp>
-#include <defines.h>
 #include <entity/attack.hpp>
 #include <entity/background.hpp>
 #include <entity/bullet/bullet.hpp>
@@ -12,6 +11,7 @@
 #include <entity/plant/plant.hpp>
 #include <entity/tool/tool.hpp>
 #include <entity/zombie/zombie.hpp>
+#include <UI/defines.hpp>
 
 using namespace std;
 using namespace sf;
@@ -30,12 +30,16 @@ using namespace demo;
 
 GameScene::GameScene() :
     m_window(new sf::RenderWindow(
-        VideoMode({WINDOW_LENGTH, WINDOW_WIDE}),
+        VideoMode({UI_DEFINE::WINDOW_LENGTH, UI_DEFINE::WINDOW_WIDE}
+        ),
         "game",
         State::Windowed
     )),
     m_background(nullptr), m_thread_id(this_thread::get_id()),
-    m_plants(GRASS_PATH, vector<Plant*>(GRASS_COUNT, nullptr)),
+    m_plants(
+        UI_DEFINE::GRASS_PATH,
+        vector<Plant*>(UI_DEFINE::GRASS_COUNT, nullptr)
+    ),
     m_zombies(6, unordered_set<Zombie*>())
 {
     m_window->setKeyRepeatEnabled(false);
@@ -168,7 +172,7 @@ void GameScene::addZombie(Zombie* zombie)
 {
     zombie->setScene(this);
     auto path = getPath(getEntityPosition(zombie));
-    if(path >= GRASS_PATH) {
+    if(path >= UI_DEFINE::GRASS_PATH) {
         return;
     }
     m_zombies[path].insert(zombie);
@@ -250,7 +254,9 @@ void GameScene::delZombie(Zombie* zombie)
 void GameScene::delEntity(Entity* entity)
 {
     if(isPlant(entity)) {
-        _delPlant(dynamic_cast<Plant*>(entity));
+        assert(entity->hasComp(CompType::POSITION));
+        delPlant(entity->getComp<CompType::POSITION>()->getAxisPos()
+        );
     } else if(isZombie(entity)) {
         _delZombie(dynamic_cast<Zombie*>(entity));
     } else if(isBullet(entity)) {
