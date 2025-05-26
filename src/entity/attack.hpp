@@ -17,9 +17,9 @@ class Bullet;
 // void PlantAttackFunc(AttackComp*, Entity*);
 // void ZombieAttackFunc(AttackComp*, Entity*);
 
-void plantAttackZombie(Entity*);
-void zombieAttackPlant(Entity*);
-void bulletAttackPlant(Entity*);
-void bulletAttackZombie(Entity*);
+void plantAttackZombie(Entity*, const std::vector<Entity*>&);
+void zombieAttackPlant(Entity*, const std::vector<Entity*>&);
+void bulletAttackPlant(Entity*, const std::vector<Entity*>&);
+void bulletAttackZombie(Entity*, const std::vector<Entity*>&);
 
 } // namespace demo

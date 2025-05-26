@@ -3,9 +3,7 @@
 #include <entity/entity.hpp>
 #include <entity/frame.hpp>
 
-#ifdef DEMO_DEBUG
-    #include <animation/gamescene.hpp>
-#endif
+#include <animation/gamescene.hpp>
 
 using namespace std;
 using namespace sf;
@@ -58,6 +56,16 @@ void AttackComp::update(Entity* entity)
     if(!_validAttack()) {
         return;
     }
+
+    auto enemys = getEnemyInRange(entity);
+    if(enemys.empty()) {
+        if(entity->getStatus() == EntityStatus::Attack) {
+            entity->updateStatus(EntityStatus::Normal);
+        }
+        return;
+    }
+    entity->updateStatus(EntityStatus::Attack);
+
     _attack(entity);
 }
 
@@ -115,10 +123,11 @@ bool AttackComp::_inAttackRange(Entity* entity)
     return false;
 }
 
-std::vector<Entity*>
-AttackComp::getEnemyInRange(const vector<Entity*>& enemys)
+std::vector<Entity*> AttackComp::getEnemyInRange(Entity* target)
 {
     std::vector<Entity*> res;
+
+    auto enemys = target->getScene()->getEnemys(target);
     for(auto enemy : enemys) {
         if(_inAttackRange(enemy)) {
             res.push_back(enemy);

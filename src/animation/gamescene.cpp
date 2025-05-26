@@ -265,3 +265,10 @@ void GameScene::delEntity(Entity* entity)
         // ...
     }
 }
+
+const vector<Entity*>& GameScene::getEnemys(Entity* entity)
+{
+    if(isPlant(entity)) {
+        return vector<Entity*>(getAllzombies());
+    }
+}
