@@ -266,9 +266,16 @@ void GameScene::delEntity(Entity* entity)
     }
 }
 
-const vector<Entity*>& GameScene::getEnemys(Entity* entity)
+vector<Entity*>
+GameScene::getEntityInRange(EntityType type, AttackRange* range)
 {
-    if(isPlant(entity)) {
-        return vector<Entity*>(getAllzombies());
+    vector<Entity*> res;
+    if(type == EntityType::PLANT) {
+        auto trueRange = get_if<RectangleShape>(range);
+        if(trueRange) {}
+    } else if(type == EntityType::BULLET) {
+
+    } else if(type == EntityType::ZOMBIE) {
     }
+    return res;
 }

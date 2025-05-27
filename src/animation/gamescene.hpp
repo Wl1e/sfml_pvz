@@ -73,7 +73,7 @@ public:
     {
         return m_zombies;
     }
-    const std::vector<Entity*>& getEnemys(Entity*);
+    std::vector<Entity*> getEntityInRange(EntityType, AttackRange*);
     Tool* getHand() const
     {
         return m_hand;

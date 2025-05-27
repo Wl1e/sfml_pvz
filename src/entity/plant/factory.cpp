@@ -35,8 +35,7 @@ void initPlantData(
         string range_type = value["range"]["type"].asString();
         if(range_type == "Rectangle") {
             range = RectangleShape(
-                {value["range"]["data"][0].asFloat(),
-                 value["range"]["data"][1].asFloat()}
+                {value["range"]["data"][0].asFloat(), 0}
             );
         } else if(range_type == "Circle") {
             range = CircleShape(value["range"]["data"].asFloat());

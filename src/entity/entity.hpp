@@ -39,7 +39,7 @@ public:
         m_type(type), m_status(EntityStatus::Normal)
     {
     }
-    ~Entity() = default;
+    virtual ~Entity() = 0;
 
     template<CompType cType, typename... Args>
     void addComp(Args&&... args)

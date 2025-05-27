@@ -6,6 +6,7 @@
 
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/VertexArray.hpp>
 #include <SFML/System/Vector2.hpp>
 
 #include <base/tools.hpp>
@@ -20,8 +21,9 @@ class AttackComp;
 
 // 再加一个ConvexShape?
 using AttackRange =
-    std::variant<sf::CircleShape, sf::RectangleShape, >;
-using AttackFunction = std::function<void(Entity*)>;
+    std::variant<sf::CircleShape, sf::RectangleShape>;
+using AttackFunction =
+    std::function<void(Entity*, const std::vector<Entity*>&)>;
 
 // 目前AttackComp包含的东西有些多了，可以考虑分割
 class AttackComp : public Component
@@ -59,7 +61,7 @@ private:
     bool _inAttackRange(Entity*);
     bool _validAttack();
     bool _checkCD();
-    void _attack(Entity*);
+    void _attack(Entity*, const std::vector<Entity*>&);
 
     void _updateAttackRange(const sf::Vector2f& move);
 

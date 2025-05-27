@@ -66,7 +66,7 @@ void AttackComp::update(Entity* entity)
     }
     entity->updateStatus(EntityStatus::Attack);
 
-    _attack(entity);
+    _attack(entity, enemys);
 }
 
 bool AttackComp::_validAttack()
@@ -91,12 +91,14 @@ bool AttackComp::_checkCD()
     return false;
 }
 
-void AttackComp::_attack(Entity* entity)
+void AttackComp::_attack(
+    Entity* entity, const std::vector<Entity*>& enemys
+)
 {
     if(!m_attack) {
         return;
     }
-    m_attack(entity);
+    m_attack(entity, enemys);
 }
 
 // 被重复调用，计算可能导致性能下降，合并到下方函数可以提速，但是会导致但函数体量过大
@@ -127,12 +129,12 @@ std::vector<Entity*> AttackComp::getEnemyInRange(Entity* target)
 {
     std::vector<Entity*> res;
 
-    auto enemys = target->getScene()->getEnemys(target);
-    for(auto enemy : enemys) {
-        if(_inAttackRange(enemy)) {
-            res.push_back(enemy);
-        }
-    }
+    // auto enemys = target->getScene()->getEnemys(target);
+    // for(auto enemy : enemys) {
+    //     if(_inAttackRange(enemy)) {
+    //         res.push_back(enemy);
+    //     }
+    // }
     return res;
 }
 

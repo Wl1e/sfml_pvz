@@ -21,7 +21,7 @@ namespace demo {
 
 // 几个函数重复度有些高
 void plantAttackZombie(
-    Entity* entity, const std::vector<Entity*>& targets
+    Entity* entity, const vector<Entity*>& targets
 )
 {
     auto plant = dynamic_cast<Plant*>(entity);
@@ -48,7 +48,7 @@ void plantAttackZombie(
 }
 
 void zombieAttackPlant(
-    Entity* entity, const std::vector<Entity*>& targets
+    Entity* entity, const vector<Entity*>& targets
 )
 {
     auto zombie = dynamic_cast<Zombie*>(entity);
@@ -78,12 +78,12 @@ void zombieAttackPlant(
 }
 
 void bulletAttackPlant(
-    Entity* entity, const std::vector<Entity*>& targets
+    Entity* entity, const vector<Entity*>& targets
 )
 {
 }
 void bulletAttackZombie(
-    Entity* entity, const std::vector<Entity*>& targets
+    Entity* entity, const vector<Entity*>& targets
 )
 {
     auto bullet = dynamic_cast<Bullet*>(entity);

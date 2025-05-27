@@ -16,8 +16,8 @@
         "range": {
             "type": "Rectangle",
             "data": [
-                1000,
-                50
+                0,
+                1000
             ]
         },
         "animation": "/home/wlle/code/demo/sfml2/resource/plant/PeaShooter",
