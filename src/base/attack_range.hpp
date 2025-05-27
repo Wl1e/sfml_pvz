@@ -7,34 +7,56 @@
 
 namespace demo {
 
+class GameScene;
+class Entity;
+
+sf::RectangleShape rs;
+void f()
+{
+}
+
 template<typename T>
-    requires sf::CircleShape<T>
 class AttackRange
 {
 public:
-    AttackRange()
+    AttackRange(T shape) : m_range(std::move(shape))
     {
+        static_assert(
+            std::is_same_v<T, sf::RectangleShape>
+                || std::is_same_v<T, sf::CircleShape>,
+            "range only supports Circle and Rectangle"
+        );
     }
     virtual ~AttackRange() = 0;
 
+    void updatePos(const sf::Vector2f& move_value)
+    {
+        m_range.move(move_value);
+    }
+
+    void display(GameScene*);
+    std::vector<Entity*> getEnemyInRange(Entity*);
+    const T& getAttackRange() const
+    {
+        returm m_range;
+    }
+    // FIXME
+    bool inRange(Entity* entity) const
+    {
+        _inRange(entity);
+    }
+
 protected:
-    void _updatePos(const sf::Vector2f& move_value);
     void _getPos() const
     {
     }
+    bool _inRange(Entity*) const;
 
 private:
     T m_range;
 };
 
-class LineRange : public AttackRange
-{
-public:
-    LineRange();
-    ~LineRange();
-
-private:
-    sf::RectangleShape m_range;
-};
+using RectangleAttackRange = AttackRange<sf::RectangleShape>;
+using CircleAttackRange = AttackRange<sf::CircleShape>;
 
 }; // namespace demo

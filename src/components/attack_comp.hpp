@@ -20,8 +20,8 @@ class AttackComp;
 // void defaultAttackFunc(Entity*);
 
 // 再加一个ConvexShape?
-using AttackRange =
-    std::variant<sf::CircleShape, sf::RectangleShape>;
+// using AttackRange =
+//     std::variant<sf::CircleShape, sf::RectangleShape>;
 using AttackFunction =
     std::function<void(Entity*, const std::vector<Entity*>&)>;
 
