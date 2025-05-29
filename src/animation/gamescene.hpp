@@ -108,6 +108,7 @@ private:
 
     std::unordered_set<Bullet*> m_bullets;
     std::vector<std::vector<Plant*>> m_plants;
+    // 我在纠结用vector还是unordered_set
     std::vector<std::vector<Zombie*>> m_zombies;
     std::unordered_set<Tool*> m_tools;
 

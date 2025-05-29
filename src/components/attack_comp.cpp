@@ -4,6 +4,7 @@
 #include <entity/frame.hpp>
 
 #include <animation/gamescene.hpp>
+#include <base/attack_range.hpp>
 
 using namespace std;
 using namespace sf;
@@ -13,25 +14,12 @@ static const int MIN_RANGE = -10;
 static const int MAX_RANGE = 1000;
 
 AttackComp::AttackComp(
-    int damage,
-    Frame cd,
-    const AttackRange& range,
-    const PositionType& pos
+    int damage, Frame cd, IBaseAttackRange* range
 ) :
-    m_damage(damage), m_range(range), m_ban_attack(false), m_cd(cd),
-    m_attackFrame(0)
+    m_damage(damage), m_range(make_unique<IBaseAttackRange>(range)),
+    m_ban_attack(false), m_cd(cd), m_attackFrame(0)
 {
-    auto aRange = get_if<RectangleShape>(&m_range);
-    if(aRange) {
-        aRange->setPosition(pos);
-    }
-#ifdef DEMO_DEBUG
-    if(aRange) {
-        aRange->setFillColor(sf::Color::Transparent);
-        aRange->setOutlineColor(sf::Color::Red);
-        aRange->setOutlineThickness(1);
-    }
-#endif
+
     // if(m_range.x < MIN_RANGE) {
     //     m_range.x = MIN_RANGE;
     // }

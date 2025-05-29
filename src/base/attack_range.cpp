@@ -1,3 +1,5 @@
+#include <cmath>
+
 #include <animation/gamescene.hpp>
 #include <base/attack_range.hpp>
 #include <entity/bullet/bullet.hpp>
@@ -21,6 +23,33 @@ void PlantGetEnemys(
     vector<Entity*>& res
 )
 {
+    // 杨桃、三线?
+    float degree = range.getRotationDegrees();
+    float int_degree;
+    float value = modf(degree, &int_degree);
+
+    vector<Zombie*> enemys;
+    // 纯直线（优化）
+    if(value == 0. && static_cast<int>(int_degree) % 180 == 0) {
+        enemys = entity->getScene()->getZombiesByPath(
+            getPath(range.getPosition())
+        );
+        for(auto enemy : enemys) {
+            if(range.inRange(enemy)) {
+                res.push_back(enemy);
+            }
+        }
+    } else {
+        // 另类攻击范围
+        auto all_zombies = entity->getScene()->getAllzombies();
+        for(auto entitys : all_zombies) {
+            for(auto enemy : entitys) {
+                if(range.inRange(enemy)) {
+                    res.push_back(enemy);
+                }
+            }
+        }
+    }
 }
 
 template<class T>
@@ -51,10 +80,8 @@ void zombieGetEnemys(
     }
 }
 
-template void zombieGetEnemys<RectangleShape>;
-
-std::vector<Entity*>
-AttackRange<RectangleShape>::getEnemyInRange(Entity* entity)
+template<class T>
+std::vector<Entity*> AttackRange<T>::getEnemyInRange(Entity* entity)
 {
     std::vector<Entity*> res;
 
@@ -63,24 +90,11 @@ AttackRange<RectangleShape>::getEnemyInRange(Entity* entity)
         // TODO: 一个格子可能有多个植物
         zombieGetEnemys(this, entity, res);
     } else if(isBullet(entity)) {
-        auto enemys =
-            scene->getZombiesByPath(getPath(m_range.getPosition()));
-        for(auto enemy : enemys) {
-            if(_inRange(enemy)) {
-                res.push_back(enemy);
-            }
-        }
-        return res;
+        bulletGetEnemys(this, entity, res);
     } else if(isPlant(entity)) {
-        // 杨桃、三线?
-        if(m_range.getRotation().asRadians() == 0) {
-            auto enemys =
-                scene->getZombiesByPath(getPath(m_range.getPosition()
-                ));
-            res.assign(enemys.begin(), enemys.end());
-        }
-        return res;
+        PlantGetEnemys(this, entity, res);
     }
+    return res;
 }
 
 bool AttackRange<RectangleShape>::_inRange(Entity* entity) const

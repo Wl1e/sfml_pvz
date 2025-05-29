@@ -15,7 +15,7 @@
 namespace demo {
 
 class Bullet;
-class AttackComp;
+class IBaseAttackRange;
 
 // void defaultAttackFunc(Entity*);
 
@@ -29,12 +29,9 @@ using AttackFunction =
 class AttackComp : public Component
 {
 public:
-    // 还需要传攻击范围的位置，有点丑陋
+    template<class T>
     explicit AttackComp(
-        int damage,
-        Frame cd,
-        const AttackRange& range,
-        const PositionType& pos
+        int damage, Frame cd, IBaseAttackRange* range
     );
     ~AttackComp() = default;
 
@@ -67,7 +64,7 @@ private:
 
 private:
     int m_damage;
-    AttackRange m_range;
+    std::unique_ptr<IBaseAttackRange> m_range;
     bool m_ban_attack;
 
     Frame m_cd;
