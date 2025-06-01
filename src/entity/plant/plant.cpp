@@ -1,3 +1,4 @@
+#include <base/attack_range.hpp>
 #include <entity/attack.hpp>
 #include <entity/plant/plant.hpp>
 
@@ -13,15 +14,14 @@ Plant::Plant(const PlantData& data, const Vector2i& pos) :
     Entity(EntityType::PLANT), m_bullet_type(data.bullet_type)
 {
     auto true_pos = axis2pos(pos2axis(PositionType(pos)));
+    addComp<CompType::ANIMATION>(data.animation);
+    auto animationSize =
+        getComp<CompType::ANIMATION>()->getAnimationSize();
+    true_pos -= PositionType(animationSize.componentWiseDiv({2, 1}));
     addComp<CompType::POSITION>(true_pos, data.size);
     addComp<CompType::HP>(data.HP);
-    addComp<CompType::ANIMATION>(data.animation);
-    addComp<CompType::ATTACK>(
-        data.damage,
-        data.CD,
-        data.range,
-        true_pos + PLANT_ATTACK_OFFSET
-    );
+
+    addComp<CompType::ATTACK>(data.damage, data.CD, data.range);
     getComp<CompType::ATTACK>()->setAttackFunc(plantAttackZombie);
     getComp<CompType::ANIMATION>()->setUpdateInterval(
         data.frame2animation

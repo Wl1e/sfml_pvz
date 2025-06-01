@@ -46,10 +46,15 @@ public:
     {
         return m_hitbox;
     }
-    // sf::Vector2i getCenterPos()
-    // {
-    //     return getPos() + (getSize() / 2);
-    // }
+    PositionType getCenterPos() const
+    {
+        return m_hitbox.getPosition() + m_hitbox.getSize() / 2.f;
+    }
+    PositionType getBottomPos() const
+    {
+        return m_hitbox.getPosition()
+               + m_hitbox.getSize().componentWiseDiv({2, 1});
+    }
     bool isIgnoreCollision() const
     {
         return m_ignoreCollision;

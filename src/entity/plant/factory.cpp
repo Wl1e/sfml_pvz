@@ -2,6 +2,7 @@
 #include <iostream>
 #include <json/json.h>
 
+#include <base/attack_range.hpp>
 #include <entity/plant/factory.hpp>
 #include <entity/plant/plant.hpp>
 
@@ -31,20 +32,29 @@ void initPlantData(
     for(auto it = root.begin(); it != root.end(); ++it) {
         const auto& key = it.name();
         const auto& value = *it;
-        AttackRange range;
+        AttackRange* range = nullptr;
         string range_type = value["range"]["type"].asString();
         if(range_type == "Rectangle") {
-            range = RectangleShape(
-                {value["range"]["data"][0].asFloat(), 0}
+            range = new AttackRange(
+                rangeType::Rectangle,
+                SizeType(
+                    0,
+                    value["range"]["data"][0].asFloat()
+                        + value["range"]["data"][1].asFloat()
+                )
             );
         } else if(range_type == "Circle") {
-            range = CircleShape(value["range"]["data"].asFloat());
+            range = new AttackRange(
+                rangeType::Circle,
+                SizeType(value["range"]["data"][0].asFloat(), 0)
+            );
         }
+
         res[key] = make_unique<PlantData>(PlantData{
             value["HP"].asFloat(),
             value["CD"].asInt(),
             value["damage"].asFloat(),
-            std::move(range),
+            std::move(*range),
             value["animation"].asString(),
             value["frame2animation"].asInt(),
             SizeType(

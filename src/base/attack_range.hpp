@@ -10,68 +10,82 @@ namespace demo {
 class GameScene;
 class Entity;
 
-class IBaseAttackRange
+// class IBaseAttackRange
+// {
+// public:
+//     virtual ~IBaseAttackRange() = default;
+//     virtual void updatePos(const sf::Vector2f&) = 0;
+//     virtual bool inRange(Entity*) const = 0;
+//     virtual void display(GameScene*) = 0;
+
+//     virtual std::vector<Entity*> getEnemyInRange(Entity*) = 0;
+
+//     virtual Shape* getShape() const = 0;
+
+//     virtual void setPosition(const PositionType& pos);
+// };
+
+enum class rangeType
 {
-public:
-    virtual ~IBaseAttackRange() = default;
-    virtual void updatePos(const sf::Vector2f& move_value) = 0;
-    virtual bool inRange(Entity* entity) const = 0;
-    virtual void display(GameScene*) = 0;
-
-    virtual std::vector<Entity*> getEnemyInRange(Entity*) = 0;
-    virtual float getRotationDegrees() const = 0;
-    virtual const PositionType& getPosition() const = 0;
-
-    virtual void setPosition(const PositionType& pos);
+    Rectangle = 0,
+    Circle
 };
 
-template<typename T>
-class AttackRange : public IBaseAttackRange
+class AttackRange
 {
 public:
-    AttackRange(T shape) : m_range(std::move(shape))
+    AttackRange(rangeType type, const SizeType& size) :
+        m_type(type), m_range(nullptr)
     {
-        static_assert(
-            std::is_same_v<T, sf::RectangleShape>
-                || std::is_same_v<T, sf::CircleShape>,
-            "range only supports Circle and Rectangle"
-        );
+        if(m_type == rangeType::Rectangle) {
+            m_range = new sf::RectangleShape(size);
+        } else if(m_type == rangeType::Circle) {
+            m_range = new sf::CircleShape(size.x);
+        } else {
+            // err
+        }
 
 #ifdef DEMO_DEBUG
-        m_range->setFillColor(sf::Color::Transparent);
-        m_range->setOutlineColor(sf::Color::Red);
-        m_range->setOutlineThickness(1);
+        if(m_range) {
+            m_range->setFillColor(sf::Color::Transparent);
+            m_range->setOutlineColor(sf::Color::Red);
+            m_range->setOutlineThickness(1);
+        }
 #endif
     }
-    virtual ~AttackRange() = default;
+    ~AttackRange() = default;
 
-    void updatePos(const sf::Vector2f& move_value) override
+    void updatePos(const sf::Vector2f& move_value)
     {
-        m_range.move(move_value);
+        m_range->move(move_value);
     }
-    void setPosition(const PositionType& pos) override
+    void setPosition(const PositionType& pos)
     {
-        m_range.setPosition(pos);
+        m_range->setPosition(pos);
     }
 
-    void display(GameScene*) override;
-    std::vector<Entity*> getEnemyInRange(Entity*) override;
-    const T& getAttackRange() const override
+    void display(GameScene*);
+    std::vector<Entity*> getEnemyInRange(Entity*);
+
+    sf::RectangleShape* getRectangleShape() const
     {
-        returm m_range;
+        if(m_type == rangeType::Rectangle) {
+            return static_cast<sf::RectangleShape*>(m_range);
+        }
+        return nullptr;
     }
-    float getRotationDegrees() const
+
+    const sf::CircleShape* getCircleShape() const
     {
-        m_range.getRotation().asDegrees();
-    }
-    const PositionType& getPosition() const
-    {
-        return m_range.getPosition();
+        if(m_type == rangeType::Circle) {
+            return static_cast<sf::CircleShape*>(m_range);
+        }
+        return nullptr;
     }
     // FIXME
-    bool inRange(Entity* entity) const override
+    bool inRange(Entity* entity) const
     {
-        _inRange(entity);
+        return _inRange(entity);
     }
 
 protected:
@@ -81,10 +95,8 @@ protected:
     bool _inRange(Entity*) const;
 
 private:
-    T m_range;
+    rangeType m_type;
+    Shape* m_range;
 };
-
-using RectangleAttackRange = AttackRange<sf::RectangleShape>;
-using CircleAttackRange = AttackRange<sf::CircleShape>;
 
 }; // namespace demo

@@ -15,7 +15,7 @@
 namespace demo {
 
 class Bullet;
-class IBaseAttackRange;
+class AttackRange;
 
 // void defaultAttackFunc(Entity*);
 
@@ -29,10 +29,7 @@ using AttackFunction =
 class AttackComp : public Component
 {
 public:
-    template<class T>
-    explicit AttackComp(
-        int damage, Frame cd, IBaseAttackRange* range
-    );
+    explicit AttackComp(int, Frame, AttackRange*);
     ~AttackComp() = default;
 
     void update(Entity*) override;
@@ -45,10 +42,7 @@ public:
     {
         m_ban_attack = value;
     }
-    // 为了通用
-    // attackComp可能属于plant、zombie、bullet,分别得获取不同类型的敌人
-    // 或许可以把这片逻辑分出去?
-    std::vector<Entity*> getEnemyInRange(Entity*);
+
     int getDamage() const
     {
         return m_damage;
@@ -60,11 +54,11 @@ private:
     bool _checkCD();
     void _attack(Entity*, const std::vector<Entity*>&);
 
-    void _updateAttackRange(const sf::Vector2f& move);
+    void _updateAttackRange(Entity*);
 
 private:
     int m_damage;
-    std::unique_ptr<IBaseAttackRange> m_range;
+    std::unique_ptr<AttackRange> m_range;
     bool m_ban_attack;
 
     Frame m_cd;

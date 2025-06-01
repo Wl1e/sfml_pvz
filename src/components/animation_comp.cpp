@@ -72,7 +72,7 @@ std::string read_frames2(
 
 void AnimationComp::update(Entity* entity)
 {
-    updateAnimation();
+    _updateAnimation();
     if(auto posComp = entity->getComp<CompType::POSITION>();
        posComp) {
         auto pos = posComp->getPos();
@@ -80,14 +80,14 @@ void AnimationComp::update(Entity* entity)
            != ANIMATION_OFFSET.end()) {
             pos += PositionType(ANIMATION_OFFSET[entity->getType()]);
         }
-        updatePos(pos);
+        _updatePos(pos);
         ;
     };
 
     entity->getScene()->draw(*m_sprite);
 }
 
-void AnimationComp::updateAnimation()
+void AnimationComp::_updateAnimation()
 {
     Frame now = FrameManager::getInstance().getFrame();
     if(now - m_last_frame < m_interval) {
@@ -107,9 +107,9 @@ void AnimationComp::updateAnimationStatus(string_view status)
     }
     m_status = status;
     m_idx = 0;
-    updateAnimation();
+    _updateAnimation();
 }
-void AnimationComp::updatePos(const PositionType& pos)
+void AnimationComp::_updatePos(const PositionType& pos)
 {
     m_sprite->setPosition(pos);
 }

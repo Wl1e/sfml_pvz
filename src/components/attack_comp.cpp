@@ -13,10 +13,8 @@ using namespace demo;
 static const int MIN_RANGE = -10;
 static const int MAX_RANGE = 1000;
 
-AttackComp::AttackComp(
-    int damage, Frame cd, IBaseAttackRange* range
-) :
-    m_damage(damage), m_range(make_unique<IBaseAttackRange>(range)),
+AttackComp::AttackComp(int damage, Frame cd, AttackRange* range) :
+    m_damage(damage), m_range(make_unique<AttackRange>(range)),
     m_ban_attack(false), m_cd(cd), m_attackFrame(0)
 {
 
@@ -30,22 +28,14 @@ AttackComp::AttackComp(
 
 void AttackComp::update(Entity* entity)
 {
-#ifdef DEMO_DEBUG
-    if(auto range = get_if<RectangleShape>(&m_range)) {
-        entity->getScene()->draw(*range);
-    }
-#endif
+
     // 和position分开更新有些奇怪，应该依赖position组件的
-    if(entity->hasComp(CompType::MOVEMENT)) {
-        _updateAttackRange(
-            entity->getComp<CompType::MOVEMENT>()->getMoveValue()
-        );
-    }
+
     if(!_validAttack()) {
         return;
     }
 
-    auto enemys = getEnemyInRange(entity);
+    auto enemys = m_range->getEnemyInRange(entity);
     if(enemys.empty()) {
         if(entity->getStatus() == EntityStatus::Attack) {
             entity->updateStatus(EntityStatus::Normal);
@@ -90,45 +80,26 @@ void AttackComp::_attack(
 }
 
 // 被重复调用，计算可能导致性能下降，合并到下方函数可以提速，但是会导致但函数体量过大
-bool AttackComp::_inAttackRange(Entity* entity)
+// bool AttackComp::_inAttackRange(Entity* entity)
+// {
+//     if(!entity->hasComp(CompType::POSITION)) {
+//         return false;
+//     }
+//     // FIXME: 换成centerPos
+//     auto posComp = entity->getComp<CompType::POSITION>();
+
+//     m_range->getShape();
+//     return false;
+// }
+
+void AttackComp::_updateAttackRange(Entity* entity)
 {
-    if(!entity->hasComp(CompType::POSITION)) {
-        return false;
+    if(auto movement = entity->getComp<CompType::MOVEMENT>();
+       movement) {
+        m_range->updatePos(movement->getMoveValue());
     }
-    // FIXME: 换成centerPos
-    auto posComp = entity->getComp<CompType::POSITION>();
 
-    if(auto range = get_if<CircleShape>(&m_range); range) {
-        return range->getGlobalBounds()
-            .findIntersection(posComp->getHitbox().getGlobalBounds())
-            .has_value();
-
-    } else if(auto range = get_if<RectangleShape>(&m_range); range) {
-        // 不涉及range旋转
-        // 有些粗糙了
-        return range->getGlobalBounds()
-            .findIntersection(posComp->getHitbox().getGlobalBounds())
-            .has_value();
-    }
-    return false;
-}
-
-std::vector<Entity*> AttackComp::getEnemyInRange(Entity* target)
-{
-    std::vector<Entity*> res;
-
-    // auto enemys = target->getScene()->getEnemys(target);
-    // for(auto enemy : enemys) {
-    //     if(_inAttackRange(enemy)) {
-    //         res.push_back(enemy);
-    //     }
-    // }
-    return res;
-}
-
-void AttackComp::_updateAttackRange(const Vector2f& move)
-{
-    if(auto range = get_if<RectangleShape>(&m_range); range) {
-        range->move(move);
-    }
+#ifdef DEMO_DEBUG
+    m_range->display(entity->getScene());
+#endif
 }

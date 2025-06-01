@@ -58,9 +58,14 @@ public:
         m_interval = interval;
     }
 
+    sf::Vector2u getAnimationSize() const
+    {
+        return m_sprite->getTexture().getSize();
+    }
+
 protected:
-    void updateAnimation();
-    void updatePos(const PositionType&);
+    void _updateAnimation();
+    void _updatePos(const PositionType&);
 
 private:
     std::unique_ptr<sf::Sprite> m_sprite;
