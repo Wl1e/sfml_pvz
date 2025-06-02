@@ -1,4 +1,5 @@
 #include <animation/gamescene.hpp>
+#include <base/attack_range.hpp>
 #include <entity/attack.hpp>
 #include <entity/bullet/bullet.hpp>
 
@@ -21,12 +22,14 @@ Bullet::Bullet(const BulletData& data) :
         m_data.plantData.length
     );
     addComp<CompType::ANIMATION>(m_data.bulletData.animation);
+    auto animationSize =
+        getComp<CompType::ANIMATION>()->getAnimationSize();
     addComp<CompType::ATTACK>(
         m_data.plantData.damage,
         0,
-        sf::RectangleShape(m_data.bulletData.size),
-        getComp<CompType::POSITION>()->getPos()
-            + BULLET_ATTACK_OFFSET
+        new AttackRange(
+            rangeType::Circle, SizeType(animationSize.x / 2, 0)
+        )
     );
     getComp<CompType::ATTACK>()->setAttackFunc(bulletAttackZombie);
 }

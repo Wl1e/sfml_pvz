@@ -22,7 +22,7 @@ void PlantGetEnemys(
         float int_degree;
         float value = modf(degree, &int_degree);
 
-        vector<Zombie*> enemys;
+        unordered_set<Zombie*> enemys;
         // 纯直线（优化）
         if(value == 0. && static_cast<int>(int_degree) % 180 == 0) {
             enemys = scene->getZombiesByPath(

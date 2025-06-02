@@ -17,6 +17,7 @@ public:
         addComp<CompType::ANIMATION>(resource_path);
         getComp<CompType::ANIMATION>()->setSize(size);
     }
+    ~Background() = default;
 
 protected:
     void _statusFunction() override

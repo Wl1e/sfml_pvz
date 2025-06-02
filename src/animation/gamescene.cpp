@@ -266,16 +266,16 @@ void GameScene::delEntity(Entity* entity)
     }
 }
 
-vector<Entity*>
-GameScene::getEntityInRange(EntityType type, AttackRange* range)
-{
-    vector<Entity*> res;
-    if(type == EntityType::PLANT) {
-        auto trueRange = get_if<RectangleShape>(range);
-        if(trueRange) {}
-    } else if(type == EntityType::BULLET) {
+// vector<Entity*>
+// GameScene::getEntityInRange(EntityType type, AttackRange* range)
+// {
+//     vector<Entity*> res;
+//     if(type == EntityType::PLANT) {
+//         auto trueRange = get_if<RectangleShape>(range);
+//         if(trueRange) {}
+//     } else if(type == EntityType::BULLET) {
 
-    } else if(type == EntityType::ZOMBIE) {
-    }
-    return res;
-}
+//     } else if(type == EntityType::ZOMBIE) {
+//     }
+//     return res;
+// }

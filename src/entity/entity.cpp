@@ -19,6 +19,10 @@ unordered_map<EntityStatus, string> animationStatus{
     {EntityStatus::Clicked, "clicked"}
 };
 
+Entity::~Entity()
+{
+}
+
 void Entity::updade()
 {
     // TODO: 后续将计算分离出去，只有animation才在主线程更新

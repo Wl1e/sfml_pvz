@@ -18,10 +18,12 @@ Plant::Plant(const PlantData& data, const Vector2i& pos) :
     auto animationSize =
         getComp<CompType::ANIMATION>()->getAnimationSize();
     true_pos -= PositionType(animationSize.componentWiseDiv({2, 1}));
-    addComp<CompType::POSITION>(true_pos, data.size);
+    addComp<CompType::POSITION>(true_pos, SizeType(animationSize));
     addComp<CompType::HP>(data.HP);
 
-    addComp<CompType::ATTACK>(data.damage, data.CD, data.range);
+    addComp<CompType::ATTACK>(
+        data.damage, data.CD, new AttackRange(data.range)
+    );
     getComp<CompType::ATTACK>()->setAttackFunc(plantAttackZombie);
     getComp<CompType::ANIMATION>()->setUpdateInterval(
         data.frame2animation

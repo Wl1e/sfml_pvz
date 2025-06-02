@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/Shape.hpp>
 
 #include <base/tools.hpp>
 
@@ -34,7 +35,7 @@ enum class rangeType
 class AttackRange
 {
 public:
-    AttackRange(rangeType type, const SizeType& size) :
+    explicit AttackRange(rangeType type, const SizeType& size) :
         m_type(type), m_range(nullptr)
     {
         if(m_type == rangeType::Rectangle) {
@@ -96,7 +97,7 @@ protected:
 
 private:
     rangeType m_type;
-    Shape* m_range;
+    sf::Shape* m_range;
 };
 
 }; // namespace demo

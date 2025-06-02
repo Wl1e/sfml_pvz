@@ -16,6 +16,7 @@ set(SOURCES
 
     src/base/tools.cpp
     src/base/direction.cpp
+    src/base/attack_range.cpp
 
     src/components/movement_comp.cpp
     src/components/position_comp.cpp

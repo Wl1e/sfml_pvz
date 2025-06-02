@@ -1,3 +1,4 @@
+#include <base/attack_range.hpp>
 #include <entity/attack.hpp>
 #include <entity/zombie/zombie.hpp>
 
@@ -18,12 +19,15 @@ Zombie::Zombie(const ZombieData& data, int path) :
     getComp<CompType::ANIMATION>()->setUpdateInterval(
         data.frame2animation
     );
+    auto animationSize =
+        getComp<CompType::ANIMATION>()->getAnimationSize();
     addComp<CompType::HP>(data.HP);
     addComp<CompType::ATTACK>(
         data.damage,
         data.CD,
-        getComp<CompType::POSITION>()->getHitbox(),
-        getComp<CompType::POSITION>()->getPos()
+        new AttackRange(
+            rangeType::Rectangle, SizeType(animationSize)
+        )
     );
     getComp<CompType::ATTACK>()->setAttackFunc(zombieAttackPlant);
 }

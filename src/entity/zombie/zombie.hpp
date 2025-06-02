@@ -26,6 +26,7 @@ class Zombie : public Entity
 {
 public:
     explicit Zombie(const ZombieData&, int);
+    ~Zombie() = default;
 
 protected:
     void _statusFunction();

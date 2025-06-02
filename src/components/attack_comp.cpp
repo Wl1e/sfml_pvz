@@ -14,8 +14,8 @@ static const int MIN_RANGE = -10;
 static const int MAX_RANGE = 1000;
 
 AttackComp::AttackComp(int damage, Frame cd, AttackRange* range) :
-    m_damage(damage), m_range(make_unique<AttackRange>(range)),
-    m_ban_attack(false), m_cd(cd), m_attackFrame(0)
+    m_damage(damage), m_range(range), m_ban_attack(false), m_cd(cd),
+    m_attackFrame(0)
 {
 
     // if(m_range.x < MIN_RANGE) {

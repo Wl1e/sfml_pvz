@@ -35,6 +35,7 @@ class Bullet : public Entity
 {
 public:
     explicit Bullet(const BulletData& data);
+    ~Bullet() = default;
 
     void afterAttack();
     bool isPiercing() const

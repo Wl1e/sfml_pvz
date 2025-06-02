@@ -63,11 +63,13 @@ public:
         }
         return m_plants[axis_pos.y][axis_pos.x];
     }
-    const std::vector<Zombie*>& getZombiesByPath(int path) const
+    const std::unordered_set<Zombie*>&
+    getZombiesByPath(int path) const
     {
         return m_zombies[path];
     }
-    const std::vector<std::vector<Zombie*>>& getAllzombies() const
+    const std::vector<std::unordered_set<Zombie*>>& getAllzombies(
+    ) const
     {
         return m_zombies;
     }
@@ -109,7 +111,7 @@ private:
     std::unordered_set<Bullet*> m_bullets;
     std::vector<std::vector<Plant*>> m_plants;
     // 我在纠结用vector还是unordered_set
-    std::vector<std::vector<Zombie*>> m_zombies;
+    std::vector<std::unordered_set<Zombie*>> m_zombies;
     std::unordered_set<Tool*> m_tools;
 
     std::vector<sceneHandler> m_handler;

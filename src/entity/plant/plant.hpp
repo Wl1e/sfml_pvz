@@ -1,5 +1,6 @@
 #pragma once
 
+#include <base/attack_range.hpp>
 #include <entity/attack.hpp>
 #include <entity/entity.hpp>
 
@@ -21,6 +22,7 @@ class Plant : public Entity
 {
 public:
     explicit Plant(const PlantData& data, const sf::Vector2i& pos);
+    ~Plant() = default;
 
     const std::string& getBulletType() const
     {
