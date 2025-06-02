@@ -5,8 +5,8 @@ namespace demo {
 class UI_DEFINE
 {
 public:
-    static const uint WINDOW_LENGTH;
-    static const uint WINDOW_WIDE;
+    static const unsigned int WINDOW_LENGTH;
+    static const unsigned int WINDOW_WIDE;
 
     // 草地横向长度
     static const int GRASS_LENGTH;

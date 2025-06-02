@@ -28,7 +28,7 @@ Bullet::Bullet(const BulletData& data) :
         m_data.plantData.damage,
         0,
         new AttackRange(
-            rangeType::Circle, SizeType(animationSize.x / 2, 0)
+            rangeType::Circle, SizeType(animationSize.x / 2.f, 0.f)
         )
     );
     getComp<CompType::ATTACK>()->setAttackFunc(bulletAttackZombie);

@@ -1,7 +1,10 @@
-#include <base/tools.hpp>
 #include <iostream>
+
 #include <SFML/System/Sleep.hpp>
 #include <SFML/System/Time.hpp>
+
+#include <base/tools.hpp>
+#include <UI/defines.hpp>
 
 using namespace std;
 
@@ -54,28 +57,40 @@ void wait()
 
 int getPath(const PositionType& pos)
 {
-    return (pos.y - GRASS_START_Y) / GRASS_WIDE;
+    return (pos.y - UI_DEFINE::GRASS_START_Y)
+           / UI_DEFINE::GRASS_WIDE;
 }
 
 int getLength(const sf::Vector2i& pos)
 {
-    return pos.x - GRASS_START_X;
+    return pos.x - UI_DEFINE::GRASS_START_X;
 }
 
 sf::Vector2i pos2axis(const PositionType& pos)
 {
 
     return sf::Vector2i(
-        (pos - PositionType(GRASS_START_X, GRASS_START_Y))
-            .componentWiseDiv({GRASS_LENGTH, GRASS_WIDE})
+        (pos
+         - PositionType(
+             UI_DEFINE::GRASS_START_X, UI_DEFINE::GRASS_START_Y
+         ))
+            .componentWiseDiv(
+                sf::Vector2f(
+                    UI_DEFINE::GRASS_LENGTH, UI_DEFINE::GRASS_WIDE
+                )
+            )
     );
 }
 
 PositionType axis2pos(const sf::Vector2i& axis)
 {
     return PositionType(
-        axis.componentWiseMul({GRASS_LENGTH, GRASS_WIDE})
-        + sf::Vector2i(GRASS_START_X, GRASS_START_Y)
+        axis.componentWiseMul(
+            {UI_DEFINE::GRASS_LENGTH, UI_DEFINE::GRASS_WIDE}
+        )
+        + sf::Vector2i(
+            UI_DEFINE::GRASS_START_X, UI_DEFINE::GRASS_START_Y
+        )
     );
 }
 

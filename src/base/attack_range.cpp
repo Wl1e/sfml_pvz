@@ -21,13 +21,25 @@ void PlantGetEnemys(
         float degree = attackRange->getRotation().asDegrees();
         float int_degree;
         float value = modf(degree, &int_degree);
+        printf(
+            "degree: %f, int_degree: %d, value: %f\n",
+            degree,
+            (int)int_degree,
+            value
+        );
 
         unordered_set<Zombie*> enemys;
         // 纯直线（优化）
-        if(value == 0. && static_cast<int>(int_degree) % 180 == 0) {
+        if(value == 0.f && static_cast<int>(int_degree) % 180 == 0) {
+            printf(
+                "path: %d %d\n",
+                attackRange->getPosition().x,
+                attackRange->getPosition().y
+            );
             enemys = scene->getZombiesByPath(
                 getPath(attackRange->getPosition())
             );
+            printf("enemy count: %d\n", enemys.size());
             for(auto enemy : enemys) {
                 if(range->inRange(enemy)) {
                     res.push_back(enemy);

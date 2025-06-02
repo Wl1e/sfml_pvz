@@ -1,10 +1,9 @@
+#include <animation/gamescene.hpp>
+#include <base/attack_range.hpp>
 #include <components/attack_comp.hpp>
 #include <components/hp_comp.hpp>
 #include <entity/entity.hpp>
 #include <entity/frame.hpp>
-
-#include <animation/gamescene.hpp>
-#include <base/attack_range.hpp>
 
 using namespace std;
 using namespace sf;
@@ -17,7 +16,6 @@ AttackComp::AttackComp(int damage, Frame cd, AttackRange* range) :
     m_damage(damage), m_range(range), m_ban_attack(false), m_cd(cd),
     m_attackFrame(0)
 {
-
     // if(m_range.x < MIN_RANGE) {
     //     m_range.x = MIN_RANGE;
     // }
@@ -28,7 +26,6 @@ AttackComp::AttackComp(int damage, Frame cd, AttackRange* range) :
 
 void AttackComp::update(Entity* entity)
 {
-
     // 和position分开更新有些奇怪，应该依赖position组件的
 
     if(!_validAttack()) {

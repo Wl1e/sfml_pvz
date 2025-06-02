@@ -20,7 +20,7 @@ void test_simple_tool()
     game.setFrame(60);
 
     auto plant =
-        PlantFactory::getFactory()->create("PeaShooter", {233, 130});
+        PlantFactory::getFactory()->create("PeaShooter", {500, 330});
     if(!plant) {
         cout << "create plant error\n";
         return;
@@ -33,7 +33,7 @@ void test_simple_tool()
         return;
     }
 
-    game.scene()->addZombie(zombie);
+    // game.scene()->addZombie(zombie);
 
     game.run();
 }
