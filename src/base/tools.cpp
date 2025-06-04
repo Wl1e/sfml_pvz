@@ -85,13 +85,17 @@ sf::Vector2i pos2axis(const PositionType& pos)
 PositionType axis2pos(const sf::Vector2i& axis)
 {
     return PositionType(
-        axis.componentWiseMul(
-            {UI_DEFINE::GRASS_LENGTH, UI_DEFINE::GRASS_WIDE}
-        )
-        + sf::Vector2i(
-            UI_DEFINE::GRASS_START_X, UI_DEFINE::GRASS_START_Y
-        )
-    );
+               axis.componentWiseMul(
+                   {UI_DEFINE::GRASS_LENGTH, UI_DEFINE::GRASS_WIDE}
+               )
+               + sf::Vector2i(
+                   UI_DEFINE::GRASS_START_X, UI_DEFINE::GRASS_START_Y
+               )
+           )
+           + sf::Vector2f(
+               UI_DEFINE::GRASS_LENGTH / 2,
+               UI_DEFINE::GRASS_WIDE - 10
+           );
 }
 
 } // namespace demo

@@ -26,7 +26,10 @@ AttackComp::AttackComp(int damage, Frame cd, AttackRange* range) :
 
 void AttackComp::update(Entity* entity)
 {
-    // 和position分开更新有些奇怪，应该依赖position组件的
+    if(auto move = entity->getComp<CompType::MOVEMENT>(); move) {
+        m_range->updatePos(move->getMoveValue());
+    }
+    m_range->display(entity->getScene());
 
     if(!_validAttack()) {
         return;

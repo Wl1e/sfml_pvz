@@ -172,6 +172,7 @@ void GameScene::addZombie(Zombie* zombie)
 {
     zombie->setScene(this);
     auto path = getPath(getEntityPosition(zombie));
+    printf("zombie path: %d\n", path);
     if(path >= UI_DEFINE::GRASS_PATH) {
         return;
     }

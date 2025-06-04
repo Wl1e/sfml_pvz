@@ -35,25 +35,7 @@ enum class rangeType
 class AttackRange
 {
 public:
-    explicit AttackRange(rangeType type, const SizeType& size) :
-        m_type(type), m_range(nullptr)
-    {
-        if(m_type == rangeType::Rectangle) {
-            m_range = new sf::RectangleShape(size);
-        } else if(m_type == rangeType::Circle) {
-            m_range = new sf::CircleShape(size.x);
-        } else {
-            // err
-        }
-
-#ifdef DEMO_DEBUG
-        if(m_range) {
-            m_range->setFillColor(sf::Color::Transparent);
-            m_range->setOutlineColor(sf::Color::Red);
-            m_range->setOutlineThickness(1);
-        }
-#endif
-    }
+    explicit AttackRange(rangeType, const SizeType&);
     ~AttackRange() = default;
 
     void updatePos(const sf::Vector2f& move_value)

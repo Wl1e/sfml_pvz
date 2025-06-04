@@ -38,9 +38,10 @@ void initPlantData(
             range = new AttackRange(
                 rangeType::Rectangle,
                 SizeType(
-                    0,
+
                     value["range"]["data"][0].asFloat()
-                        + value["range"]["data"][1].asFloat()
+                        + value["range"]["data"][1].asFloat(),
+                    0
                 )
             );
         } else if(range_type == "Circle") {

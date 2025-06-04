@@ -44,8 +44,7 @@ PositionType demo::getEntityPosition(Entity* entity)
         throw "dont have position";
     }
     auto posComp = entity->getComp<CompType::POSITION>();
-
-    return posComp->getPos();
+    return posComp->getBottomPos();
 }
 
 bool demo::entityOverlay(Entity* entity1, Entity* entity2)

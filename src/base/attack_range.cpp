@@ -21,25 +21,18 @@ void PlantGetEnemys(
         float degree = attackRange->getRotation().asDegrees();
         float int_degree;
         float value = modf(degree, &int_degree);
-        printf(
-            "degree: %f, int_degree: %d, value: %f\n",
-            degree,
-            (int)int_degree,
-            value
-        );
 
         unordered_set<Zombie*> enemys;
         // 纯直线（优化）
         if(value == 0.f && static_cast<int>(int_degree) % 180 == 0) {
-            printf(
-                "path: %d %d\n",
-                attackRange->getPosition().x,
-                attackRange->getPosition().y
-            );
             enemys = scene->getZombiesByPath(
                 getPath(attackRange->getPosition())
             );
-            printf("enemy count: %d\n", enemys.size());
+            printf(
+                "path: %d, enemy size: %d\n",
+                getPath(attackRange->getPosition()),
+                enemys.size()
+            );
             for(auto enemy : enemys) {
                 if(range->inRange(enemy)) {
                     res.push_back(enemy);
@@ -82,6 +75,9 @@ void zombieGetEnemys(
     auto enemys = scene->getPlantByAxis(
         pos2axis(range->getRectangleShape()->getPosition())
     );
+    if(!enemys) {
+        return;
+    }
     if(range->inRange(enemys)) {
         res.push_back(enemys);
     }
@@ -116,4 +112,24 @@ bool AttackRange::_inRange(Entity* entity) const
 void AttackRange::display(GameScene* scene)
 {
     scene->draw(*m_range);
+}
+
+AttackRange::AttackRange(rangeType type, const SizeType& size) :
+    m_type(type), m_range(nullptr)
+{
+    if(m_type == rangeType::Rectangle) {
+        m_range = new sf::RectangleShape(size);
+    } else if(m_type == rangeType::Circle) {
+        m_range = new sf::CircleShape(size.x);
+    } else {
+        // err
+    }
+
+#ifdef DEMO_DEBUG
+    if(m_range) {
+        m_range->setFillColor(sf::Color::Transparent);
+        m_range->setOutlineColor(sf::Color::Red);
+        m_range->setOutlineThickness(1);
+    }
+#endif
 }

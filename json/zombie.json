@@ -6,7 +6,7 @@
             120
         ],
         // move
-        "speed": 5,
+        "speed": 1,
         "dir": "left",
         // animation
         "animation": "/home/wlle/code/demo/sfml2/resource/zombie/normal",

@@ -14,14 +14,9 @@ Plant::Plant(const PlantData& data, const Vector2i& pos) :
     Entity(EntityType::PLANT), m_bullet_type(data.bullet_type)
 {
     auto true_pos = axis2pos(pos2axis(PositionType(pos)));
-    printf(
-        "create Plant, axisPos: [%d %d], truePos: [%f %f]",
-        pos2axis(PositionType(pos)).x,
-        pos2axis(PositionType(pos)).y,
-        true_pos.x,
-        true_pos.y
-    );
+
     addComp<CompType::ANIMATION>(data.animation);
+
     auto animationSize =
         getComp<CompType::ANIMATION>()->getAnimationSize();
     true_pos -= PositionType(animationSize.componentWiseDiv({2, 1}));
@@ -32,9 +27,10 @@ Plant::Plant(const PlantData& data, const Vector2i& pos) :
     true_range->setPosition(true_pos);
     addComp<CompType::ATTACK>(data.damage, data.CD, true_range);
     getComp<CompType::ATTACK>()->setAttackFunc(plantAttackZombie);
-    getComp<CompType::ANIMATION>()->setUpdateInterval(
-        data.frame2animation
-    );
+
+    auto animation = getComp<CompType::ANIMATION>();
+    animation->setUpdateInterval(data.frame2animation);
+    animation->setAnimationPos(true_pos);
 }
 
 void Plant::_statusFunction()

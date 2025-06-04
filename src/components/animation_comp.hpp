@@ -57,6 +57,10 @@ public:
     {
         m_interval = interval;
     }
+    void setAnimationPos(const PositionType& pos)
+    {
+        m_sprite->setPosition(pos);
+    }
 
     sf::Vector2u getAnimationSize() const
     {
