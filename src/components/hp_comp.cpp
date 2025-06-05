@@ -11,3 +11,9 @@ void HPComp::update(Entity* entity)
         entity->updateStatus(EntityStatus::Died);
     }
 }
+
+void HPComp::downHP(float value)
+{
+    m_HP -= value;
+    printf("down hp %f\n", value);
+}

@@ -51,6 +51,7 @@ void zombieAttackPlant(
     Entity* entity, const vector<Entity*>& targets
 )
 {
+    printf("eat eat eat\n");
     auto zombie = dynamic_cast<Zombie*>(entity);
     assert(zombie->hasComp(CompType::ATTACK));
     assert(zombie->hasComp(CompType::POSITION));

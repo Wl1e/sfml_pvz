@@ -53,7 +53,7 @@ void initPlantData(
             value["animation"].asString(),
             value["frame2animation"].asInt(),
 
-            value["cd"].asFloat(),
+            value["CD"].asFloat(),
             value["damage"].asFloat(),
         });
     }

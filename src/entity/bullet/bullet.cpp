@@ -28,30 +28,13 @@ Bullet::Bullet(const BulletData& data) :
     );
 
     auto true_range = new AttackRange(
-        rangeType::Rectangle, SizeType(animationSize)
+        rangeType::Circle, SizeType(animationSize.x / 2, 0)
     );
     true_range->setPosition(m_data.plantData.start);
     addComp<CompType::ATTACK>(
         m_data.plantData.damage, 0, true_range
     );
     getComp<CompType::ATTACK>()->setAttackFunc(bulletAttackZombie);
-}
-
-void Bullet::afterAttack()
-{
-    if(isPiercing()) {
-        return;
-    }
-    if(hasComp(CompType::MOVEMENT)) {
-        getComp<CompType::MOVEMENT>()->setDir(Direction::DIR::STOP);
-    }
-    if(hasComp(CompType::POSITION)) {
-        getComp<CompType::POSITION>()->setIgnoreCollision(true);
-    }
-    if(hasComp(CompType::ANIMATION)) {
-        auto animationComp = getComp<CompType::ANIMATION>();
-        // animationComp->updateAnimationStatus("finish?");
-    }
 }
 
 void Bullet::_statusFunction()

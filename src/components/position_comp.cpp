@@ -28,13 +28,12 @@ using namespace demo;
 
 void PositionComp::update(Entity* entity)
 {
-    if(!entity->hasComp(CompType::MOVEMENT)) {
-        return;
-    }
-    move(entity->getComp<CompType::MOVEMENT>()->getMoveValue());
-
     // FIXME: 后续分离出renderComp就替换
 #ifdef DEMO_DEBUG
     entity->getScene()->draw(m_hitbox);
 #endif
+    if(!entity->hasComp(CompType::MOVEMENT)) {
+        return;
+    }
+    move(entity->getComp<CompType::MOVEMENT>()->getMoveValue());
 }

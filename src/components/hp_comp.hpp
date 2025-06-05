@@ -11,10 +11,7 @@ public:
     {
     }
     ~HPComp() = default;
-    void downHP(float value)
-    {
-        m_HP -= value;
-    }
+    void downHP(float);
     float getHP() const
     {
         return m_HP;

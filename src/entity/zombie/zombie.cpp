@@ -20,6 +20,12 @@ Zombie::Zombie(const ZombieData& data, int path) :
     auto animation = getComp<CompType::ANIMATION>();
     auto animationSize = animation->getAnimationSize();
 
+    if(animationSize.x >= UI_DEFINE::GRASS_LENGTH) {
+        animationSize.x = UI_DEFINE::GRASS_LENGTH - 10;
+    }
+    if(animationSize.y >= UI_DEFINE::GRASS_WIDE) {
+        animationSize.y = UI_DEFINE::GRASS_WIDE - 10;
+    }
     true_pos -= PositionType(animationSize.componentWiseDiv({2, 1}));
     addComp<CompType::POSITION>(true_pos, SizeType(animationSize));
 
@@ -50,7 +56,7 @@ void Zombie::_statusFunction()
     auto moveComp = getComp<CompType::MOVEMENT>();
     if(status == EntityStatus::Normal) {
         if(moveComp) {
-            moveComp->setDir(Direction::DIR::RIGHT);
+            moveComp->setDir(Direction::DIR::LEFT);
         }
     } else if(status == EntityStatus::Attack) {
         if(moveComp) {
