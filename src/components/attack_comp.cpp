@@ -31,25 +31,18 @@ void AttackComp::update(Entity* entity)
     }
     m_range->display(entity->getScene());
 
-    if(!_validAttack()) {
-        return;
-    }
-
     auto enemys = m_range->getEnemyInRange(entity);
-    // if(isZombie(entity)) {
-    // printf(
-    //     "zombie axispos[%d %d] get enemy size %d\n",
-    //     entity->getComp<CompType::POSITION>()->getAxisPos().x,
-    //     entity->getComp<CompType::POSITION>()->getAxisPos().y,
-    //     enemys.size()
-    // );
-    // }
     if(enemys.empty()) {
         if(entity->getStatus() == EntityStatus::Attack) {
             entity->updateStatus(EntityStatus::Normal);
         }
         return;
     }
+
+    if(!_validAttack()) {
+        return;
+    }
+
     entity->updateStatus(EntityStatus::Attack);
 
     _attack(entity, enemys);

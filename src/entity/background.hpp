@@ -19,6 +19,8 @@ public:
     }
     ~Background() = default;
 
+    void update();
+
 protected:
     void _statusFunction() override
     {

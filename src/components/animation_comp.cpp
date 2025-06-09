@@ -102,6 +102,9 @@ void AnimationComp::_updateAnimation()
 }
 void AnimationComp::updateAnimationStatus(string_view status)
 {
+    if(m_status == status) {
+        return;
+    }
     if(m_frames->find(status.data()) == m_frames->end()) {
         return;
     }

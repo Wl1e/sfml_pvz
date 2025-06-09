@@ -16,6 +16,7 @@ Zombie::Zombie(const ZombieData& data, int path) :
 
     addComp<CompType::MOVEMENT>(data.dir, data.speed, 999);
     addComp<CompType::ANIMATION>(data.animation);
+    addComp<CompType::HP>(data.HP);
 
     auto animation = getComp<CompType::ANIMATION>();
     auto animationSize = animation->getAnimationSize();
@@ -38,7 +39,6 @@ Zombie::Zombie(const ZombieData& data, int path) :
     );
     true_range->setPosition(true_pos);
 
-    addComp<CompType::HP>(data.HP);
     addComp<CompType::ATTACK>(data.damage, data.CD, true_range);
     getComp<CompType::ATTACK>()->setAttackFunc(zombieAttackPlant);
 }

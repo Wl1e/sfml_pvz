@@ -11,10 +11,10 @@ class Entity;
 enum class CompType
 {
     HP = 0,
+    ATTACK,
     MOVEMENT,
     POSITION,
-    ANIMATION,
-    ATTACK
+    ANIMATION
 };
 
 struct Compless

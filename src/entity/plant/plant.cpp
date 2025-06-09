@@ -1,6 +1,7 @@
 #include <base/attack_range.hpp>
 #include <entity/attack.hpp>
 #include <entity/plant/plant.hpp>
+#include <UI/defines.hpp>
 
 using namespace std;
 using namespace sf;
@@ -15,22 +16,31 @@ Plant::Plant(const PlantData& data, const Vector2i& pos) :
 {
     auto true_pos = axis2pos(pos2axis(PositionType(pos)));
 
+    addComp<CompType::HP>(data.HP);
     addComp<CompType::ANIMATION>(data.animation);
 
-    auto animationSize =
-        getComp<CompType::ANIMATION>()->getAnimationSize();
-    true_pos -= PositionType(animationSize.componentWiseDiv({2, 1}));
-    addComp<CompType::POSITION>(true_pos, SizeType(animationSize));
-    addComp<CompType::HP>(data.HP);
-
-    auto true_range = new AttackRange(data.range);
-    true_range->setPosition(true_pos);
-    addComp<CompType::ATTACK>(data.damage, data.CD, true_range);
-    getComp<CompType::ATTACK>()->setAttackFunc(plantAttackZombie);
-
     auto animation = getComp<CompType::ANIMATION>();
+    auto animationSize = animation->getAnimationSize();
+    if(animationSize.x >= UI_DEFINE::GRASS_LENGTH) {
+        animationSize.x = UI_DEFINE::GRASS_LENGTH - 10;
+    }
+    if(animationSize.y >= UI_DEFINE::GRASS_WIDE) {
+        animationSize.y = UI_DEFINE::GRASS_WIDE - 10;
+    }
+    true_pos -= PositionType(animationSize.componentWiseDiv({2, 1}));
     animation->setUpdateInterval(data.frame2animation);
     animation->setAnimationPos(true_pos);
+
+    addComp<CompType::POSITION>(
+        true_pos, SizeType(animationSize.componentWiseDiv({2, 1}))
+    );
+
+    auto true_range = new AttackRange(data.range);
+    true_range->setPosition(
+        getComp<CompType::POSITION>()->getCenterPos()
+    );
+    addComp<CompType::ATTACK>(data.damage, data.CD, true_range);
+    getComp<CompType::ATTACK>()->setAttackFunc(plantAttackZombie);
 }
 
 void Plant::_statusFunction()

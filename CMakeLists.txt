@@ -13,6 +13,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 # Add source files
 set(SOURCES
     src/UI/defines.cpp
+    src/UI/ui_layout.cpp
 
     src/base/tools.cpp
     src/base/direction.cpp

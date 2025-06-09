@@ -2,9 +2,9 @@
     "window_length": 1280,
     "window_wide": 720,
     // 草地横向长度
-    "grass_length": 80,
+    "grass_length": 75,
     // 草地纵向长度
-    "grass_wide": 100,
+    "grass_wide": 110,
     "road_wide": 10,
     "grass_start_x": 231,
     "grass_start_y": 122,

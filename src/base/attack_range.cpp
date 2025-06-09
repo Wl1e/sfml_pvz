@@ -28,11 +28,6 @@ void PlantGetEnemys(
             enemys = scene->getZombiesByPath(
                 getPath(attackRange->getPosition())
             );
-            printf(
-                "path: %d, enemy size: %d\n",
-                getPath(attackRange->getPosition()),
-                enemys.size()
-            );
             for(auto enemy : enemys) {
                 if(range->inRange(enemy)) {
                     res.push_back(enemy);

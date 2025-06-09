@@ -12,6 +12,7 @@
 #include <entity/tool/tool.hpp>
 #include <entity/zombie/zombie.hpp>
 #include <UI/defines.hpp>
+#include <UI/ui_layout.hpp>
 
 using namespace std;
 using namespace sf;
@@ -66,6 +67,10 @@ void GameScene::update()
     m_handler.clear();
 
     _updateBackground();
+
+    auto lines = UILayout().display();
+    draw(lines);
+
     _updateBullets();
     _updatePlants();
     _updateZombies();

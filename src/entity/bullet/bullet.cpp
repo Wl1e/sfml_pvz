@@ -2,6 +2,7 @@
 #include <base/attack_range.hpp>
 #include <entity/attack.hpp>
 #include <entity/bullet/bullet.hpp>
+#include <UI/defines.hpp>
 
 using namespace std;
 using namespace sf;
@@ -22,6 +23,12 @@ Bullet::Bullet(const BulletData& data) :
 
     auto animationSize =
         getComp<CompType::ANIMATION>()->getAnimationSize();
+    if(animationSize.x >= UI_DEFINE::GRASS_LENGTH) {
+        animationSize.x = UI_DEFINE::GRASS_LENGTH - 10;
+    }
+    if(animationSize.y >= UI_DEFINE::GRASS_WIDE) {
+        animationSize.y = UI_DEFINE::GRASS_WIDE - 10;
+    }
 
     addComp<CompType::POSITION>(
         m_data.plantData.start, SizeType(animationSize)
