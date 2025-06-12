@@ -24,6 +24,8 @@ public:
     explicit Plant(const PlantData& data, const sf::Vector2i& pos);
     ~Plant() = default;
 
+    void init(const PlantData&, const Vector2i&);
+
     const std::string& getBulletType() const
     {
         return m_bullet_type;

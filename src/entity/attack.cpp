@@ -103,29 +103,23 @@ void bulletAttackZombie(
     }
 }
 
-// void BulletAttackFunc(
-//     AttackComp* attackComp, std::vector<Entity*>* victims
-// )
-// {
-//     auto victim = victims->front();
-//     if(!victim->hasComp(CompType::HP)) {
-//         return;
-//     }
-//     auto HPComp = victim->getComp<CompType::HP>();
-//     HPComp->downHP(attackComp->getDamage());
-// }
-// void PlantAttackFunc(
-//     AttackComp* attackComp, std::vector<Entity*>* victims
-// )
-// {
-//     // FIXME: Pea应该从Entity中得到
-//     auto bullet = BulletFactory::getFactory()->create("Pea");
-//     // 需要将bullet加到scene中
-// }
-// void ZombieAttackFunc(
-//     AttackComp* attackComp, std::vector<Entity*>* victims
-// )
-// {
-// }
+void bombPlantAttackZombie(
+    Entity* entity, const vector<Entity*>& targets
+)
+{
+    auto plant = dynamic_cast<Plant*>(entity);
+    assert(plant->hasComp(CompType::ATTACK));
+    assert(plant->hasComp(CompType::POSITION));
+    auto attackComp = plant->getComp<CompType::ATTACK>();
+    auto posCmp = plant->getComp<CompType::POSITION>();
+
+    for(auto enemy : targets) {
+        if(auto hp = enemy->getComp<CompType::HP>(); hp) {
+            hp->downHP(attackComp->getDamage());
+        }
+    }
+
+    plant->kill();
+}
 
 } // namespace demo

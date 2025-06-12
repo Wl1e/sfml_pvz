@@ -14,7 +14,7 @@ static const int MAX_RANGE = 1000;
 
 AttackComp::AttackComp(int damage, Frame cd, AttackRange* range) :
     m_damage(damage), m_range(range), m_ban_attack(false), m_cd(cd),
-    m_attackFrame(0)
+    m_attackFrame(FrameManager::getInstance().getFrame())
 {
     // if(m_range.x < MIN_RANGE) {
     //     m_range.x = MIN_RANGE;
@@ -31,12 +31,15 @@ void AttackComp::update(Entity* entity)
     }
     m_range->display(entity->getScene());
 
-    auto enemys = m_range->getEnemyInRange(entity);
-    if(enemys.empty()) {
-        if(entity->getStatus() == EntityStatus::Attack) {
-            entity->updateStatus(EntityStatus::Normal);
+    vector<Entity*> enemys;
+    if(m_range) {
+        enemys = m_range->getEnemyInRange(entity);
+        if(enemys.empty()) {
+            if(entity->getStatus() == EntityStatus::Attack) {
+                entity->updateStatus(EntityStatus::Normal);
+            }
+            return;
         }
-        return;
     }
 
     if(!_validAttack()) {

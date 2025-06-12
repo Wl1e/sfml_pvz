@@ -14,33 +14,7 @@ static const PositionType PLANT_ATTACK_OFFSET{30, 0};
 Plant::Plant(const PlantData& data, const Vector2i& pos) :
     Entity(EntityType::PLANT), m_bullet_type(data.bullet_type)
 {
-    auto true_pos = axis2pos(pos2axis(PositionType(pos)));
-
-    addComp<CompType::HP>(data.HP);
-    addComp<CompType::ANIMATION>(data.animation);
-
-    auto animation = getComp<CompType::ANIMATION>();
-    auto animationSize = animation->getAnimationSize();
-    if(animationSize.x >= UI_DEFINE::GRASS_LENGTH) {
-        animationSize.x = UI_DEFINE::GRASS_LENGTH - 10;
-    }
-    if(animationSize.y >= UI_DEFINE::GRASS_WIDE) {
-        animationSize.y = UI_DEFINE::GRASS_WIDE - 10;
-    }
-    true_pos -= PositionType(animationSize.componentWiseDiv({2, 1}));
-    animation->setUpdateInterval(data.frame2animation);
-    animation->setAnimationPos(true_pos);
-
-    addComp<CompType::POSITION>(
-        true_pos, SizeType(animationSize.componentWiseDiv({2, 1}))
-    );
-
-    auto true_range = new AttackRange(data.range);
-    true_range->setPosition(
-        getComp<CompType::POSITION>()->getCenterPos()
-    );
-    addComp<CompType::ATTACK>(data.damage, data.CD, true_range);
-    getComp<CompType::ATTACK>()->setAttackFunc(plantAttackZombie);
+    init(data, pos);
 }
 
 void Plant::_statusFunction()
@@ -56,4 +30,30 @@ void Plant::_statusFunction()
     if(status == EntityStatus::Died) {
         kill();
     }
+}
+
+void Plant::init(const PlantData& data, const Vector2i& pos)
+{
+    auto true_pos = axis2pos(pos2axis(PositionType(pos)));
+
+    addComp<CompType::HP>(data.HP);
+    addComp<CompType::ANIMATION>(data.animation);
+
+    auto animation = getComp<CompType::ANIMATION>();
+    animation->setUpdateInterval(data.frame2animation);
+
+    auto trueSize = fitableSize(animation->getAnimationSize());
+    true_pos -= PositionType(trueSize.componentWiseDiv({2, 1}));
+    animation->setAnimationPos(true_pos);
+
+    addComp<CompType::POSITION>(
+        true_pos, SizeType(trueSize.componentWiseDiv({2, 1}))
+    );
+
+    auto true_range = new AttackRange(data.range);
+    true_range->setPosition(
+        getComp<CompType::POSITION>()->getCenterPos()
+    );
+    addComp<CompType::ATTACK>(data.damage, data.CD, true_range);
+    getComp<CompType::ATTACK>()->setAttackFunc(plantAttackZombie);
 }

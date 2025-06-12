@@ -1,5 +1,6 @@
 #pragma once
 
+#include <base/tools.hpp>
 namespace demo {
 
 class UI_DEFINE
@@ -19,5 +20,7 @@ public:
     static const int GRASS_PATH;
     static const int GRASS_COUNT;
 };
+
+SizeType fitableSize(sf::Vector2u);
 
 } // namespace demo

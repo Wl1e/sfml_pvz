@@ -52,3 +52,14 @@ const int UI_DEFINE::GRASS_START_X = config["grass_start_x"].asInt();
 const int UI_DEFINE::GRASS_START_Y = config["grass_start_y"].asInt();
 const int UI_DEFINE::GRASS_PATH = config["grass_path"].asInt();
 const int UI_DEFINE::GRASS_COUNT = config["grass_count"].asInt();
+
+SizeType fitableSize(sf::Vector2u rawSize)
+{
+    if(rawSize.x >= UI_DEFINE::GRASS_LENGTH) {
+        rawSize.x = UI_DEFINE::GRASS_LENGTH - 10;
+    }
+    if(rawSize.y >= UI_DEFINE::GRASS_WIDE) {
+        rawSize.y = UI_DEFINE::GRASS_WIDE - 10;
+    }
+    return SizeType(rawSize);
+}
