@@ -68,8 +68,9 @@ public:
     }
 
 protected:
-    void _updateAnimation();
+    int _updateAnimation();
     void _updatePos(const PositionType&);
+    bool _validUpdateAnimation();
 
 private:
     std::unique_ptr<sf::Sprite> m_sprite;

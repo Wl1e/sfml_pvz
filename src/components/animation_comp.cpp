@@ -5,6 +5,7 @@
 #include <components/position_comp.hpp>
 #include <entity/entity.hpp>
 #include <entity/frame.hpp>
+#include <event_manager.hpp>
 
 using namespace std;
 using namespace sf;
@@ -72,7 +73,6 @@ std::string read_frames2(
 
 void AnimationComp::update(Entity* entity)
 {
-    _updateAnimation();
     if(auto posComp = entity->getComp<CompType::POSITION>();
        posComp) {
         auto pos = posComp->getPos();
@@ -81,24 +81,36 @@ void AnimationComp::update(Entity* entity)
             pos += PositionType(ANIMATION_OFFSET[entity->getType()]);
         }
         _updatePos(pos);
-        ;
     };
+
+    if(_validUpdateAnimation()) {
+        if(_updateAnimation() == m_frames->at(m_status).size()) {
+            trigger(entity, EventType::Attack);
+        }
+    }
 
     entity->getScene()->draw(*m_sprite);
 }
 
-void AnimationComp::_updateAnimation()
+bool AnimationComp::_validUpdateAnimation()
 {
     Frame now = FrameManager::getInstance().getFrame();
     if(now - m_last_frame < m_interval) {
-        return;
+        return false;
     }
     m_last_frame = now;
+    return true;
+}
+
+int AnimationComp::_updateAnimation()
+{
+    m_sprite->setTexture(m_frames->at(m_status)[m_idx], false);
 
     if(m_idx >= m_frames->at(m_status).size()) {
         m_idx = 0;
+        return m_frames->at(m_status).size();
     }
-    m_sprite->setTexture(m_frames->at(m_status)[m_idx++], true);
+    return m_idx++;
 }
 void AnimationComp::updateAnimationStatus(string_view status)
 {

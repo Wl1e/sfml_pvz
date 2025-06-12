@@ -1,6 +1,7 @@
 #include <base/attack_range.hpp>
 #include <entity/attack.hpp>
 #include <entity/plant/plant.hpp>
+#include <event_manager.hpp>
 #include <UI/defines.hpp>
 
 using namespace std;
@@ -14,7 +15,10 @@ static const PositionType PLANT_ATTACK_OFFSET{30, 0};
 Plant::Plant(const PlantData& data, const Vector2i& pos) :
     Entity(EntityType::PLANT), m_bullet_type(data.bullet_type)
 {
-    init(data, pos);
+    _initComp(data, pos);
+    registerEvent(this, Attack, [this](Entity* entity) {
+        getComp<CompType::ATTACK>()->attack(entity);
+    });
 }
 
 void Plant::_statusFunction()
@@ -32,7 +36,7 @@ void Plant::_statusFunction()
     }
 }
 
-void Plant::init(const PlantData& data, const Vector2i& pos)
+void Plant::_initComp(const PlantData& data, const Vector2i& pos)
 {
     auto true_pos = axis2pos(pos2axis(PositionType(pos)));
 

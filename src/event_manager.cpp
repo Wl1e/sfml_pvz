@@ -3,8 +3,33 @@
 using namespace std;
 using namespace demo;
 
+struct TriggerHandler
+{
+    std::unordered_map<EventType, EventCallback> handler;
+};
+
+using HandlerPtr = std::unique_ptr<TriggerHandler>;
+
+class EventManager
+{
+public:
+    EventManager() = default;
+
+    ~EventManager() = default;
+
+    inline void registerEvent(Entity*, EventType, EventCallback);
+    inline void trigger(Entity*, EventType);
+    inline void unregisterEvent(Entity*, EventType);
+    inline void clearEvents(Entity*);
+
+private:
+    std::unordered_map<Entity*, HandlerPtr> m_handlers;
+};
+
+static EventManager _event_manager;
+
 void EventManager::registerEvent(
-    Entity* entity, EventType type, eventCallback callback
+    Entity* entity, EventType type, EventCallback callback
 )
 {
     auto& handler = m_handlers[entity];
@@ -40,4 +65,23 @@ void EventManager::unregisterEvent(Entity* entity, EventType type)
 void EventManager::clearEvents(Entity* entity)
 {
     m_handlers.erase(entity);
+}
+
+void demo::registerEvent(
+    Entity* entity, EventType type, EventCallback callback
+)
+{
+    _event_manager.registerEvent(entity, type, std::move(callback));
+}
+void demo::trigger(Entity* entity, EventType type)
+{
+    _event_manager.trigger(entity, type);
+}
+void demo::unregisterEvent(Entity* entity, EventType type)
+{
+    _event_manager.unregisterEvent(entity, type);
+}
+void demo::clearEvents(Entity* entity)
+{
+    _event_manager.clearEvents(entity);
 }

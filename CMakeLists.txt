@@ -19,6 +19,8 @@ set(SOURCES
     src/base/direction.cpp
     src/base/attack_range.cpp
 
+    src/event_manager.cpp
+
     src/components/movement_comp.cpp
     src/components/position_comp.cpp
     src/components/animation_comp.cpp

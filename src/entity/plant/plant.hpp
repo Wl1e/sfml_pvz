@@ -21,10 +21,10 @@ struct PlantData
 class Plant : public Entity
 {
 public:
-    explicit Plant(const PlantData& data, const sf::Vector2i& pos);
+    explicit Plant(const PlantData&, const sf::Vector2i&);
     ~Plant() = default;
 
-    void init(const PlantData&, const Vector2i&);
+    void _initComp(const PlantData&, const sf::Vector2i&);
 
     const std::string& getBulletType() const
     {

@@ -107,3 +107,8 @@ void AttackComp::_updateAttackRange(Entity* entity)
     m_range->display(entity->getScene());
 #endif
 }
+
+void AttackComp::attack(Entity* entity)
+{
+    printf("attack\n");
+}

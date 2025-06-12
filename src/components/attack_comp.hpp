@@ -47,6 +47,7 @@ public:
     {
         return m_damage;
     }
+    void attack(Entity*);
 
 private:
     bool _inAttackRange(Entity*);
