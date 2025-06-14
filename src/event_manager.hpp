@@ -6,7 +6,10 @@ namespace demo {
 enum EventType
 {
     Attack = 0,
-    DownHP
+    DownHP,
+
+    // 和上面算不同类型的Event
+    FinishAnimation
 };
 
 class Entity;

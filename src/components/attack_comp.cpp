@@ -29,7 +29,9 @@ void AttackComp::update(Entity* entity)
     if(auto move = entity->getComp<CompType::MOVEMENT>(); move) {
         m_range->updatePos(move->getMoveValue());
     }
+#ifdef DEMO_DEBUG
     m_range->display(entity->getScene());
+#endif
 
     vector<Entity*> enemys;
     if(m_range) {
@@ -110,5 +112,18 @@ void AttackComp::_updateAttackRange(Entity* entity)
 
 void AttackComp::attack(Entity* entity)
 {
-    printf("attack\n");
+    if(!m_range) {
+        return;
+    }
+    auto enemys = m_range->getEnemyInRange(entity);
+    _attack(entity, enemys);
+}
+
+bool AttackComp::hasEnemys(Entity* entity)
+{
+    if(!m_range) {
+        return false;
+    }
+    auto enemys = m_range->getEnemyInRange(entity);
+    return !enemys.empty();
 }

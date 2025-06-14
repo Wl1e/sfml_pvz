@@ -16,11 +16,11 @@ class GameScene;
 
 using PosFunction = std::function<const sf::Vector2i&()>;
 using SceneFunction = std::function<GameScene*()>;
-using anime_frame = sf::Texture;
+using AnimeFrame = sf::Texture;
 
-std::string read_frames(
+void read_frames(
     std::string_view path,
-    std::unordered_map<std::string, std::vector<anime_frame>>& result
+    std::unordered_map<std::string, std::vector<AnimeFrame>>& result
 );
 
 // FIXME: 后续可以分成animation和render，拆分功能
@@ -28,19 +28,7 @@ std::string read_frames(
 class AnimationComp : public Component
 {
 public:
-    explicit AnimationComp(std::string_view resource_path) :
-        m_frames(
-            std::make_unique<std::unordered_map<
-                std::string,
-                std::vector<anime_frame>>>()
-        ),
-        m_idx(0), m_last_frame(0), m_interval(1)
-    {
-        m_status = read_frames(resource_path, *m_frames);
-        m_sprite = std::make_unique<sf::Sprite>(
-            m_frames->at(m_status)[m_idx]
-        );
-    }
+    explicit AnimationComp(std::string_view);
     ~AnimationComp() = default;
 
     void update(Entity*) override;
@@ -66,6 +54,10 @@ public:
     {
         return m_sprite->getTexture().getSize();
     }
+    const std::string& getStatus() const
+    {
+        return m_status;
+    }
 
 protected:
     int _updateAnimation();
@@ -77,7 +69,7 @@ private:
 
     // 考虑anime_frame* ？
     std::unique_ptr<
-        std::unordered_map<std::string, std::vector<anime_frame>>>
+        std::unordered_map<std::string, std::vector<AnimeFrame>>>
         m_frames;
     std::string m_status;
     size_t m_idx;

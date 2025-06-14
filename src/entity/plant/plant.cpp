@@ -61,3 +61,17 @@ void Plant::_initComp(const PlantData& data, const Vector2i& pos)
     addComp<CompType::ATTACK>(data.damage, data.CD, true_range);
     getComp<CompType::ATTACK>()->setAttackFunc(plantAttackZombie);
 }
+
+void Plant::_initEvent()
+{
+    registerEvent(
+        this,
+        EventType::FinishAnimation,
+        [](Entity* entity) {
+            if(auto attack = entity->getComp<CompType::ATTACK>();
+               attack) {
+                attack->attack(entity);
+            }
+        }
+    );
+}

@@ -47,6 +47,8 @@ public:
     {
         return m_damage;
     }
+
+    bool hasEnemys(Entity*);
     void attack(Entity*);
 
 private:

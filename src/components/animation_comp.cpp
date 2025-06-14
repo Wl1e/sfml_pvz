@@ -19,57 +19,73 @@ static unordered_map<EntityType, Vector2i> ANIMATION_OFFSET{
     {EntityType::BULLET, Vector2i(0, 0)},
 };
 
-std::string read_frames2(
-    filesystem::path, unordered_map<string, vector<anime_frame>>&
+void read_frames2(
+    filesystem::path, unordered_map<string, vector<AnimeFrame>>&
 );
 
-std::string read_frames(
+void read_frames(
     string_view path,
-    unordered_map<string, vector<anime_frame>>& result
+    unordered_map<string, vector<AnimeFrame>>& result
 )
 {
     filesystem::path frame_path(path);
-    return read_frames2(frame_path, result);
+    read_frames2(frame_path, result);
 }
 
-std::string read_frames2(
+void read_frames2(
     filesystem::path frame_path,
-    unordered_map<string, vector<anime_frame>>& res
+    unordered_map<string, vector<AnimeFrame>>& res
 )
 {
     if(!filesystem::exists(frame_path)) {
-        return "";
+        return;
     }
     if(!filesystem::is_directory(frame_path)) {
         if(filesystem::is_regular_file(frame_path)) {
             std::string name = frame_path.filename().stem();
-            res[name].emplace_back(frame_path);
-            return name;
+            res[name].resize(2);
+            res[name][1] = AnimeFrame(frame_path);
+            return;
         }
-        return "";
+        return;
     }
 
-    for(const auto& entity :
+    for(const auto& type :
         filesystem::directory_iterator(frame_path)) {
-        if(!entity.is_regular_file()) {
+        if(!type.is_directory()) {
             continue;
         }
-        std::string name = entity.path().filename().stem();
-        size_t mid = name.find('-');
-        if(mid == string::npos) {
-            continue;
+        string typeName = type.path().filename().stem();
+        res[typeName];
+        for(auto& entity : filesystem::directory_iterator(type)) {
+            int idx = stoi(entity.path().filename().stem());
+            if(res[typeName].size() <= idx) {
+                res[typeName].resize(idx + 1);
+            }
+            res[typeName][idx] = Texture(entity.path());
         }
-        string pre_idx = name.substr(0, mid);
-        int suf_idx = stoi(name.substr(mid + 1));
-        if(res[pre_idx].size() <= suf_idx) {
-            res[pre_idx].resize(suf_idx + 1);
-        }
-        res[pre_idx][suf_idx] = Texture(entity.path());
     }
-    return "normal";
 }
 
 } // namespace demo
+
+AnimationComp::AnimationComp(std::string_view resource_path) :
+    m_frames(
+        std::make_unique<std::unordered_map<
+            std::string,
+            std::vector<AnimeFrame>>>()
+    ),
+    m_idx(1), m_last_frame(0), m_interval(1)
+{
+    read_frames(resource_path, *m_frames);
+    if(filesystem::is_regular_file(resource_path)) {
+        m_status = filesystem::path(resource_path).filename().stem();
+    } else {
+        m_status = "normal";
+    }
+    m_sprite =
+        std::make_unique<sf::Sprite>(m_frames->at(m_status)[m_idx]);
+}
 
 void AnimationComp::update(Entity* entity)
 {
@@ -85,7 +101,7 @@ void AnimationComp::update(Entity* entity)
 
     if(_validUpdateAnimation()) {
         if(_updateAnimation() == m_frames->at(m_status).size()) {
-            trigger(entity, EventType::Attack);
+            trigger(entity, EventType::FinishAnimation);
         }
     }
 
@@ -104,13 +120,14 @@ bool AnimationComp::_validUpdateAnimation()
 
 int AnimationComp::_updateAnimation()
 {
-    m_sprite->setTexture(m_frames->at(m_status)[m_idx], false);
+    int ret = m_idx;
 
     if(m_idx >= m_frames->at(m_status).size()) {
-        m_idx = 0;
-        return m_frames->at(m_status).size();
+        m_idx = 1;
     }
-    return m_idx++;
+    m_sprite->setTexture(m_frames->at(m_status)[m_idx++], false);
+
+    return ret;
 }
 void AnimationComp::updateAnimationStatus(string_view status)
 {

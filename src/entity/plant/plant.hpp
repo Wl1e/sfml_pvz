@@ -24,8 +24,6 @@ public:
     explicit Plant(const PlantData&, const sf::Vector2i&);
     ~Plant() = default;
 
-    void _initComp(const PlantData&, const sf::Vector2i&);
-
     const std::string& getBulletType() const
     {
         return m_bullet_type;
@@ -33,6 +31,10 @@ public:
 
 protected:
     void _statusFunction() override;
+
+private:
+    void _initComp(const PlantData&, const sf::Vector2i&);
+    void _initEvent();
 
 private:
     std::string m_bullet_type;
