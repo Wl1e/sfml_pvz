@@ -4,6 +4,7 @@
 #include <components/hp_comp.hpp>
 #include <entity/entity.hpp>
 #include <entity/frame.hpp>
+#include <event_manager.hpp>
 
 using namespace std;
 using namespace sf;
@@ -49,8 +50,10 @@ void AttackComp::update(Entity* entity)
     }
 
     entity->updateStatus(EntityStatus::Attack);
+    trigger(entity, EventType::Attack);
 
-    _attack(entity, enemys);
+    // FIXME: 改了之后子弹无法正常命中了
+    // _attack(entity, enemys);
 }
 
 bool AttackComp::_validAttack()
@@ -79,6 +82,7 @@ void AttackComp::_attack(
     Entity* entity, const std::vector<Entity*>& enemys
 )
 {
+    printf("attack\n");
     if(!m_attack) {
         return;
     }

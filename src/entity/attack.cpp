@@ -24,6 +24,9 @@ void plantAttackZombie(
     Entity* entity, const vector<Entity*>& targets
 )
 {
+    if(targets.empty()) {
+        return;
+    }
     auto plant = dynamic_cast<Plant*>(entity);
     assert(plant->hasComp(CompType::ATTACK));
     assert(plant->hasComp(CompType::POSITION));

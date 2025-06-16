@@ -32,10 +32,10 @@ void EventManager::registerEvent(
     Entity* entity, EventType type, EventCallback callback
 )
 {
-    auto& handler = m_handlers[entity];
-    if(!handler) {
+    if(m_handlers.find(entity) == m_handlers.end()) {
         m_handlers[entity] = make_unique<TriggerHandler>();
     }
+    auto& handler = m_handlers[entity];
     handler->handler[type] = std::move(callback);
 }
 

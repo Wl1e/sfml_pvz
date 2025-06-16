@@ -16,9 +16,7 @@ Plant::Plant(const PlantData& data, const Vector2i& pos) :
     Entity(EntityType::PLANT), m_bullet_type(data.bullet_type)
 {
     _initComp(data, pos);
-    registerEvent(this, Attack, [this](Entity* entity) {
-        getComp<CompType::ATTACK>()->attack(entity);
-    });
+    _initEvent();
 }
 
 void Plant::_statusFunction()

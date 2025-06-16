@@ -7,6 +7,7 @@ enum EventType
 {
     Attack = 0,
     DownHP,
+    Collide,
 
     // 和上面算不同类型的Event
     FinishAnimation

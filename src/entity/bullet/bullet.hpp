@@ -39,14 +39,17 @@ public:
 
     bool isPiercing() const
     {
-        return m_data.bulletData.piercing;
+        return m_piercing;
     }
 
 protected:
     void _statusFunction() override;
 
+    void _initComp(const BulletData& data);
+    void _initEvent();
+
 private:
-    BulletData m_data;
+    bool m_piercing;
 };
 
 } // namespace demo
