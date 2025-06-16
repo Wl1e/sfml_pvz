@@ -1,6 +1,7 @@
 #include <base/attack_range.hpp>
 #include <entity/attack.hpp>
 #include <entity/zombie/zombie.hpp>
+#include <event_manager.hpp>
 #include <UI/defines.hpp>
 
 using namespace std;
@@ -11,6 +12,39 @@ extern unordered_map<EntityStatus, string> animationStatus;
 
 Zombie::Zombie(const ZombieData& data, int path) :
     Entity(EntityType::ZOMBIE)
+{
+    _initComp(data, path);
+    _initEvent();
+}
+
+void Zombie::_statusFunction()
+{
+    auto status = getStatus();
+    auto animationComp = getComp<CompType::ANIMATION>();
+    if(animationComp) {
+        animationComp->updateAnimationStatus(
+            animationStatus[status]
+        );
+    }
+
+    auto moveComp = getComp<CompType::MOVEMENT>();
+    if(status == EntityStatus::Normal) {
+        if(moveComp) {
+            moveComp->setDir(Direction::DIR::LEFT);
+        }
+    } else if(status == EntityStatus::Attack) {
+        if(moveComp) {
+            moveComp->setDir(Direction::DIR::STOP);
+        }
+    } else if(status == EntityStatus::Died) {
+        if(moveComp) {
+            moveComp->setDir(Direction::DIR::STOP);
+        }
+        kill();
+    }
+}
+
+void Zombie::_initComp(const ZombieData& data, int path)
 {
     auto true_pos = axis2pos({UI_DEFINE::GRASS_COUNT - 1, path});
 
@@ -43,29 +77,12 @@ Zombie::Zombie(const ZombieData& data, int path) :
     getComp<CompType::ATTACK>()->setAttackFunc(zombieAttackPlant);
 }
 
-void Zombie::_statusFunction()
+void Zombie::_initEvent()
 {
-    auto status = getStatus();
-    auto animationComp = getComp<CompType::ANIMATION>();
-    if(animationComp) {
-        animationComp->updateAnimationStatus(
-            animationStatus[status]
-        );
-    }
-
-    auto moveComp = getComp<CompType::MOVEMENT>();
-    if(status == EntityStatus::Normal) {
-        if(moveComp) {
-            moveComp->setDir(Direction::DIR::LEFT);
+    registerEvent(this, EventType::Attack, [](Entity* entity) {
+        if(auto attack = entity->getComp<CompType::ATTACK>();
+           attack) {
+            attack->attack(entity);
         }
-    } else if(status == EntityStatus::Attack) {
-        if(moveComp) {
-            moveComp->setDir(Direction::DIR::STOP);
-        }
-    } else if(status == EntityStatus::Died) {
-        if(moveComp) {
-            moveComp->setDir(Direction::DIR::STOP);
-        }
-        kill();
-    }
+    });
 }

@@ -30,6 +30,9 @@ public:
 
 protected:
     void _statusFunction();
+
+    void _initComp(const ZombieData&, int);
+    void _initEvent();
 };
 
 } // namespace demo
