@@ -67,9 +67,8 @@ void zombieGetEnemys(
     const AttackRange* range, GameScene* scene, vector<Entity*>& res
 )
 {
-    auto enemys = scene->getPlantByAxis(
-        pos2axis(range->getRectangleShape()->getGeometricCenter())
-    );
+    auto enemys =
+        scene->getPlantByAxis(pos2axis(range->getCenterPos()));
     if(!enemys) {
         return;
     }
@@ -151,4 +150,9 @@ AttackRange::AttackRange(const AttackRange& range) :
         m_range->setOutlineThickness(1);
     }
 #endif
+}
+
+PositionType AttackRange::getCenterPos() const
+{
+    return m_range->getPosition() + m_range->getGeometricCenter();
 }

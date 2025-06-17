@@ -37,3 +37,13 @@ void PositionComp::update(Entity* entity)
     }
     move(entity->getComp<CompType::MOVEMENT>()->getMoveValue());
 }
+
+PositionType PositionComp::getCenterPos() const
+{
+    return m_hitbox.getPosition() + m_hitbox.getGeometricCenter();
+}
+PositionType PositionComp::getBottomPos() const
+{
+    return m_hitbox.getPosition()
+           + m_hitbox.getSize().componentWiseDiv({2, 1});
+}

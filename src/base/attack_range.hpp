@@ -56,12 +56,12 @@ public:
         assert(m_type == RangeType::Rectangle);
         return static_cast<sf::RectangleShape*>(m_range);
     }
-
     const sf::CircleShape* getCircleShape() const
     {
         assert(m_type == RangeType::Circle);
         return static_cast<sf::CircleShape*>(m_range);
     }
+    PositionType getCenterPos() const;
     // FIXME
     bool inRange(Entity* entity) const
     {

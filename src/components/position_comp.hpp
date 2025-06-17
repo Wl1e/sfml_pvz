@@ -46,15 +46,9 @@ public:
     {
         return m_hitbox;
     }
-    PositionType getCenterPos() const
-    {
-        return m_hitbox.getGeometricCenter();
-    }
-    PositionType getBottomPos() const
-    {
-        return getCenterPos()
-               + PositionType(0, m_hitbox.getSize().y / 2);
-    }
+    PositionType getCenterPos() const;
+    PositionType getBottomPos() const;
+
     bool isIgnoreCollision() const
     {
         return m_ignoreCollision;
