@@ -68,7 +68,7 @@ void Zombie::_initComp(const ZombieData& data, int path)
     animation->setAnimationPos(true_pos);
 
     auto true_range = new AttackRange(
-        rangeType::Rectangle,
+        RangeType::Rectangle,
         getComp<CompType::POSITION>()->getSize()
     );
     true_range->setPosition(true_pos);
@@ -79,10 +79,23 @@ void Zombie::_initComp(const ZombieData& data, int path)
 
 void Zombie::_initEvent()
 {
-    registerEvent(this, EventType::Attack, [](Entity* entity) {
-        if(auto attack = entity->getComp<CompType::ATTACK>();
-           attack) {
-            attack->attack(entity);
+    registerEvent(
+        this,
+        EventType::FinishAnimation,
+        [](Entity* entity) {
+            if(entity->getStatus() != EntityStatus::Attack) {
+                return;
+            }
+            if(auto attack = entity->getComp<CompType::ATTACK>();
+               attack) {
+                attack->attack(entity);
+            }
+        }
+    );
+    registerEvent(this, EventType::DownHP, [](Entity* entity) {
+        if(auto animation = entity->getComp<CompType::ANIMATION>();
+           animation) {
+            animation->setColor(Color(255, 255, 255, 100));
         }
     });
 }

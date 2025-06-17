@@ -48,7 +48,7 @@ public:
     }
     PositionType getCenterPos() const
     {
-        return m_hitbox.getPosition() + m_hitbox.getSize() / 2.f;
+        return m_hitbox.getGeometricCenter();
     }
     PositionType getBottomPos() const
     {

@@ -26,7 +26,7 @@ class Entity;
 //     virtual void setPosition(const PositionType& pos);
 // };
 
-enum class rangeType
+enum class RangeType
 {
     Rectangle = 0,
     Circle
@@ -35,7 +35,8 @@ enum class rangeType
 class AttackRange
 {
 public:
-    explicit AttackRange(rangeType, const SizeType&);
+    explicit AttackRange(RangeType, const SizeType&);
+    AttackRange(const AttackRange&);
     ~AttackRange() = default;
 
     void updatePos(const sf::Vector2f& move_value)
@@ -52,18 +53,14 @@ public:
 
     sf::RectangleShape* getRectangleShape() const
     {
-        if(m_type == rangeType::Rectangle) {
-            return static_cast<sf::RectangleShape*>(m_range);
-        }
-        return nullptr;
+        assert(m_type == RangeType::Rectangle);
+        return static_cast<sf::RectangleShape*>(m_range);
     }
 
     const sf::CircleShape* getCircleShape() const
     {
-        if(m_type == rangeType::Circle) {
-            return static_cast<sf::CircleShape*>(m_range);
-        }
-        return nullptr;
+        assert(m_type == RangeType::Circle);
+        return static_cast<sf::CircleShape*>(m_range);
     }
     // FIXME
     bool inRange(Entity* entity) const
@@ -78,7 +75,7 @@ protected:
     bool _inRange(Entity*) const;
 
 private:
-    rangeType m_type;
+    RangeType m_type;
     sf::Shape* m_range;
 };
 

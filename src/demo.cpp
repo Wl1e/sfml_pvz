@@ -4,6 +4,7 @@
 #include <base/direction.hpp>
 #include <entity/bullet/factory.hpp>
 #include <entity/plant/factory.hpp>
+#include <entity/tool/plant_creator.hpp>
 #include <entity/zombie/factory.hpp>
 #include <game.h>
 
@@ -38,6 +39,9 @@ void test_simple_tool()
     }
 
     game.scene()->addZombie(zombie);
+
+    auto plantCreator = new PlantCreator("PeaShooter");
+    game.scene()->addTool(plantCreator);
 
     game.run();
 }

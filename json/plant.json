@@ -12,7 +12,7 @@
     "PeaShooter": {
         "HP": 100,
         "CD": 78,
-        "damage": 100,
+        "damage": 10,
         "range": {
             "type": "Rectangle",
             "data": [

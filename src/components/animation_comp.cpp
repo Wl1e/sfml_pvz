@@ -62,7 +62,7 @@ void read_frames2(
             if(res[typeName].size() <= idx) {
                 res[typeName].resize(idx + 1);
             }
-            res[typeName][idx] = Texture(entity.path());
+            res[typeName][idx] = AnimeFrame(entity.path());
         }
     }
 }
@@ -126,6 +126,9 @@ int AnimationComp::_updateAnimation()
         m_idx = 1;
     }
     m_sprite->setTexture(m_frames->at(m_status)[m_idx++], false);
+    if(m_sprite->getColor() != Color::White) {
+        m_sprite->setColor(Color::White);
+    }
 
     return ret;
 }
@@ -141,7 +144,17 @@ void AnimationComp::updateAnimationStatus(string_view status)
     m_idx = 0;
     _updateAnimation();
 }
+
 void AnimationComp::_updatePos(const PositionType& pos)
 {
     m_sprite->setPosition(pos);
+}
+
+void AnimationComp::setColor(const sf::Color& color)
+{
+    m_sprite->setColor(color);
+    // auto col = m_sprite->getColor();
+    // printf(
+    //     "sprite color: r: %d, g: %d, b: %d\n", col.g, col.g, col.b
+    // );
 }

@@ -36,7 +36,7 @@ void initPlantData(
         string range_type = value["range"]["type"].asString();
         if(range_type == "Rectangle") {
             range = new AttackRange(
-                rangeType::Rectangle,
+                RangeType::Rectangle,
                 SizeType(
 
                     value["range"]["data"][0].asFloat()
@@ -46,7 +46,7 @@ void initPlantData(
             );
         } else if(range_type == "Circle") {
             range = new AttackRange(
-                rangeType::Circle,
+                RangeType::Circle,
                 SizeType(value["range"]["data"][0].asFloat(), 0)
             );
         }
@@ -55,7 +55,7 @@ void initPlantData(
             value["HP"].asFloat(),
             value["CD"].asInt(),
             value["damage"].asFloat(),
-            std::move(*range),
+            *range,
             value["animation"].asString(),
             value["frame2animation"].asInt(),
             SizeType(
@@ -64,6 +64,8 @@ void initPlantData(
             ),
             value["bullet_type"].asString()
         });
+
+        delete range;
     }
 }
 

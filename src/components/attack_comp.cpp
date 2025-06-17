@@ -84,7 +84,6 @@ void AttackComp::_attack(
     Entity* entity, const std::vector<Entity*>& enemys
 )
 {
-    printf("attack\n");
     if(!m_attack) {
         return;
     }

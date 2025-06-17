@@ -68,7 +68,7 @@ void zombieGetEnemys(
 )
 {
     auto enemys = scene->getPlantByAxis(
-        pos2axis(range->getRectangleShape()->getPosition())
+        pos2axis(range->getRectangleShape()->getGeometricCenter())
     );
     if(!enemys) {
         return;
@@ -109,13 +109,37 @@ void AttackRange::display(GameScene* scene)
     scene->draw(*m_range);
 }
 
-AttackRange::AttackRange(rangeType type, const SizeType& size) :
+AttackRange::AttackRange(RangeType type, const SizeType& size) :
     m_type(type), m_range(nullptr)
 {
-    if(m_type == rangeType::Rectangle) {
+    if(m_type == RangeType::Rectangle) {
         m_range = new sf::RectangleShape(size);
-    } else if(m_type == rangeType::Circle) {
+    } else if(m_type == RangeType::Circle) {
         m_range = new sf::CircleShape(size.x);
+    } else {
+        // err
+    }
+
+#ifdef DEMO_DEBUG
+    if(m_range) {
+        m_range->setFillColor(sf::Color::Transparent);
+        m_range->setOutlineColor(sf::Color::Red);
+        m_range->setOutlineThickness(1);
+    }
+#endif
+}
+
+AttackRange::AttackRange(const AttackRange& range) :
+    m_type(range.m_type)
+{
+    if(m_type == RangeType::Rectangle) {
+        m_range = new sf::RectangleShape(
+            *static_cast<sf::RectangleShape*>(range.m_range)
+        );
+    } else if(m_type == RangeType::Circle) {
+        m_range = new sf::CircleShape(
+            *static_cast<sf::CircleShape*>(range.m_range)
+        );
     } else {
         // err
     }

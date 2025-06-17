@@ -35,6 +35,7 @@ public:
     void addPlant(Plant* plant);
     void addZombie(Zombie* zombie);
     void addBullet(Bullet* bullet);
+    void addTool(Tool*);
     void addHander(sceneHandler handler)
     {
         m_handler.emplace_back(std::move(handler));
@@ -102,6 +103,7 @@ private:
     void _updatePlants();
     void _updateZombies();
     void _updateBullets();
+    void _updateTools();
 
 private:
     sf::RenderWindow* m_window;

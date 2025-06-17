@@ -54,7 +54,7 @@ void Bullet::_initComp(const BulletData& data)
     );
 
     auto true_range = new AttackRange(
-        rangeType::Circle, SizeType(animationSize.x / 2, 0)
+        RangeType::Circle, SizeType(animationSize.x / 2, 0)
     );
     true_range->setPosition(data.plantData.start);
     addComp<CompType::ATTACK>(data.plantData.damage, 0, true_range);

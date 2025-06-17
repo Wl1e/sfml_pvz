@@ -36,6 +36,7 @@ void plantAttackZombie(
     // 子弹创建可以考虑加到updateStatus的更新回调里去
     // FIXME: 做不到和动画同步，有些麻烦
     // 要依赖动画组件吗?
+    // 已修改为动画组件事件触发攻击
     auto bullet = BulletFactory::getFactory()->create(
         plant->getBulletType(),
         {attackComp->getDamage(),
@@ -54,7 +55,6 @@ void zombieAttackPlant(
     Entity* entity, const vector<Entity*>& targets
 )
 {
-    printf("eat eat eat\n");
     auto zombie = dynamic_cast<Zombie*>(entity);
     assert(zombie->hasComp(CompType::ATTACK));
     assert(zombie->hasComp(CompType::POSITION));
@@ -78,7 +78,9 @@ void zombieAttackPlant(
     }
 
     zombie->updateStatus(EntityStatus::Attack);
-    hp->downHP(attackComp->getDamage());
+    // entity和componet关联太低了，组件都不知道自己的实体是谁...
+    // 不知道这算好还是算坏
+    hp->receiveDamage(enemy, attackComp->getDamage());
 }
 
 void bulletAttackPlant(
@@ -97,7 +99,7 @@ void bulletAttackZombie(
 
     for(auto enemy : targets) {
         if(auto hp = enemy->getComp<CompType::HP>(); hp) {
-            hp->downHP(attackComp->getDamage());
+            hp->receiveDamage(enemy, attackComp->getDamage());
         }
         if(!bullet->isPiercing()) {
             bullet->updateStatus(EntityStatus::Destroyed);
@@ -118,7 +120,7 @@ void bombPlantAttackZombie(
 
     for(auto enemy : targets) {
         if(auto hp = enemy->getComp<CompType::HP>(); hp) {
-            hp->downHP(attackComp->getDamage());
+            hp->receiveDamage(enemy, attackComp->getDamage());
         }
     }
 

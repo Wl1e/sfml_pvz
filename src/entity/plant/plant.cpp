@@ -12,6 +12,7 @@ extern unordered_map<EntityStatus, string> animationStatus;
 // 后续或许不同植物有不同的偏移，可以改成类变量
 static const PositionType PLANT_ATTACK_OFFSET{30, 0};
 
+// plant、zombie和bullet在构建上其实有不少相同之处，或许可以在他们和entity之间再插一个层级
 Plant::Plant(const PlantData& data, const Vector2i& pos) :
     Entity(EntityType::PLANT), m_bullet_type(data.bullet_type)
 {
@@ -66,10 +67,20 @@ void Plant::_initEvent()
         this,
         EventType::FinishAnimation,
         [](Entity* entity) {
+            if(entity->getStatus() != EntityStatus::Attack) {
+                return;
+            }
             if(auto attack = entity->getComp<CompType::ATTACK>();
                attack) {
                 attack->attack(entity);
             }
         }
     );
+    // 由于comp的初始化没有entity，所以暂时放在这
+    registerEvent(this, EventType::DownHP, [](Entity* entity) {
+        if(auto animation = entity->getComp<CompType::ANIMATION>();
+           animation) {
+            animation->setColor(Color(255, 255, 255, 100));
+        }
+    });
 }

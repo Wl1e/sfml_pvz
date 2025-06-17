@@ -74,6 +74,7 @@ void GameScene::update()
     _updateBullets();
     _updatePlants();
     _updateZombies();
+    _updateTools();
 }
 
 void GameScene::_updateBackground()
@@ -107,6 +108,13 @@ void GameScene::_updateBullets()
 {
     for(auto bullet : m_bullets) {
         bullet->updade();
+    }
+}
+
+void GameScene::_updateTools()
+{
+    for(auto tool : m_tools) {
+        tool->updade();
     }
 }
 
@@ -170,7 +178,10 @@ void GameScene::addPlant(Plant* plant)
 {
     plant->setScene(this);
     auto axis_pos = pos2axis(getEntityPosition(plant));
-    m_plants[axis_pos.y][axis_pos.x] = plant;
+    // FIXME: 后续南瓜罩出现需要改
+    if(!m_plants[axis_pos.y][axis_pos.x]) {
+        m_plants[axis_pos.y][axis_pos.x] = plant;
+    }
 }
 
 void GameScene::addZombie(Zombie* zombie)
@@ -187,6 +198,11 @@ void GameScene::addBullet(Bullet* bullet)
 {
     bullet->setScene(this);
     m_bullets.insert(bullet);
+}
+void GameScene::addTool(Tool* tool)
+{
+    tool->setScene(this);
+    m_tools.insert(tool);
 }
 
 void GameScene::_delPlant(Plant* plant)

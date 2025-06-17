@@ -11,7 +11,6 @@ public:
     {
     }
     ~HPComp() = default;
-    void downHP(float);
     float getHP() const
     {
         return m_HP;
@@ -22,6 +21,10 @@ public:
     }
 
     void update(Entity*) override;
+    void receiveDamage(Entity*, float);
+
+private:
+    void _downHP(float);
 
 private:
     float m_HP;
