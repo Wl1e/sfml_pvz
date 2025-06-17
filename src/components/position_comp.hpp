@@ -52,8 +52,8 @@ public:
     }
     PositionType getBottomPos() const
     {
-        return m_hitbox.getPosition()
-               + m_hitbox.getSize().componentWiseDiv({2, 1});
+        return getCenterPos()
+               + PositionType(0, m_hitbox.getSize().y / 2);
     }
     bool isIgnoreCollision() const
     {
