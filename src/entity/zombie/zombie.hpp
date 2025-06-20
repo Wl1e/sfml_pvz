@@ -6,6 +6,7 @@ namespace demo {
 
 struct ZombieData
 {
+    std::string name;
     float HP;
     SizeType size;
 

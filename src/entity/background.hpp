@@ -11,7 +11,7 @@ public:
         std::string_view resource_path,
         const PositionType& pos,
         const SizeType& size
-    )
+    ) : Entity(EntityType::NONE, "Background")
     {
         addComp<CompType::POSITION>(pos, size);
         addComp<CompType::ANIMATION>(resource_path);

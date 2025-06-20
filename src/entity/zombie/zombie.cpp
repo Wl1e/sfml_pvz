@@ -11,7 +11,7 @@ using namespace demo;
 extern unordered_map<EntityStatus, string> animationStatus;
 
 Zombie::Zombie(const ZombieData& data, int path) :
-    Entity(EntityType::ZOMBIE)
+    Entity(EntityType::ZOMBIE, data.name)
 {
     _initComp(data, path);
     _initEvent();
@@ -41,6 +41,14 @@ void Zombie::_statusFunction()
             moveComp->setDir(Direction::DIR::STOP);
         }
         kill();
+    } else if(status == EntityStatus::Destroying) {
+        if(moveComp) {
+            moveComp->setDir(Direction::DIR::STOP);
+        }
+    } else if(status == EntityStatus::Destroyed) {
+        if(moveComp) {
+            moveComp->setDir(Direction::DIR::RIGHT);
+        }
     }
 }
 
@@ -48,7 +56,7 @@ void Zombie::_initComp(const ZombieData& data, int path)
 {
     auto true_pos = axis2pos({UI_DEFINE::GRASS_COUNT - 1, path});
 
-    addComp<CompType::MOVEMENT>(data.dir, data.speed, 999);
+    addComp<CompType::MOVEMENT>(data.dir, data.speed, 10000);
     addComp<CompType::ANIMATION>(data.animation);
     addComp<CompType::HP>(data.HP);
 

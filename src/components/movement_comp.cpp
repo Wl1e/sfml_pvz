@@ -9,6 +9,7 @@ void MovementComp::update(Entity* entity)
 {
     if(m_distance <= 0) {
         entity->updateStatus(EntityStatus::Destroyed);
+        return;
     }
     // 加减速
     if(m_acceleration != 0) {

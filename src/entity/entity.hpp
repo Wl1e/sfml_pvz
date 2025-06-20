@@ -35,8 +35,8 @@ enum class EntityStatus
 class Entity
 {
 public:
-    explicit Entity(EntityType type = EntityType::NONE) :
-        m_type(type), m_status(EntityStatus::Normal)
+    explicit Entity(EntityType type, const std::string& name) :
+        m_type(type), m_status(EntityStatus::Normal), m_name(name)
     {
     }
     virtual ~Entity() = 0;
@@ -80,6 +80,10 @@ public:
     {
         return m_status;
     }
+    const std::string& getName() const
+    {
+        return m_name;
+    }
     bool hasComp(CompType type) const
     {
         return m_component.find(type) != m_component.end();
@@ -103,6 +107,7 @@ private:
 
     EntityType m_type;
     EntityStatus m_status;
+    std::string m_name;
 };
 
 bool isPlant(Entity*);

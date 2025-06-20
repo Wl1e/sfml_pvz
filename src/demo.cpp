@@ -1,5 +1,6 @@
 
 #include <iostream>
+#include <thread>
 
 #include <base/direction.hpp>
 #include <entity/bullet/factory.hpp>
@@ -12,14 +13,10 @@ using namespace std;
 using namespace sf;
 using namespace demo;
 
-void test_simple_tool()
-{
-    Game game;
-    game.scene()->setBackGround(
-        "/home/wlle/code/demo/sfml2/resource/Background.jpg"
-    );
-    game.setFrame(60);
+Game game;
 
+void createPlant()
+{
     auto pos = axis2pos({3, 2});
     cout << "[ " << pos.x << ' ' << pos.y << "]\n";
     auto plant = PlantFactory::getFactory()->create(
@@ -30,18 +27,42 @@ void test_simple_tool()
         return;
     }
     game.scene()->addPlant(plant);
+}
 
+void createZombie()
+{
     cout << "create zombie\n";
-    auto zombie = ZombieFactory::getFactory()->create("normal", 2);
+    auto zombie =
+        ZombieFactory::getFactory()->create("NormalZombie", 2);
     if(!zombie) {
         cout << "create zombie error\n";
         return;
     }
 
     game.scene()->addZombie(zombie);
+}
 
+void createTool()
+{
     auto plantCreator = new PlantCreator("PeaShooter");
     game.scene()->addTool(plantCreator);
+}
+
+void test_simple_tool()
+{
+    game.scene()->setBackGround(
+        "/home/wlle/code/demo/sfml2/resource/Background.jpg"
+    );
+    game.setFrame(60);
+
+    createTool();
+    createPlant();
+    createZombie();
+
+    // thread([&]() {
+    //     this_thread::sleep_for(1s);
+    //     createZombie();
+    // }).detach();
 
     game.run();
 }

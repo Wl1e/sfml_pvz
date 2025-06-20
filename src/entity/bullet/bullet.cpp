@@ -13,7 +13,8 @@ extern unordered_map<EntityStatus, string> animationStatus;
 static const PositionType BULLET_ATTACK_OFFSET{0, 0};
 
 Bullet::Bullet(const BulletData& data) :
-    Entity(EntityType::BULLET), m_piercing(data.bulletData.piercing)
+    Entity(EntityType::BULLET, data.bulletName),
+    m_piercing(data.bulletData.piercing)
 {
     _initComp(data);
     _initEvent();

@@ -141,8 +141,7 @@ void AnimationComp::updateAnimationStatus(string_view status)
         return;
     }
     m_status = status;
-    m_idx = 0;
-    _updateAnimation();
+    m_idx = 1;
 }
 
 void AnimationComp::_updatePos(const PositionType& pos)
@@ -153,8 +152,4 @@ void AnimationComp::_updatePos(const PositionType& pos)
 void AnimationComp::setColor(const sf::Color& color)
 {
     m_sprite->setColor(color);
-    // auto col = m_sprite->getColor();
-    // printf(
-    //     "sprite color: r: %d, g: %d, b: %d\n", col.g, col.g, col.b
-    // );
 }

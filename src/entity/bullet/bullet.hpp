@@ -26,7 +26,7 @@ struct BulletSupport
 
 struct BulletData
 {
-    BulletData() = delete;
+    std::string bulletName;
     BulletSupport bulletData;
     PlantSupport plantData;
 };

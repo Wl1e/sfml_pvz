@@ -9,7 +9,8 @@ namespace demo {
 class Tool : public Entity
 {
 public:
-    explicit Tool() : Entity(EntityType::TOOL)
+    explicit Tool(const std::string& name) :
+        Entity(EntityType::TOOL, name)
     {
     }
 

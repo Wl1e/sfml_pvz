@@ -5,7 +5,8 @@ namespace demo {
 class PlantCreator : public Tool
 {
 public:
-    explicit PlantCreator(const std::string& plant) : m_plant(plant)
+    explicit PlantCreator(const std::string& plant) :
+        Tool("PlantCreator"), m_plant(plant)
     {
         _initComp();
     }

@@ -16,7 +16,7 @@ void HPComp::update(Entity* entity)
 void HPComp::_downHP(float value)
 {
     m_HP -= value;
-    printf("down hp %f\n", value);
+    // printf("down hp %f\n", value);
 }
 
 // 为了事件特地加的函数，或许还有其他作用

@@ -59,5 +59,5 @@ Bullet* BulletFactory::create(
     if(m_data.find(type) == m_data.end()) {
         return nullptr;
     }
-    return new Bullet(BulletData{*m_data[type], data});
+    return new Bullet(BulletData{type, *m_data[type], data});
 }

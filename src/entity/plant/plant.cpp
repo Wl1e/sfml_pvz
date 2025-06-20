@@ -14,7 +14,8 @@ static const PositionType PLANT_ATTACK_OFFSET{30, 0};
 
 // plant、zombie和bullet在构建上其实有不少相同之处，或许可以在他们和entity之间再插一个层级
 Plant::Plant(const PlantData& data, const Vector2i& pos) :
-    Entity(EntityType::PLANT), m_bullet_type(data.bullet_type)
+    Entity(EntityType::PLANT, data.name),
+    m_bullet_type(data.bullet_type)
 {
     _initComp(data, pos);
     _initEvent();
@@ -23,8 +24,8 @@ Plant::Plant(const PlantData& data, const Vector2i& pos) :
 void Plant::_statusFunction()
 {
     auto status = getStatus();
-    auto animationComp = getComp<CompType::ANIMATION>();
-    if(animationComp) {
+    if(auto animationComp = getComp<CompType::ANIMATION>();
+       animationComp) {
         animationComp->updateAnimationStatus(
             animationStatus[status]
         );

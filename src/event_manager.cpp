@@ -1,5 +1,7 @@
 #include <event_manager.hpp>
 
+#include <stdio.h>
+
 using namespace std;
 using namespace demo;
 
@@ -71,6 +73,7 @@ void demo::registerEvent(
     Entity* entity, EventType type, EventCallback callback
 )
 {
+    // printf("register event entity: %p, type: %d\n", entity, type);
     _event_manager.registerEvent(entity, type, std::move(callback));
 }
 void demo::trigger(Entity* entity, EventType type)
@@ -79,9 +82,12 @@ void demo::trigger(Entity* entity, EventType type)
 }
 void demo::unregisterEvent(Entity* entity, EventType type)
 {
+    // printf("unregister event entity: %p, type: %d\n", entity,
+    // type);
     _event_manager.unregisterEvent(entity, type);
 }
 void demo::clearEvents(Entity* entity)
 {
+    // printf("clear event entity: %p\n", entity);
     _event_manager.clearEvents(entity);
 }

@@ -41,6 +41,7 @@ void initPlantData(
             dir = Direction::DIR::RIGHT;
         }
         res[key] = make_unique<ZombieData>(ZombieData{
+            key,
             value["HP"].asFloat(),
             SizeType(
                 value["size"][0].asFloat(),

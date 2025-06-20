@@ -8,6 +8,7 @@ namespace demo {
 
 struct PlantData
 {
+    std::string name;
     float HP;
     int CD;
     float damage;

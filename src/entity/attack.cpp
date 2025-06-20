@@ -24,6 +24,7 @@ void plantAttackZombie(
     Entity* entity, const vector<Entity*>& targets
 )
 {
+    printf("%s attack\n", entity->getName().data());
     if(targets.empty()) {
         return;
     }
@@ -55,6 +56,7 @@ void zombieAttackPlant(
     Entity* entity, const vector<Entity*>& targets
 )
 {
+    printf("%s attack\n", entity->getName().data());
     auto zombie = dynamic_cast<Zombie*>(entity);
     assert(zombie->hasComp(CompType::ATTACK));
     assert(zombie->hasComp(CompType::POSITION));
@@ -112,11 +114,17 @@ void bombPlantAttackZombie(
     Entity* entity, const vector<Entity*>& targets
 )
 {
+    if(targets.empty()) {
+        return;
+    }
     auto plant = dynamic_cast<Plant*>(entity);
     assert(plant->hasComp(CompType::ATTACK));
     assert(plant->hasComp(CompType::POSITION));
     auto attackComp = plant->getComp<CompType::ATTACK>();
     auto posCmp = plant->getComp<CompType::POSITION>();
+
+    auto centerEnemy = targets.front();
+    // auto trueEnemys =
 
     for(auto enemy : targets) {
         if(auto hp = enemy->getComp<CompType::HP>(); hp) {

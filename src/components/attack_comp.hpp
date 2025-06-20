@@ -22,6 +22,8 @@ class AttackRange;
 // 再加一个ConvexShape?
 // using AttackRange =
 //     std::variant<sf::CircleShape, sf::RectangleShape>;
+using GetEnemysFunction =
+    std::function<std::vector<Entity*>(Entity*)>;
 using AttackFunction =
     std::function<void(Entity*, const std::vector<Entity*>&)>;
 
@@ -34,6 +36,10 @@ public:
 
     void update(Entity*) override;
 
+    void setGetEnemysFunc(GetEnemysFunction func)
+    {
+        m_get_enemys = func;
+    }
     void setAttackFunc(AttackFunction func)
     {
         m_attack = std::move(func);
@@ -67,6 +73,7 @@ private:
     Frame m_cd;
     Frame m_attackFrame;
 
+    GetEnemysFunction m_get_enemys;
     AttackFunction m_attack;
 };
 
