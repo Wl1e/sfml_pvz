@@ -20,7 +20,7 @@ public:
     ~EventManager() = default;
 
     inline void registerEvent(Entity*, EventType, EventCallback);
-    inline void trigger(Entity*, EventType);
+    inline void trigger(Entity*, EventType, const std::any&);
     inline void unregisterEvent(Entity*, EventType);
     inline void clearEvents(Entity*);
 
@@ -41,7 +41,9 @@ void EventManager::registerEvent(
     handler->handler[type] = std::move(callback);
 }
 
-void EventManager::trigger(Entity* entity, EventType type)
+void EventManager::trigger(
+    Entity* entity, EventType type, const std::any& args
+)
 {
     auto handler = m_handlers.find(entity);
     if(handler == m_handlers.end()) {
@@ -53,7 +55,7 @@ void EventManager::trigger(Entity* entity, EventType type)
         return;
     }
 
-    callback->second(entity);
+    callback->second(entity, args);
 }
 
 void EventManager::unregisterEvent(Entity* entity, EventType type)
@@ -76,9 +78,11 @@ void demo::registerEvent(
     // printf("register event entity: %p, type: %d\n", entity, type);
     _event_manager.registerEvent(entity, type, std::move(callback));
 }
-void demo::trigger(Entity* entity, EventType type)
+void demo::trigger(
+    Entity* entity, EventType type, const std::any& args
+)
 {
-    _event_manager.trigger(entity, type);
+    _event_manager.trigger(entity, type, args);
 }
 void demo::unregisterEvent(Entity* entity, EventType type)
 {

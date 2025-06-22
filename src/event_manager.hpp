@@ -1,3 +1,4 @@
+#include <any>
 #include <functional>
 #include <memory>
 
@@ -15,10 +16,10 @@ enum EventType
 
 class Entity;
 
-using EventCallback = std::function<void(Entity*)>;
+using EventCallback = std::function<void(Entity*, const std::any&)>;
 
 void registerEvent(Entity*, EventType, EventCallback);
-void trigger(Entity*, EventType);
+void trigger(Entity*, EventType, const std::any&);
 void unregisterEvent(Entity*, EventType);
 void clearEvents(Entity*);
 

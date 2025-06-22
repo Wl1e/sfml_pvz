@@ -90,7 +90,7 @@ void Zombie::_initEvent()
     registerEvent(
         this,
         EventType::FinishAnimation,
-        [](Entity* entity) {
+        [](Entity* entity, const std::any&) {
             if(entity->getStatus() != EntityStatus::Attack) {
                 return;
             }
@@ -100,10 +100,15 @@ void Zombie::_initEvent()
             }
         }
     );
-    registerEvent(this, EventType::DownHP, [](Entity* entity) {
-        if(auto animation = entity->getComp<CompType::ANIMATION>();
-           animation) {
-            animation->setColor(Color(255, 255, 255, 100));
+    registerEvent(
+        this,
+        EventType::DownHP,
+        [](Entity* entity, const std::any&) {
+            if(auto animation =
+                   entity->getComp<CompType::ANIMATION>();
+               animation) {
+                animation->setColor(Color(255, 255, 255, 100));
+            }
         }
-    });
+    );
 }
