@@ -23,5 +23,5 @@ void HPComp::_downHP(float value)
 void HPComp::receiveDamage(Entity* entity, float value)
 {
     _downHP(value);
-    trigger(entity, EventType::DownHP);
+    trigger(entity, EventType::DownHP, make_any<float>(value));
 }

@@ -10,7 +10,7 @@ class BaseSystem
 {
 public:
     BaseSystem() = default;
-    virtual ~BaseSystem() = 0;
+    virtual ~BaseSystem();
 
     virtual void update() = 0;
     virtual void addEntity(Entity*);

@@ -59,7 +59,7 @@ public:
     void kill();
 
     template<CompType type>
-    typename type2cls<type>::type* getComp()
+    typename type2cls<type>::type* getComp() const
     {
         if(!hasComp(type)) {
             return nullptr;

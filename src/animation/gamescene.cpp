@@ -11,6 +11,7 @@
 #include <entity/plant/plant.hpp>
 #include <entity/tool/tool.hpp>
 #include <entity/zombie/zombie.hpp>
+#include <system/init.hpp>
 #include <UI/defines.hpp>
 #include <UI/ui_layout.hpp>
 
@@ -44,6 +45,8 @@ GameScene::GameScene() :
     m_zombies(6, unordered_set<Zombie*>())
 {
     m_window->setKeyRepeatEnabled(false);
+
+    initSystems();
 }
 
 GameScene::~GameScene()
@@ -70,6 +73,8 @@ void GameScene::update()
 
     auto lines = UILayout().display();
     draw(lines);
+
+    updateSystems();
 
     _updateBullets();
     _updatePlants();

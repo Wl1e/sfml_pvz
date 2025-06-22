@@ -53,7 +53,12 @@ void AttackComp::update(Entity* entity)
     }
 
     entity->updateStatus(EntityStatus::Attack);
-    trigger(entity, EventType::Attack);
+    trigger(
+        entity,
+        EventType::Attack,
+        // 有危险
+        make_any<vector<Entity*>*>(&enemys)
+    );
 
     // FIXME: 改了之后子弹无法正常命中了
     // _attack(entity, enemys);

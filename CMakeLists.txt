@@ -38,6 +38,10 @@ set(SOURCES
     src/entity/plant/factory.cpp
     src/entity/zombie/factory.cpp
 
+    src/system/base.cpp
+    src/system/init.cpp
+    src/system/collision_system.cpp
+
     src/animation/event_handler.cpp
     src/animation/gamescene.cpp
     

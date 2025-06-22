@@ -101,7 +101,11 @@ void AnimationComp::update(Entity* entity)
 
     if(_validUpdateAnimation()) {
         if(_updateAnimation() == m_frames->at(m_status).size()) {
-            trigger(entity, EventType::FinishAnimation);
+            trigger(
+                entity,
+                EventType::FinishAnimation,
+                std::make_any<string>(getStatus())
+            );
         }
     }
 

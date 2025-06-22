@@ -89,4 +89,9 @@ void Plant::_initEvent()
             }
         }
     );
+    registerEvent(
+        this,
+        EventType::Collide,
+        [](Entity* entity, const std::any&) { printf("collibe\n"); }
+    );
 }
