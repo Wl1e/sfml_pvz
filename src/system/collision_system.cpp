@@ -1,4 +1,5 @@
 #include <base/tools.hpp>
+#include <defines.hpp>
 #include <entity/entity.hpp>
 #include <event_manager.hpp>
 #include <system/collision_system.hpp>
@@ -6,12 +7,17 @@
 using namespace std;
 using namespace demo;
 
+CollisionSystem::CollisionSystem() : m_entitys(GRASS_PATH)
+{
+}
+
 void CollisionSystem::addEntity(Entity* entity)
 {
     auto position = entity->getComp<CompType::POSITION>();
     assert(position);
     BaseSystem::addEntity(entity);
     m_entitys[getPath(position->getBottomPos())].insert(entity);
+    // printf("add entity %p\n", entity);
 }
 
 void CollisionSystem::delEntity(Entity* entity)
@@ -20,6 +26,7 @@ void CollisionSystem::delEntity(Entity* entity)
     assert(position);
     BaseSystem::delEntity(entity);
     m_entitys[getPath(position->getBottomPos())].erase(entity);
+    // printf("del entity %p\n", entity);
 }
 
 void CollisionSystem::update()
@@ -44,6 +51,7 @@ void CollisionSystem::update()
                         EventType::Collide,
                         std::make_any<Entity*>(*entityIter)
                     );
+                    printf("collide\n");
                 }
                 ++targetIter;
             }

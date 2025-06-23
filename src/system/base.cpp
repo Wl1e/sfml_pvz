@@ -1,3 +1,4 @@
+#include <entity/entity.hpp>
 #include <system/base.hpp>
 
 using namespace std;

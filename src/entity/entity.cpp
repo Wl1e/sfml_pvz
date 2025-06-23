@@ -21,6 +21,9 @@ unordered_map<EntityStatus, string> animationStatus{
 
 Entity::~Entity()
 {
+    for(auto& comp : m_component) {
+        comp.second->whenDel(this);
+    }
 }
 
 void Entity::updade()

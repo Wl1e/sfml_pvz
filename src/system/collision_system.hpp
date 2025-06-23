@@ -9,7 +9,7 @@ namespace demo {
 class CollisionSystem : public BaseSystem
 {
 public:
-    CollisionSystem() = default;
+    CollisionSystem();
     ~CollisionSystem()
     {
         m_entitys.clear();

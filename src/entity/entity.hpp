@@ -39,13 +39,14 @@ public:
         m_type(type), m_status(EntityStatus::Normal), m_name(name)
     {
     }
-    virtual ~Entity() = 0;
+    virtual ~Entity();
 
     template<CompType cType, typename... Args>
     void addComp(Args&&... args)
     {
         m_component[cType] =
-            Factory::getFactory()->create<cType>(args...);
+            ComponentFactory::getFactory()->create<cType>(args...);
+        m_component[cType]->whenAdd(this);
     }
     void setScene(GameScene* scene)
     {

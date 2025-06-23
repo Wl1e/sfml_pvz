@@ -59,4 +59,6 @@ target_include_directories(${PROJECT_NAME} PRIVATE src/)
 target_link_libraries(${PROJECT_NAME} sfml-system sfml-window sfml-graphics)
 target_link_libraries(${PROJECT_NAME} jsoncpp)
 
+# add_subdirectory(src/entity)
+
 target_compile_definitions(${PROJECT_NAME} PRIVATE DEMO_DEBUG)

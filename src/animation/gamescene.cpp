@@ -216,17 +216,22 @@ void GameScene::_delPlant(Plant* plant)
         return;
     }
     delete plant;
+    // printf("del plant\n");
 }
 void GameScene::_delZombie(Zombie* zombie)
 {
     if(auto pos = zombie->getComp<CompType::POSITION>(); pos) {
         m_zombies[getPath(pos->getPos())].erase(zombie);
+        delete zombie;
+        // printf("del zombie\n");
     }
 }
 void GameScene::_delBullet(Bullet* bullet)
 {
     // error
     m_bullets.erase(bullet);
+    delete bullet;
+    // printf("del bullet\n");
 }
 
 void GameScene::click(const sf::Vector2i& pos)
@@ -268,15 +273,12 @@ void GameScene::delPlant(const sf::Vector2i& pos_axis)
 void GameScene::delBullet(Bullet* bullet)
 {
     if(m_bullets.find(bullet) != m_bullets.end()) {
-        m_bullets.erase(bullet);
+        _delBullet(bullet);
     }
 }
 void GameScene::delZombie(Zombie* zombie)
 {
-    if(auto pos = zombie->getComp<CompType::POSITION>();
-       pos != nullptr) {
-        m_zombies[getPath(pos->getPos())].erase(zombie);
-    }
+    _delZombie(zombie);
 }
 void GameScene::delEntity(Entity* entity)
 {

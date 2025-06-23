@@ -10,7 +10,7 @@
 
 namespace demo {
 
-class Factory
+class ComponentFactory
 {
 public:
     template<CompType cType, typename... Args>
@@ -21,9 +21,9 @@ public:
         );
     }
 
-    static Factory* getFactory()
+    static ComponentFactory* getFactory()
     {
-        static Factory f;
+        static ComponentFactory f;
         return &f;
     }
 };

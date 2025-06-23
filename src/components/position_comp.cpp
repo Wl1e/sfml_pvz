@@ -1,5 +1,7 @@
 #include <components/movement_comp.hpp>
 #include <components/position_comp.hpp>
+#include <system/collision_system.hpp>
+#include <system/init.hpp>
 #ifdef DEMO_DEBUG
     #include <animation/gamescene.hpp>
 #endif
@@ -8,23 +10,26 @@ using namespace std;
 using namespace sf;
 using namespace demo;
 
-// bool demo::overlay(
-//     const PositionComp& pos1, const PositionComp& pos2
-// )
-// {
-//     if(pos1.isIgnoreCollision() || pos2.isIgnoreCollision()) {
-//         return false;
-//     }
-//     auto leftTop1 = pos1.getPos();
-//     auto rightDown1 = leftTop1 + pos1.getSize();
-//     auto leftTop2 = pos2.getPos();
-//     auto rightDown2 = leftTop2 + pos2.getSize();
+PositionComp::PositionComp(
+    const PositionType& pos,
+    const SizeType& size,
+    bool ignoreCollision
+) :
+    m_ignoreCollision(ignoreCollision),
+    m_hitbox(sf::RectangleShape(size))
+{
+    m_hitbox.setPosition(pos);
 
-//     return !(
-//         rightDown1.x < leftTop2.x || leftTop1.x > rightDown2.x
-//         || rightDown1.y < leftTop2.y || leftTop1.y > rightDown2.y
-//     );
-// }
+#ifdef DEMO_DEBUG
+    m_hitbox.setFillColor(sf::Color::Transparent);
+    m_hitbox.setOutlineColor(sf::Color::White);
+    m_hitbox.setOutlineThickness(1);
+#endif
+}
+
+PositionComp::~PositionComp()
+{
+}
 
 void PositionComp::update(Entity* entity)
 {
@@ -46,4 +51,14 @@ PositionType PositionComp::getBottomPos() const
 {
     return m_hitbox.getPosition()
            + m_hitbox.getSize().componentWiseDiv({2, 1});
+}
+
+void PositionComp::whenAdd(Entity* entity)
+{
+    getSystem("collision")->addEntity(entity);
+}
+
+void PositionComp::whenDel(Entity* entity)
+{
+    getSystem("collision")->delEntity(entity);
 }

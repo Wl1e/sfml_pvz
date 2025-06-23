@@ -13,21 +13,9 @@ class PositionComp : public Component
 {
 public:
     explicit PositionComp(
-        const PositionType& pos,
-        const SizeType& size,
-        bool ignoreCollision = false
-    ) :
-        m_ignoreCollision(ignoreCollision),
-        m_hitbox(sf::RectangleShape(size))
-    {
-        m_hitbox.setPosition(pos);
-#ifdef DEMO_DEBUG
-        m_hitbox.setFillColor(sf::Color::Transparent);
-        m_hitbox.setOutlineColor(sf::Color::White);
-        m_hitbox.setOutlineThickness(1);
-#endif
-    }
-    ~PositionComp() = default;
+        const PositionType&, const SizeType&, bool = false
+    );
+    ~PositionComp();
 
     // 要不然position和size都改成Vector2f得了
     PositionType getPos() const
@@ -81,6 +69,9 @@ public:
     {
         return m_hitbox.getGlobalBounds().contains(clickPos);
     }
+
+    void whenAdd(Entity*) override;
+    void whenDel(Entity*) override;
 
 private:
     bool m_ignoreCollision;
