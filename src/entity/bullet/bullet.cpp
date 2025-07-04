@@ -57,9 +57,13 @@ void Bullet::_initComp(const BulletData& data)
     auto true_range = new AttackRange(
         RangeType::Circle, SizeType(animationSize.x / 2, 0)
     );
-    true_range->setPosition(data.plantData.start);
+    true_range->setPosition(
+        getComp<CompType::POSITION>()->getCenterPos()
+    );
     addComp<CompType::ATTACK>(data.plantData.damage, 0, true_range);
-    getComp<CompType::ATTACK>()->setAttackFunc(bulletAttackZombie);
+    auto attack = getComp<CompType::ATTACK>();
+    attack->setAttackFunc(bulletAttackZombie);
+    attack->setBanAttack(true);
 }
 
 void Bullet::_initEvent()
@@ -68,6 +72,9 @@ void Bullet::_initEvent()
         this,
         EventType::Collide,
         [](Entity* entity, const std::any& target) {
+            if(!isZombie(any_cast<Entity*>(target))) {
+                return;
+            }
             if(auto attack = entity->getComp<CompType::ATTACK>();
                attack) {
                 attack->attack(

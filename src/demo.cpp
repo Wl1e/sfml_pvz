@@ -20,7 +20,7 @@ void createPlant()
     auto pos = axis2pos({3, 2});
     cout << "[ " << pos.x << ' ' << pos.y << "]\n";
     auto plant = PlantFactory::getFactory()->create(
-        "PotatoMine", sf::Vector2i(pos)
+        "PeaShooter", sf::Vector2i(pos)
     );
     if(!plant) {
         cout << "create plant error\n";
