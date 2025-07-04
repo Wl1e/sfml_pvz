@@ -64,14 +64,29 @@ void Bullet::_initComp(const BulletData& data)
 
 void Bullet::_initEvent()
 {
+    // registerEvent(
+    //     this,
+    //     EventType::Attack,
+    //     // 这里可以传enemys进去
+    //     [](Entity* entity, const std::any&) {
+    //         if(auto attack = entity->getComp<CompType::ATTACK>();
+    //            attack) {
+    //             attack->attackInRange(entity);
+    //         }
+    //     }
+    // );
     registerEvent(
         this,
-        EventType::Attack,
-        // 这里可以传enemys进去
+        EventType::Collide,
         [](Entity* entity, const std::any&) {
             if(auto attack = entity->getComp<CompType::ATTACK>();
                attack) {
-                attack->attack(entity);
+                attack->attackInRange(entity);
+            }
+            printf("buller kill\n");
+            if(auto position = entity->getComp<CompType::POSITION>();
+               position) {
+                position->setIgnoreCollision(true);
             }
         }
     );

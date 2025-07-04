@@ -27,5 +27,24 @@
             71
         ],
         "bullet_type": "Pea"
-    }
+    },
+    "PotatoMine": {
+        "HP": 100,
+        "CD": 10,
+        "damage": 1200,
+        "range": {
+            "type": "Rectangle",
+            "data": [
+                10,
+                10
+            ]
+        },
+        "animation": "/home/wlle/code/demo/sfml2/resource/plant/PotatoMine",
+        "frame2animation": 6,
+        "size": [
+            75,
+            55
+        ],
+        "bullet_type": "NULL"
+    },
 }

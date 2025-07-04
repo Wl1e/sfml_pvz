@@ -187,6 +187,7 @@ void GameScene::addPlant(Plant* plant)
     if(!m_plants[axis_pos.y][axis_pos.x]) {
         m_plants[axis_pos.y][axis_pos.x] = plant;
     }
+    printf("add plant: %p\n", plant);
 }
 
 void GameScene::addZombie(Zombie* zombie)
@@ -198,16 +199,19 @@ void GameScene::addZombie(Zombie* zombie)
         return;
     }
     m_zombies[path].insert(zombie);
+    printf("add zombie: %p\n", zombie);
 }
 void GameScene::addBullet(Bullet* bullet)
 {
     bullet->setScene(this);
     m_bullets.insert(bullet);
+    printf("add bullet: %p\n", bullet);
 }
 void GameScene::addTool(Tool* tool)
 {
     tool->setScene(this);
     m_tools.insert(tool);
+    printf("add tool: %p\n", tool);
 }
 
 void GameScene::_delPlant(Plant* plant)
@@ -231,7 +235,7 @@ void GameScene::_delBullet(Bullet* bullet)
     // error
     m_bullets.erase(bullet);
     delete bullet;
-    // printf("del bullet\n");
+    printf("del bullet\n");
 }
 
 void GameScene::click(const sf::Vector2i& pos)
@@ -289,9 +293,16 @@ void GameScene::delEntity(Entity* entity)
     } else if(isZombie(entity)) {
         _delZombie(dynamic_cast<Zombie*>(entity));
     } else if(isBullet(entity)) {
+        printf("here\n");
         _delBullet(dynamic_cast<Bullet*>(entity));
     } else {
-        // ...
+        printf(
+            "del entity error, entity name is %s, type is %d, addr "
+            "is %p\n",
+            entity->getName().data(),
+            entity->getStatus(),
+            entity
+        );
     }
 }
 

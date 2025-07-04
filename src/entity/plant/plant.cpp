@@ -73,19 +73,7 @@ void Plant::_initEvent()
             }
             if(auto attack = entity->getComp<CompType::ATTACK>();
                attack) {
-                attack->attack(entity);
-            }
-        }
-    );
-    // 由于comp的初始化没有entity，所以暂时放在这
-    registerEvent(
-        this,
-        EventType::DownHP,
-        [](Entity* entity, const std::any&) {
-            if(auto animation =
-                   entity->getComp<CompType::ANIMATION>();
-               animation) {
-                animation->setColor(Color(255, 255, 255, 100));
+                attack->attackInRange(entity);
             }
         }
     );

@@ -136,16 +136,17 @@ int AnimationComp::_updateAnimation()
 
     return ret;
 }
-void AnimationComp::updateAnimationStatus(string_view status)
+bool AnimationComp::updateAnimationStatus(string_view status)
 {
     if(m_status == status) {
-        return;
+        return true;
     }
     if(m_frames->find(status.data()) == m_frames->end()) {
-        return;
+        return false;
     }
     m_status = status;
     m_idx = 1;
+    return true;
 }
 
 void AnimationComp::_updatePos(const PositionType& pos)

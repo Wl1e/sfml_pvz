@@ -25,3 +25,18 @@ void HPComp::receiveDamage(Entity* entity, float value)
     _downHP(value);
     trigger(entity, EventType::DownHP, make_any<float>(value));
 }
+
+void HPComp::whenAdd(Entity* entity)
+{
+    registerEvent(
+        entity,
+        EventType::DownHP,
+        [](Entity* entity, const std::any&) {
+            if(auto animation =
+                   entity->getComp<CompType::ANIMATION>();
+               animation) {
+                animation->setColor(sf::Color(255, 255, 255, 100));
+            }
+        }
+    );
+}

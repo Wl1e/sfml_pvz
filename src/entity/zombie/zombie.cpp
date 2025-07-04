@@ -96,18 +96,7 @@ void Zombie::_initEvent()
             }
             if(auto attack = entity->getComp<CompType::ATTACK>();
                attack) {
-                attack->attack(entity);
-            }
-        }
-    );
-    registerEvent(
-        this,
-        EventType::DownHP,
-        [](Entity* entity, const std::any&) {
-            if(auto animation =
-                   entity->getComp<CompType::ANIMATION>();
-               animation) {
-                animation->setColor(Color(255, 255, 255, 100));
+                attack->attackInRange(entity);
             }
         }
     );

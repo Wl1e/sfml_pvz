@@ -27,6 +27,7 @@ AttackComp::AttackComp(int damage, Frame cd, AttackRange* range) :
 }
 
 // 有个性能点，每次update要检测一次敌人，确定攻击又要检测一次，这里可以优化成通过trigger传过去或者存在哪里
+// 暂时修复
 
 void AttackComp::update(Entity* entity)
 {
@@ -56,7 +57,7 @@ void AttackComp::update(Entity* entity)
     trigger(
         entity,
         EventType::Attack,
-        // 有危险
+        // enemys为局部变量，有危险
         make_any<vector<Entity*>*>(&enemys)
     );
 
@@ -121,7 +122,14 @@ void AttackComp::_updateAttackRange(Entity* entity)
 #endif
 }
 
-void AttackComp::attack(Entity* entity)
+void AttackComp::attack(
+    Entity* entity, const vector<Entity*>& targets
+)
+{
+    _attack(entity, targets);
+}
+
+void AttackComp::attackInRange(Entity* entity)
 {
     if(!m_range) {
         return;

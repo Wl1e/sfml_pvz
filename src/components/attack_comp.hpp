@@ -49,7 +49,8 @@ public:
     }
 
     bool hasEnemys(Entity*);
-    void attack(Entity*);
+    void attack(Entity*, const std::vector<Entity*>&);
+    void attackInRange(Entity*);
 
 private:
     bool _inAttackRange(Entity*);

@@ -23,6 +23,8 @@ public:
     void update(Entity*) override;
     void receiveDamage(Entity*, float);
 
+    void whenAdd(Entity*);
+
 private:
     void _downHP(float);
 

@@ -32,7 +32,7 @@ public:
     ~AnimationComp() = default;
 
     void update(Entity*) override;
-    void updateAnimationStatus(std::string_view status);
+    bool updateAnimationStatus(std::string_view status);
 
     void setSize(const sf::Vector2f& size)
     {

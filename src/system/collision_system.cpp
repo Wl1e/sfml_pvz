@@ -41,6 +41,7 @@ void CollisionSystem::update()
             ++targetIter;
             while(targetIter != entitys.end()) {
                 if(_collision(*entityIter, *targetIter)) {
+                    // 会导致多个碰撞信号
                     trigger(
                         *entityIter,
                         EventType::Collide,
@@ -51,7 +52,6 @@ void CollisionSystem::update()
                         EventType::Collide,
                         std::make_any<Entity*>(*entityIter)
                     );
-                    printf("collide\n");
                 }
                 ++targetIter;
             }
@@ -66,6 +66,11 @@ bool CollisionSystem::_collision(
     auto position1 = entity1->getComp<CompType::POSITION>();
     auto position2 = entity2->getComp<CompType::POSITION>();
     assert(position1 && position2);
+
+    if(position1->isIgnoreCollision()
+       || position2->isIgnoreCollision()) {
+        return false;
+    }
 
     return position1->getHitbox()
         .getGlobalBounds()

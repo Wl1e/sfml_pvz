@@ -31,7 +31,6 @@ public:
     Component() = default;
     ~Component() = default;
 
-    // 给system使用
     virtual void whenAdd(Entity*)
     {
     }

@@ -3,6 +3,7 @@
 #include <components/movement_comp.hpp>
 #include <components/position_comp.hpp>
 #include <entity/entity.hpp>
+#include <event_manager.hpp>
 
 using namespace std;
 using namespace sf;
@@ -36,9 +37,25 @@ void Entity::updade()
 
 void Entity::kill()
 {
-    getScene()->addHander([this](GameScene* scene) {
-        scene->delEntity(this);
-    });
+    auto delThis = [](Entity* entity, const std::any& args = any()) {
+        // death动画被其他状态更新了?
+        if(args.has_value() && any_cast<string>(args) != "died") {
+            printf("err entity isnt death\n");
+            return;
+        }
+        entity->getScene()->addHander([entity](GameScene* scene) {
+            clearEvents(entity);
+            scene->delEntity(entity);
+        });
+    };
+    // if(auto animation = getComp<CompType::ANIMATION>(); animation)
+    // {
+    //     if(animation->updateAnimationStatus("died")) {
+    //         registerEvent(this, EventType::FinishAnimation,
+    //         delThis); return;
+    //     }
+    // }
+    delThis(this);
 }
 
 PositionType demo::getEntityPosition(Entity* entity)
