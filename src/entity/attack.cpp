@@ -128,8 +128,6 @@ void bombPlantAttackZombie(
             hp->receiveDamage(enemy, attackComp->getDamage());
         }
     }
-
-    plant->kill();
 }
 
 } // namespace demo

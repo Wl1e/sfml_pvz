@@ -43,24 +43,20 @@ public:
     {
         m_range->move(move_value);
     }
-    void setPosition(const PositionType& pos)
-    {
-        m_range->setPosition(pos);
-    }
+    void setPosition(const PositionType&);
 
     void display(GameScene*);
     std::vector<Entity*> getEnemyInRange(Entity*);
 
-    sf::RectangleShape* getRectangleShape() const
+    sf::Shape* getShape() const
     {
-        assert(m_type == RangeType::Rectangle);
-        return static_cast<sf::RectangleShape*>(m_range);
+        return m_range;
     }
-    const sf::CircleShape* getCircleShape() const
+    RangeType getRangeType() const
     {
-        assert(m_type == RangeType::Circle);
-        return static_cast<sf::CircleShape*>(m_range);
+        return m_type;
     }
+
     PositionType getCenterPos() const;
     // FIXME
     bool inRange(Entity* entity) const

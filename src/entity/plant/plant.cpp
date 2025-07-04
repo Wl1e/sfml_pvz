@@ -50,11 +50,7 @@ void Plant::_initComp(const PlantData& data, const Vector2i& pos)
     true_pos -= PositionType(trueSize.componentWiseDiv({2, 1}));
     animation->setAnimationPos(true_pos);
 
-    SizeType hitboxSize =
-        data.type == "shooter"
-            ? SizeType(trueSize.componentWiseDiv({2, 1}))
-            : SizeType(trueSize);
-    addComp<CompType::POSITION>(true_pos, hitboxSize);
+    addComp<CompType::POSITION>(true_pos, SizeType(trueSize));
 
     auto true_range = new AttackRange(data.range);
     true_range->setPosition(
@@ -81,13 +77,14 @@ static unordered_map<string, unordered_map<EventType, EventCallback>>
                }
            }}}},
         {
-            "bomb",
+            "mine",
             {{EventType::Collide,
               [](Entity* entity, const std::any&) {
                   if(auto attack =
                          entity->getComp<CompType::ATTACK>();
                      attack) {
                       attack->attackInRange(entity);
+                      entity->updateStatus(EntityStatus::Death);
                   }
               }}},
         }

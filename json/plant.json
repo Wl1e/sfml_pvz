@@ -35,7 +35,7 @@
         "CD": 10,
         "damage": 1200,
         "range": {
-            "type": "Rectangle",
+            "type": "Circle",
             "data": [
                 100,
                 100

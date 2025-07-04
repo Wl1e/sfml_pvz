@@ -15,9 +15,13 @@ void PlantGetEnemys(
     const AttackRange* range, GameScene* scene, vector<Entity*>& res
 )
 {
-    auto attackRange = range->getRectangleShape();
+    RangeType rangeType = range->getRangeType();
+    auto attackRange = range->getShape();
+    if(!attackRange) {
+        return;
+    }
     // 杨桃、三线?
-    if(attackRange) {
+    if(rangeType == RangeType::Rectangle) {
         float degree = attackRange->getRotation().asDegrees();
         float int_degree;
         float value = modf(degree, &int_degree);
@@ -53,7 +57,7 @@ void bulletGetEnemys(
 )
 {
     auto enemys = scene->getZombiesByPath(
-        getPath(range->getCircleShape()->getPosition())
+        getPath(range->getShape()->getPosition())
     );
     for(auto enemy : enemys) {
         if(range->inRange(enemy)) {
@@ -155,4 +159,19 @@ AttackRange::AttackRange(const AttackRange& range) :
 PositionType AttackRange::getCenterPos() const
 {
     return m_range->getPosition() + m_range->getGeometricCenter();
+}
+
+void AttackRange::setPosition(const PositionType& pos)
+{
+    if(m_type == RangeType::Rectangle) {
+        m_range->setPosition(pos);
+    } else if(m_type == RangeType::Circle) {
+        auto trueRange = dynamic_cast<sf::CircleShape*>(m_range);
+        m_range->setPosition(
+            pos
+            - PositionType(
+                trueRange->getRadius(), trueRange->getRadius()
+            )
+        );
+    }
 }
