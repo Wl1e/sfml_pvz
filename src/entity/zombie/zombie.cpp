@@ -36,19 +36,11 @@ void Zombie::_statusFunction()
         if(moveComp) {
             moveComp->setDir(Direction::DIR::STOP);
         }
-    } else if(status == EntityStatus::Died) {
+    } else if(status == EntityStatus::Death) {
         if(moveComp) {
             moveComp->setDir(Direction::DIR::STOP);
         }
         kill();
-    } else if(status == EntityStatus::Destroying) {
-        if(moveComp) {
-            moveComp->setDir(Direction::DIR::STOP);
-        }
-    } else if(status == EntityStatus::Destroyed) {
-        if(moveComp) {
-            moveComp->setDir(Direction::DIR::RIGHT);
-        }
     }
 }
 

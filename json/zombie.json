@@ -1,6 +1,6 @@
 {
     "NormalZombie": {
-        "HP": 1000,
+        "HP": 100,
         "size": [
             70,
             120

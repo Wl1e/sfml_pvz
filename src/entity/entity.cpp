@@ -14,9 +14,7 @@ const Vector2i err_pos = {-1, -1};
 unordered_map<EntityStatus, string> animationStatus{
     {EntityStatus::Normal, "normal"},
     {EntityStatus::Attack, "attack"},
-    {EntityStatus::Died, "died"},
-    {EntityStatus::Destroying, "destroying"},
-    {EntityStatus::Destroyed, "destroyed"},
+    {EntityStatus::Death, "death"},
     {EntityStatus::Clicked, "clicked"}
 };
 
@@ -48,13 +46,12 @@ void Entity::kill()
             scene->delEntity(entity);
         });
     };
-    // if(auto animation = getComp<CompType::ANIMATION>(); animation)
-    // {
-    //     if(animation->updateAnimationStatus("died")) {
-    //         registerEvent(this, EventType::FinishAnimation,
-    //         delThis); return;
-    //     }
-    // }
+    if(auto animation = getComp<CompType::ANIMATION>(); animation) {
+        if(animation->updateAnimationStatus("died")) {
+            registerEvent(this, EventType::FinishAnimation, delThis);
+            return;
+        }
+    }
     delThis(this);
 }
 

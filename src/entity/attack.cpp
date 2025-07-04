@@ -64,7 +64,7 @@ void zombieAttackPlant(
 
     Entity* enemy = nullptr;
     for(auto target : targets) {
-        if(!target || target->getStatus() == EntityStatus::Died) {
+        if(!target || target->getStatus() == EntityStatus::Death) {
             continue;
         }
         enemy = target;
@@ -102,10 +102,6 @@ void bulletAttackZombie(
     for(auto enemy : targets) {
         if(auto hp = enemy->getComp<CompType::HP>(); hp) {
             hp->receiveDamage(enemy, attackComp->getDamage());
-        }
-        if(!bullet->isPiercing()) {
-            bullet->updateStatus(EntityStatus::Destroyed);
-            break;
         }
     }
 }

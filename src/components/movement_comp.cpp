@@ -8,7 +8,7 @@ using namespace demo;
 void MovementComp::update(Entity* entity)
 {
     if(m_distance <= 0) {
-        entity->updateStatus(EntityStatus::Destroyed);
+        entity->updateStatus(EntityStatus::Death);
         return;
     }
     // 加减速

@@ -9,7 +9,7 @@ void HPComp::update(Entity* entity)
 {
     // TODO: 更新实体状态
     if(isDied()) {
-        entity->updateStatus(EntityStatus::Died);
+        entity->updateStatus(EntityStatus::Death);
     }
 }
 

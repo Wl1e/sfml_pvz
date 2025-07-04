@@ -24,7 +24,7 @@ void Bullet::_statusFunction()
 {
     auto status = getStatus();
 
-    if(status == EntityStatus::Destroyed) {
+    if(status == EntityStatus::Death) {
         if(auto move = getComp<CompType::MOVEMENT>(); move) {
             move->setDir(Direction::DIR::STOP);
         }
@@ -78,15 +78,23 @@ void Bullet::_initEvent()
     registerEvent(
         this,
         EventType::Collide,
-        [](Entity* entity, const std::any&) {
+        [](Entity* entity, const std::any& target) {
             if(auto attack = entity->getComp<CompType::ATTACK>();
                attack) {
-                attack->attackInRange(entity);
+                attack->attack(
+                    entity,
+                    std::vector<Entity*>{any_cast<Entity*>(target)}
+                );
             }
-            printf("buller kill\n");
-            if(auto position = entity->getComp<CompType::POSITION>();
-               position) {
-                position->setIgnoreCollision(true);
+            auto bullet = dynamic_cast<Bullet*>(entity);
+            if(!bullet->isPiercing()) {
+                if(auto position =
+                       entity->getComp<CompType::POSITION>();
+                   position) {
+                    position->setIgnoreCollision(true);
+                }
+
+                bullet->updateStatus(EntityStatus::Death);
             }
         }
     );

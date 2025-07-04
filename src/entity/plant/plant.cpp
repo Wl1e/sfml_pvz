@@ -31,7 +31,7 @@ void Plant::_statusFunction()
         );
     }
 
-    if(status == EntityStatus::Died) {
+    if(status == EntityStatus::Death) {
         kill();
     }
 }

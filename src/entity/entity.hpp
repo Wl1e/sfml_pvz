@@ -24,10 +24,7 @@ enum class EntityStatus
 {
     Normal,
     Attack,
-    Died,
-
-    Destroying,
-    Destroyed,
+    Death,
 
     Clicked,
 };
