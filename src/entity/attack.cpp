@@ -106,7 +106,7 @@ void bulletAttackZombie(
     }
 }
 
-void bombPlantAttackZombie(
+void minePlantAttackZombie(
     Entity* entity, const vector<Entity*>& targets
 )
 {

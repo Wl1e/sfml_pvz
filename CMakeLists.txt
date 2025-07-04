@@ -30,6 +30,8 @@ set(SOURCES
     src/entity/entity.cpp
     src/entity/attack.cpp
     src/entity/plant/plant.cpp
+    src/entity/plant/shooter_plant.cpp
+    src/entity/plant/mine_plant.cpp
     src/entity/zombie/zombie.cpp
     src/entity/bullet/bullet.cpp
     src/entity/tool/plant_creator.cpp

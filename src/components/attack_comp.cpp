@@ -29,6 +29,8 @@ AttackComp::AttackComp(int damage, Frame cd, AttackRange* range) :
 // 有个性能点，每次update要检测一次敌人，确定攻击又要检测一次，这里可以优化成通过trigger传过去或者存在哪里
 // 暂时修复
 
+// attackComp负责敌人检测、存储攻击回调和触发Attack信号，是否真正攻击由实体判断
+
 void AttackComp::update(Entity* entity)
 {
     if(auto move = entity->getComp<CompType::MOVEMENT>(); move) {
@@ -37,6 +39,12 @@ void AttackComp::update(Entity* entity)
 #ifdef DEMO_DEBUG
     m_range->display(entity->getScene());
 #endif
+
+    // 被动攻击、休眠植物
+    // 减少遍历提升性能
+    if(m_ban_attack) {
+        return;
+    }
 
     vector<Entity*> enemys;
     if(m_range) {
@@ -61,15 +69,11 @@ void AttackComp::update(Entity* entity)
         make_any<vector<Entity*>*>(&enemys)
     );
 
-    // FIXME: 改了之后子弹无法正常命中了
     // _attack(entity, enemys);
 }
 
 bool AttackComp::_validAttack()
 {
-    if(m_ban_attack) {
-        return false;
-    }
     if(!_checkCD()) {
         return false;
     }

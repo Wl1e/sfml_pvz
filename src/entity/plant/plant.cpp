@@ -36,6 +36,8 @@ void Plant::_statusFunction()
     }
 }
 
+// 不同植物有太多自定义的东西了
+// 需要一些定义了
 void Plant::_initComp(const PlantData& data, const Vector2i& pos)
 {
     auto true_pos = axis2pos(pos2axis(PositionType(pos)));
@@ -59,7 +61,7 @@ void Plant::_initComp(const PlantData& data, const Vector2i& pos)
     addComp<CompType::ATTACK>(data.damage, data.CD, true_range);
     getComp<CompType::ATTACK>()->setAttackFunc(
         data.type == "shooter" ? plantAttackZombie
-                               : bombPlantAttackZombie
+                               : minePlantAttackZombie
     );
 }
 

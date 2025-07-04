@@ -27,7 +27,9 @@
             71,
             71
         ],
-        "bullet_type": "Pea"
+        "bullet_type": "Pea",
+        "attack_func": "plantAttackZombie",
+        "active_attack": true
     },
     "PotatoMine": {
         "type": "mine",
@@ -47,6 +49,8 @@
             75,
             55
         ],
-        "bullet_type": "NULL"
+        "bullet_type": "NULL",
+        "attack_func": "minePlantAttackZombie",
+        "active_attack": false
     },
 }

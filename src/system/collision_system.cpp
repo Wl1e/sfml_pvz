@@ -32,7 +32,7 @@ void CollisionSystem::delEntity(Entity* entity)
 void CollisionSystem::update()
 {
     // 遍历每行实体，如有碰撞，触发该两实体的对应事件
-    // TODO: 给trigger加std::any参数
+    // 重大问题：没有判断两对象类型，会导致两叠着走的敌人重复触发
     for(const auto& entitys : m_entitys) {
         for(auto entityIter = entitys.begin();
             entityIter != entitys.end();

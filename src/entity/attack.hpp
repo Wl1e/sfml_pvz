@@ -20,7 +20,7 @@ class Bullet;
 // void ZombieAttackFunc(AttackComp*, Entity*);
 
 void plantAttackZombie(Entity*, const std::vector<Entity*>&);
-void bombPlantAttackZombie(Entity*, const std::vector<Entity*>&);
+void minePlantAttackZombie(Entity*, const std::vector<Entity*>&);
 void zombieAttackPlant(Entity*, const std::vector<Entity*>&);
 void bulletAttackPlant(Entity*, const std::vector<Entity*>&);
 void bulletAttackZombie(Entity*, const std::vector<Entity*>&);
