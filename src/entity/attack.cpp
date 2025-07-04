@@ -110,6 +110,7 @@ void bombPlantAttackZombie(
     Entity* entity, const vector<Entity*>& targets
 )
 {
+    printf("%d\n", targets.size());
     if(targets.empty()) {
         return;
     }

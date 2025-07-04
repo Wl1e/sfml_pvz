@@ -18,7 +18,7 @@ Plant::Plant(const PlantData& data, const Vector2i& pos) :
     m_bullet_type(data.bullet_type)
 {
     _initComp(data, pos);
-    _initEvent();
+    _initEvent(data.type);
 }
 
 void Plant::_statusFunction()
@@ -50,36 +50,70 @@ void Plant::_initComp(const PlantData& data, const Vector2i& pos)
     true_pos -= PositionType(trueSize.componentWiseDiv({2, 1}));
     animation->setAnimationPos(true_pos);
 
-    addComp<CompType::POSITION>(
-        true_pos, SizeType(trueSize.componentWiseDiv({2, 1}))
-    );
+    SizeType hitboxSize =
+        data.type == "shooter"
+            ? SizeType(trueSize.componentWiseDiv({2, 1}))
+            : SizeType(trueSize);
+    addComp<CompType::POSITION>(true_pos, hitboxSize);
 
     auto true_range = new AttackRange(data.range);
     true_range->setPosition(
         getComp<CompType::POSITION>()->getCenterPos()
     );
     addComp<CompType::ATTACK>(data.damage, data.CD, true_range);
-    getComp<CompType::ATTACK>()->setAttackFunc(plantAttackZombie);
+    getComp<CompType::ATTACK>()->setAttackFunc(
+        data.type == "shooter" ? plantAttackZombie
+                               : bombPlantAttackZombie
+    );
 }
 
-void Plant::_initEvent()
-{
-    registerEvent(
-        this,
-        EventType::FinishAnimation,
-        [](Entity* entity, const std::any&) {
-            if(entity->getStatus() != EntityStatus::Attack) {
-                return;
-            }
-            if(auto attack = entity->getComp<CompType::ATTACK>();
-               attack) {
-                attack->attackInRange(entity);
-            }
+static unordered_map<string, unordered_map<EventType, EventCallback>>
+    events = {
+        {"shooter",
+         {{EventType::FinishAnimation,
+           [](Entity* entity, const std::any&) {
+               if(entity->getStatus() != EntityStatus::Attack) {
+                   return;
+               }
+               if(auto attack = entity->getComp<CompType::ATTACK>();
+                  attack) {
+                   attack->attackInRange(entity);
+               }
+           }}}},
+        {
+            "bomb",
+            {{EventType::Collide,
+              [](Entity* entity, const std::any&) {
+                  if(auto attack =
+                         entity->getComp<CompType::ATTACK>();
+                     attack) {
+                      attack->attackInRange(entity);
+                  }
+              }}},
         }
-    );
-    registerEvent(
-        this,
-        EventType::Collide,
-        [](Entity* entity, const std::any&) { printf("collibe\n"); }
-    );
+};
+
+void Plant::_initEvent(const string& type)
+{
+
+    // registerEvent(
+    //     this,
+    //     EventType::FinishAnimation,
+    //     [](Entity* entity, const std::any&) {
+    //         if(entity->getStatus() != EntityStatus::Attack) {
+    //             return;
+    //         }
+    //         if(auto attack = entity->getComp<CompType::ATTACK>();
+    //            attack) {
+    //             attack->attackInRange(entity);
+    //         }
+    //     }
+    // );
+    if(events.find(type) == events.end()) {
+        return;
+    }
+
+    for(auto& [eventType, cb] : events[type]) {
+        registerEvent(this, eventType, cb);
+    }
 }

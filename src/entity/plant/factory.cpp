@@ -53,6 +53,7 @@ void initPlantData(
 
         res[key] = make_unique<PlantData>(PlantData{
             key,
+            value["type"].asString(),
             value["HP"].asFloat(),
             value["CD"].asInt(),
             value["damage"].asFloat(),

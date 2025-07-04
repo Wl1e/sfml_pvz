@@ -9,6 +9,7 @@ namespace demo {
 struct PlantData
 {
     std::string name;
+    std::string type;
     float HP;
     int CD;
     float damage;
@@ -38,7 +39,7 @@ protected:
 
 private:
     void _initComp(const PlantData&, const sf::Vector2i&);
-    void _initEvent();
+    void _initEvent(const std::string&);
 
 private:
     std::string m_bullet_type;
