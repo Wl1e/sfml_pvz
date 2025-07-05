@@ -6,28 +6,11 @@
 
 #include <components/component.hpp>
 #include <components/component_factory.hpp>
+#include <entity/defines.hpp>
 
 namespace demo {
 
 class GameScene;
-
-enum class EntityType
-{
-    NONE = 0,
-    PLANT,
-    ZOMBIE,
-    BULLET,
-    TOOL
-};
-
-enum class EntityStatus
-{
-    Normal,
-    Attack,
-    Death,
-
-    Clicked,
-};
 
 class Entity
 {
