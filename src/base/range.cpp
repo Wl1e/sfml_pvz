@@ -98,9 +98,20 @@ void Range<CircleShape>::setPosition(const PositionType& pos)
     m_range->setPosition(pos - m_range->getGeometricCenter());
 }
 
-template<ShapeType shape>
-void Range<shape>::setBottomPosition(const PositionType&)
+template<>
+void Range<RectangleShape>::setBottomPosition(
+    const PositionType& pos
+)
 {
+    m_range->setPosition(
+        pos - getSize().componentWiseDiv({2.f, 1.f})
+    );
+}
+
+template<>
+void Range<CircleShape>::setBottomPosition(const PositionType& pos)
+{
+    m_range->setPosition(pos - SizeType(0.f, getSize().x));
 }
 
 template<ShapeType shape>
@@ -135,7 +146,7 @@ template<ShapeType shape>
 PositionType Range<shape>::getBottomPosition() const
 {
     return m_range->getPosition()
-           - m_range->getSize().componentWiseDiv(2, 1);
+           - m_range->getSize().componentWiseDiv({2.f, 1.f});
 }
 
 template<>

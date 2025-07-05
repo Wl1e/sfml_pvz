@@ -2,6 +2,7 @@
 
 #include <SFML/System/Vector2.hpp>
 
+#include <base/range.hpp>
 #include <base/tools.hpp>
 #include <components/component.hpp>
 #include <entity/entity.hpp>
@@ -12,6 +13,10 @@ namespace demo {
 class PositionComp : public Component
 {
 public:
+    // explicit PositionComp(
+    //     const PositionType&, const SizeType&, bool = false
+    // );
+    template<ShapeType shape>
     explicit PositionComp(
         const PositionType&, const SizeType&, bool = false
     );
@@ -76,6 +81,10 @@ public:
 private:
     bool m_ignoreCollision;
     sf::RectangleShape m_hitbox;
+
+    std::
+        variant<Range<sf::RectangleShape>, Range<sf::RectangleShape>>
+            m_box;
 };
 
 // bool overlay(const PositionComp&, const PositionComp&);

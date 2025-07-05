@@ -10,21 +10,32 @@ using namespace std;
 using namespace sf;
 using namespace demo;
 
+// PositionComp::PositionComp(
+//     const PositionType& pos,
+//     const SizeType& size,
+//     bool ignoreCollision
+// ) :
+//     m_ignoreCollision(ignoreCollision),
+//     m_hitbox(sf::RectangleShape(size))
+// {
+//     m_hitbox.setPosition(pos);
+
+// #ifdef DEMO_DEBUG
+//     m_hitbox.setFillColor(sf::Color::Transparent);
+//     m_hitbox.setOutlineColor(sf::Color::White);
+//     m_hitbox.setOutlineThickness(1);
+// #endif
+// }
+
+template<ShapeType shape>
 PositionComp::PositionComp(
     const PositionType& pos,
     const SizeType& size,
     bool ignoreCollision
-) :
-    m_ignoreCollision(ignoreCollision),
-    m_hitbox(sf::RectangleShape(size))
+) : m_ignoreCollision(ignoreCollision), m_box(Range<shape>(size))
 {
-    m_hitbox.setPosition(pos);
-
-#ifdef DEMO_DEBUG
-    m_hitbox.setFillColor(sf::Color::Transparent);
-    m_hitbox.setOutlineColor(sf::Color::White);
-    m_hitbox.setOutlineThickness(1);
-#endif
+    auto trueBox = get<Range<shape>>(m_box);
+    trueBox.setPosition(pos);
 }
 
 PositionComp::~PositionComp()
