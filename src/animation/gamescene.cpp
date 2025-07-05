@@ -11,6 +11,7 @@
 #include <entity/plant/plant.hpp>
 #include <entity/tool/tool.hpp>
 #include <entity/zombie/zombie.hpp>
+#include <event_manager.hpp>
 #include <system/init.hpp>
 #include <UI/defines.hpp>
 #include <UI/ui_layout.hpp>
@@ -37,7 +38,8 @@ GameScene::GameScene() :
         "game",
         State::Windowed
     )),
-    m_background(nullptr), m_thread_id(this_thread::get_id()),
+    m_background(make_unique<Background>()),
+    m_thread_id(this_thread::get_id()),
     m_plants(
         UI_DEFINE::GRASS_PATH,
         vector<Plant*>(UI_DEFINE::GRASS_COUNT, nullptr)
@@ -173,7 +175,7 @@ bool GameScene::isOpen() const
 
 void GameScene::setBackGround(std::string_view path)
 {
-    m_background = new Background(
+    m_background->init(
         path, PositionType(0, 0), SizeType(m_window->getSize())
     );
     m_background->setScene(this);
@@ -214,6 +216,36 @@ void GameScene::addTool(Tool* tool)
     printf("add tool: %p\n", tool);
 }
 
+void GameScene::click(const sf::Vector2i& pos)
+{
+    if(m_hand) {
+        m_hand->use(pos);
+        m_hand = nullptr;
+        return;
+    }
+    PositionType clickPos = PositionType(pos);
+    for(auto tool : m_tools) {
+        if(auto position = tool->getComp<CompType::POSITION>();
+           position && position->clicked(clickPos)) {
+            m_hand = tool;
+            trigger(
+                m_hand, EventType::Click, make_any<sf::Vector2i>(pos)
+            );
+        }
+    }
+
+    // try plants or zombies?
+    // if(!target) {
+    //     auto plant = getPlantByAxis(pos2axis(clickPos));
+    //     if(plant && plant->hasComp(CompType::POSITION)
+    //        && plant->getComp<CompType::POSITION>()->clicked(
+    //            clickPos
+    //        )) {
+    //         target = plant;
+    //     }
+    // }
+}
+
 void GameScene::_delPlant(Plant* plant)
 {
     if(plant == nullptr) {
@@ -238,37 +270,6 @@ void GameScene::_delBullet(Bullet* bullet)
     printf("del bullet\n");
 }
 
-void GameScene::click(const sf::Vector2i& pos)
-{
-    if(m_hand) {
-        m_hand->click(pos);
-        m_hand = nullptr;
-        return;
-    }
-    PositionType clickPos = PositionType(pos);
-    for(auto tool : m_tools) {
-        if(!tool->hasComp(CompType::POSITION)) {
-            continue;
-        }
-        if(!tool->getComp<CompType::POSITION>()->clicked(clickPos)) {
-            continue;
-        }
-        m_hand = tool;
-        break;
-    }
-
-    // try plants or zombies?
-    // if(!target) {
-    //     auto plant = getPlantByAxis(pos2axis(clickPos));
-    //     if(plant && plant->hasComp(CompType::POSITION)
-    //        && plant->getComp<CompType::POSITION>()->clicked(
-    //            clickPos
-    //        )) {
-    //         target = plant;
-    //     }
-    // }
-}
-
 void GameScene::delPlant(const sf::Vector2i& pos_axis)
 {
     _delPlant(getPlantByAxis(pos_axis));
@@ -291,10 +292,9 @@ void GameScene::delEntity(Entity* entity)
         delPlant(entity->getComp<CompType::POSITION>()->getAxisPos()
         );
     } else if(isZombie(entity)) {
-        _delZombie(dynamic_cast<Zombie*>(entity));
+        delZombie(dynamic_cast<Zombie*>(entity));
     } else if(isBullet(entity)) {
-        printf("here\n");
-        _delBullet(dynamic_cast<Bullet*>(entity));
+        delBullet(dynamic_cast<Bullet*>(entity));
     } else {
         printf(
             "del entity error, entity name is %s, type is %d, addr "

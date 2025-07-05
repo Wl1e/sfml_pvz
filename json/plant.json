@@ -52,5 +52,5 @@
         "bullet_type": "NULL",
         "attack_func": "minePlantAttackZombie",
         "active_attack": false
-    },
+    }
 }

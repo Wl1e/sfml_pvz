@@ -11,7 +11,9 @@ enum EventType
     Collide,
 
     // 和上面算不同类型的Event
-    FinishAnimation
+    FinishAnimation,
+
+    Click
 };
 
 class Entity;

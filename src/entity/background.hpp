@@ -7,19 +7,20 @@ namespace demo {
 class Background : public Entity
 {
 public:
-    explicit Background(
+    explicit Background() : Entity(EntityType::NONE, "Background")
+    {
+    }
+    void init(
         std::string_view resource_path,
         const PositionType& pos,
         const SizeType& size
-    ) : Entity(EntityType::NONE, "Background")
+    )
     {
         addComp<CompType::POSITION>(pos, size);
         addComp<CompType::ANIMATION>(resource_path);
         getComp<CompType::ANIMATION>()->setSize(size);
     }
     ~Background() = default;
-
-    void update();
 
 protected:
     void _statusFunction() override

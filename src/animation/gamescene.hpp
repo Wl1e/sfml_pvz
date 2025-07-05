@@ -107,7 +107,7 @@ private:
 
 private:
     sf::RenderWindow* m_window;
-    Background* m_background;
+    std::unique_ptr<Background> m_background;
     std::thread::id m_thread_id;
 
     std::unordered_set<Bullet*> m_bullets;

@@ -6,13 +6,20 @@ using namespace std;
 using namespace sf;
 using namespace demo;
 
-void PlantCreator::click(const Vector2i& pos)
+PlantCreator::PlantCreator(const std::string& plant) :
+    Tool("PlantCreator"), m_plant(plant)
+{
+    _initComps();
+    _initEvents();
+}
+
+void PlantCreator::use(const Vector2i& pos)
 {
     auto newPlant = PlantFactory::getFactory()->create(m_plant, pos);
     getScene()->addPlant(newPlant);
 }
 
-void PlantCreator::_initComp()
+void PlantCreator::_initComps()
 {
     addComp<CompType::POSITION>(
         PositionType(0, 0), SizeType(65, 71), true
@@ -22,4 +29,8 @@ void PlantCreator::_initComp()
         "Peashooter.png"
     );
     getComp<CompType::ANIMATION>()->setAnimationPos({0, 0});
+}
+
+void PlantCreator::_initEvents()
+{
 }

@@ -14,6 +14,10 @@ public:
     {
     }
 
+    virtual void use(const sf::Vector2i& pos)
+    {
+    }
+
 protected:
     void _statusFunction()
     {

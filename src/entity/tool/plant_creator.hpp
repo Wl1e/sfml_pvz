@@ -5,18 +5,18 @@ namespace demo {
 class PlantCreator : public Tool
 {
 public:
-    explicit PlantCreator(const std::string& plant) :
-        Tool("PlantCreator"), m_plant(plant)
-    {
-        _initComp();
-    }
+    explicit PlantCreator(const std::string&);
     ~PlantCreator() = default;
 
-    void click(const sf::Vector2i& pos) override;
-    void setPlant(const std::string&);
+    void setPlant(const std::string& plant)
+    {
+        m_plant = plant;
+    }
+    void use(const sf::Vector2i& pos) override;
 
 private:
-    void _initComp();
+    void _initComps();
+    void _initEvents();
 
 private:
     std::string m_plant;

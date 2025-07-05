@@ -36,7 +36,6 @@ void EventHandler::OnMouseButtonPressed(
     cout << event.position.x << ' ' << event.position.y << '\n';
     pressed_button = event.button;
     pressed_pos = event.position;
-    // scene->click(pos);
 }
 
 void EventHandler::OnMouseButtonReleased(
