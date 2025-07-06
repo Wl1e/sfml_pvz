@@ -79,9 +79,5 @@ bool CollisionSystem::_collision(
         return false;
     }
 
-    // return position1->getHitbox()
-    //     .getGlobalBounds()
-    //     .findIntersection(position2->getHitbox().getGlobalBounds())
-    //     .has_value();
-    return false;
+    return position1->intersection(*position2);
 }

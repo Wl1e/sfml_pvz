@@ -74,8 +74,6 @@ public:
     {
         return m_zombies;
     }
-    // std::vector<Entity*> getEntityInRange(EntityType,
-    // AttackRange*);
     Tool* getHand() const
     {
         return m_hand;

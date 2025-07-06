@@ -60,21 +60,12 @@ public:
         m_box->setPosition(pos);
     }
 
-    bool intersection(const PositionComp& pos)
-    {
-        if(m_ignoreCollision || pos.m_ignoreCollision) {
-            return false;
-        }
-        auto targetBox = pos.getBox();
-        // if(isColliding(getBox(), targetBox)) {}
-        // return m_hitbox.getGlobalBounds()
-        //     .findIntersection(pos.m_hitbox.getGlobalBounds())
-        //     .has_value();
-        return false;
-    }
+    bool intersection(const PositionComp&);
     bool clicked(const PositionType& clickPos)
     {
-        return m_hitbox.getGlobalBounds().contains(clickPos);
+        return m_box->getShape()->getGlobalBounds().contains(
+            clickPos
+        );
     }
 
     void whenAdd(Entity*) override;
@@ -82,7 +73,6 @@ public:
 
 private:
     bool m_ignoreCollision;
-    sf::RectangleShape m_hitbox;
 
     BaseRange* m_box;
 };

@@ -1,16 +1,69 @@
 #include <cmath>
 
+#include <animation/gamescene.hpp>
 #include <base/range.hpp>
+#include <defines.hpp>
 #include <entity/entity.hpp>
+#include <entity/zombie/zombie.hpp>
 
 using namespace std;
 using namespace sf;
 using namespace demo;
 
-template<ShapeType shape>
-vector<Entity*> Range<shape>::getEntityInRange(EntityType type)
+void demo::setRangeTransplant(
+    BaseRange* m_box, const sf::Color& color
+)
 {
-    return vector<Entity*>();
+    auto shape = m_box->getShape();
+    shape->setFillColor(sf::Color::Transparent);
+    shape->setOutlineColor(color);
+    shape->setOutlineThickness(1);
+}
+
+#define VEC_OPERATOR(opt)                                          \
+    bool operator opt(const Vector2f& left, const Vector2f& right) \
+    {                                                              \
+        return left.x opt right.x && left.y opt right.y;           \
+    }
+
+VEC_OPERATOR(<=)
+VEC_OPERATOR(<)
+VEC_OPERATOR(>)
+
+// FIXME: Circle其实不通用
+template<ShapeType shape>
+vector<Entity*>
+Range<shape>::getEntityInRange(GameScene* scene, EntityType type)
+{
+    vector<Entity*> res;
+    // 单线攻击优化
+    int path = getPath(getBottomPosition());
+    if(type == EntityType::PLANT) {
+        auto plant = scene->getPlantByAxis(
+            Vector2i(pos2axis(getBottomPosition()))
+        );
+        if(plant) {
+            res.push_back((Entity*)plant);
+        }
+    } else if(type == EntityType::ZOMBIE) {
+        // FIXME:
+        // 这里的判断直接导致需要引用entity/zombie，依赖关系过于杂乱
+        auto bounds = getShape()->getGlobalBounds();
+        for(auto zombie : scene->getZombiesByPath(path)) {
+            // 这里过于暴露底层逻辑
+            if(bounds
+                   .findIntersection(
+                       zombie->getComp<CompType::POSITION>()
+                           ->getBox()
+                           ->getShape()
+                           ->getGlobalBounds()
+                   )
+                   .has_value()) {
+                res.push_back(zombie);
+            }
+        }
+    }
+    return res;
 }
 
 template<ShapeType shape>
@@ -50,7 +103,7 @@ template<>
 PositionType Range<RectangleShape>::getBottomPosition() const
 {
     return m_range->getPosition()
-           - getSize().componentWiseDiv({2.f, 1.f});
+           + getSize().componentWiseDiv({2.f, 1.f});
 }
 
 template<>
@@ -72,11 +125,20 @@ void Range<RectangleShape>::setBottomPosition(
 template<>
 bool Range<RectangleShape>::_inRange(Entity* entity) const
 {
-    if(auto position = entity->getComp<CompType::POSITION>();
-       position) {
-        auto pos = position->getBottomPos();
+    auto position = entity->getComp<CompType::POSITION>();
+    if(!position) {
+        return false;
     }
-    return false;
+
+    auto targetPos = position->getBottomPos();
+    PositionType pos = getPosition();
+    if(targetPos < pos) {
+        return false;
+    }
+    if(targetPos - pos > getSize()) {
+        return false;
+    }
+    return true;
 }
 
 // ==================CircleShape==================
@@ -121,9 +183,18 @@ void Range<CircleShape>::setBottomPosition(const PositionType& pos)
 template<>
 bool Range<CircleShape>::_inRange(Entity* entity) const
 {
-    if(auto position = entity->getComp<CompType::POSITION>();
-       position) {}
-    return false;
+    auto position = entity->getComp<CompType::POSITION>();
+    if(!position) {
+        return false;
+    }
+
+    auto targetPos = position->getBottomPos();
+    PositionType pos = getPosition();
+    if((targetPos - pos).lengthSquared()
+       > getSize().lengthSquared()) {
+        return false;
+    }
+    return true;
 }
 
 // ==================isColliding==================
@@ -204,33 +275,35 @@ bool _isColliding(
            <= pow(radius1 + radius2, 2);
 }
 
-bool isColliding(BaseRange* range1, BaseRange* range2)
+bool demo::isColliding(
+    const BaseRange* range1, const BaseRange* range2
+)
 {
     auto type1 = range1->getType();
     auto type2 = range2->getType();
     if(type1 == type2) {
         if(type1 == RangeType::Rectangle) {
             return _isColliding(
-                *dynamic_cast<RectangleRange*>(range1),
-                *dynamic_cast<RectangleRange*>(range2)
+                *dynamic_cast<const RectangleRange*>(range1),
+                *dynamic_cast<const RectangleRange*>(range2)
             );
         } else if(type1 == RangeType::Circle) {
             return _isColliding(
-                *dynamic_cast<CircleRange*>(range1),
-                *dynamic_cast<CircleRange*>(range2)
+                *dynamic_cast<const CircleRange*>(range1),
+                *dynamic_cast<const CircleRange*>(range2)
             );
         }
     } else if(type1 == RangeType::Rectangle
               && type2 == RangeType::Circle) {
         return _isColliding(
-            *dynamic_cast<RectangleRange*>(range1),
-            *dynamic_cast<CircleRange*>(range2)
+            *dynamic_cast<const RectangleRange*>(range1),
+            *dynamic_cast<const CircleRange*>(range2)
         );
     } else if(type1 == RangeType::Circle
               && type2 == RangeType::Rectangle) {
         return _isColliding(
-            *dynamic_cast<CircleRange*>(range1),
-            *dynamic_cast<RectangleRange*>(range2)
+            *dynamic_cast<const CircleRange*>(range1),
+            *dynamic_cast<const RectangleRange*>(range2)
         );
     }
     return false;

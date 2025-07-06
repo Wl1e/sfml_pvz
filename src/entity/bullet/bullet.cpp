@@ -1,5 +1,5 @@
 #include <animation/gamescene.hpp>
-#include <base/attack_range.hpp>
+#include <base/range.hpp>
 #include <entity/attack.hpp>
 #include <entity/bullet/bullet.hpp>
 #include <event_manager.hpp>
@@ -41,24 +41,15 @@ void Bullet::_initComp(const BulletData& data)
         data.plantData.length
     );
 
-    auto animationSize =
-        getComp<CompType::ANIMATION>()->getAnimationSize();
-    if(animationSize.x >= UI_DEFINE::GRASS_LENGTH) {
-        animationSize.x = UI_DEFINE::GRASS_LENGTH - 10;
-    }
-    if(animationSize.y >= UI_DEFINE::GRASS_WIDE) {
-        animationSize.y = UI_DEFINE::GRASS_WIDE - 10;
-    }
-
+    auto animationSize = fitableSize(
+        getComp<CompType::ANIMATION>()->getAnimationSize()
+    );
     addComp<CompType::POSITION>(
-        RangeType::Rectangle,
-        data.plantData.start,
-        SizeType(animationSize)
+        RangeType::Rectangle, data.plantData.start, animationSize
     );
 
-    auto true_range = new AttackRange(
-        RangeType::Circle, SizeType(animationSize.x / 2, 0)
-    );
+    auto true_range =
+        new CircleRange(SizeType(animationSize.x / 2, 0));
     true_range->setPosition(
         getComp<CompType::POSITION>()->getCenterPos()
     );

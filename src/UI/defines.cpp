@@ -56,10 +56,10 @@ const int UI_DEFINE::GRASS_COUNT = config["grass_count"].asInt();
 SizeType demo::fitableSize(sf::Vector2u rawSize)
 {
     if(rawSize.x >= UI_DEFINE::GRASS_LENGTH) {
-        rawSize.x = UI_DEFINE::GRASS_LENGTH - 10;
+        rawSize.x = UI_DEFINE::GRASS_LENGTH - 20;
     }
     if(rawSize.y >= UI_DEFINE::GRASS_WIDE) {
-        rawSize.y = UI_DEFINE::GRASS_WIDE - 10;
+        rawSize.y = UI_DEFINE::GRASS_WIDE - 20;
     }
     return SizeType(rawSize);
 }

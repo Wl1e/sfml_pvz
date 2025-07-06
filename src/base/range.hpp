@@ -10,6 +10,7 @@
 namespace demo {
 
 class Entity;
+class GameScene;
 
 enum class RangeType
 {
@@ -26,7 +27,8 @@ public:
     virtual PositionType getPosition() const = 0;
     virtual PositionType getCenterPosition() const = 0;
     virtual PositionType getBottomPosition() const = 0;
-    virtual std::vector<Entity*> getEntityInRange(EntityType) = 0;
+    virtual std::vector<Entity*>
+    getEntityInRange(GameScene*, EntityType) = 0;
 
     virtual void move(const sf::Vector2f&) = 0;
     virtual void setPosition(const PositionType&) = 0;
@@ -55,7 +57,8 @@ public:
     PositionType getPosition() const override;
     PositionType getCenterPosition() const override;
     PositionType getBottomPosition() const override;
-    std::vector<Entity*> getEntityInRange(EntityType) override;
+    std::vector<Entity*>
+    getEntityInRange(GameScene*, EntityType) override;
 
     void setPosition(const PositionType&) override;
     void setBottomPosition(const PositionType&) override;
@@ -81,6 +84,7 @@ private:
 using RectangleRange = Range<sf::RectangleShape>;
 using CircleRange = Range<sf::CircleShape>;
 
-bool isColliding(BaseRange*, BaseRange*);
+bool isColliding(const BaseRange*, const BaseRange*);
+void setRangeTransplant(BaseRange*, const sf::Color&);
 
 }; // namespace demo

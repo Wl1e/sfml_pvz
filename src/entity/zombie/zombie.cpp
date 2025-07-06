@@ -1,4 +1,4 @@
-#include <base/attack_range.hpp>
+#include <base/range.hpp>
 #include <entity/attack.hpp>
 #include <entity/zombie/zombie.hpp>
 #include <event_manager.hpp>
@@ -53,15 +53,9 @@ void Zombie::_initComp(const ZombieData& data, int path)
     addComp<CompType::HP>(data.HP);
 
     auto animation = getComp<CompType::ANIMATION>();
-    auto animationSize = animation->getAnimationSize();
+    auto animationSize = fitableSize(animation->getAnimationSize());
 
-    if(animationSize.x >= UI_DEFINE::GRASS_LENGTH) {
-        animationSize.x = UI_DEFINE::GRASS_LENGTH - 10;
-    }
-    if(animationSize.y >= UI_DEFINE::GRASS_WIDE) {
-        animationSize.y = UI_DEFINE::GRASS_WIDE - 10;
-    }
-    true_pos -= PositionType(animationSize.componentWiseDiv({2, 1}));
+    true_pos -= animationSize.componentWiseDiv({2, 1});
     addComp<CompType::POSITION>(
         RangeType::Rectangle, true_pos, SizeType(animationSize)
     );
@@ -69,10 +63,8 @@ void Zombie::_initComp(const ZombieData& data, int path)
     animation->setUpdateInterval(data.frame2animation);
     animation->setAnimationPos(true_pos);
 
-    auto true_range = new AttackRange(
-        RangeType::Rectangle,
-        getComp<CompType::POSITION>()->getSize()
-    );
+    auto true_range =
+        new RectangleRange(getComp<CompType::POSITION>()->getSize());
     true_range->setPosition(true_pos);
 
     addComp<CompType::ATTACK>(data.damage, data.CD, true_range);

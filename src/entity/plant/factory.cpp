@@ -2,7 +2,7 @@
 #include <iostream>
 #include <json/json.h>
 
-#include <base/attack_range.hpp>
+#include <base/range.hpp>
 #include <entity/plant/factory.hpp>
 #include <entity/plant/plant.hpp>
 
@@ -32,21 +32,17 @@ void initPlantData(
     for(auto it = root.begin(); it != root.end(); ++it) {
         const auto& key = it.name();
         const auto& value = *it;
+
         AttackRange* range = nullptr;
         string range_type = value["range"]["type"].asString();
         if(range_type == "Rectangle") {
-            range = new AttackRange(
-                RangeType::Rectangle,
-                SizeType(
-
-                    value["range"]["data"][0].asFloat()
-                        + value["range"]["data"][1].asFloat(),
-                    0
-                )
-            );
+            range = new RectangleRange(SizeType(
+                value["range"]["data"][0].asFloat()
+                    + value["range"]["data"][1].asFloat(),
+                0
+            ));
         } else if(range_type == "Circle") {
-            range = new AttackRange(
-                RangeType::Circle,
+            range = new CircleRange(
                 SizeType(value["range"]["data"][0].asFloat(), 0)
             );
         }
@@ -57,7 +53,7 @@ void initPlantData(
             value["HP"].asFloat(),
             value["CD"].asInt(),
             value["damage"].asFloat(),
-            *range,
+            range,
             value["animation"].asString(),
             value["frame2animation"].asInt(),
             SizeType(
@@ -66,8 +62,6 @@ void initPlantData(
             ),
             value["bullet_type"].asString()
         });
-
-        delete range;
     }
 }
 

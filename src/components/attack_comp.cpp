@@ -1,5 +1,4 @@
 #include <animation/gamescene.hpp>
-#include <base/attack_range.hpp>
 #include <base/range.hpp>
 #include <components/attack_comp.hpp>
 #include <components/hp_comp.hpp>
@@ -14,17 +13,25 @@ using namespace demo;
 static const int MIN_RANGE = -10;
 static const int MAX_RANGE = 1000;
 
+EntityType getEnemyType(Entity* entity)
+{
+    if(isPlant(entity)) {
+        return EntityType::ZOMBIE;
+    } else if(isBullet(entity)) {
+        return EntityType::ZOMBIE;
+    } else if(isZombie(entity)) {
+        return EntityType::PLANT;
+    } else {
+        return EntityType::NONE;
+    }
+}
+
 AttackComp::AttackComp(int damage, Frame cd, AttackRange* range) :
     m_damage(damage), m_range(range), m_ban_attack(false), m_cd(cd),
     m_attackFrame(FrameManager::getInstance().getFrame()),
     m_attack(nullptr)
 {
-    // if(m_range.x < MIN_RANGE) {
-    //     m_range.x = MIN_RANGE;
-    // }
-    // if(m_range.y > MAX_RANGE) {
-    //     m_range.y = MAX_RANGE;
-    // }
+    setRangeTransplant(m_range.get(), Color::Red);
 }
 
 // 有个性能点，每次update要检测一次敌人，确定攻击又要检测一次，这里可以优化成通过trigger传过去或者存在哪里
@@ -47,22 +54,14 @@ void AttackComp::update(Entity* entity)
         return;
     }
 
-    EntityType enemyType = EntityType::NONE;
-    if(isPlant(entity)) {
-        enemyType = EntityType::ZOMBIE;
-    } else if(isBullet(entity)) {
-        enemyType = EntityType::ZOMBIE;
-    } else if(isZombie(entity)) {
-        enemyType = EntityType::PLANT;
-    }
-
+    EntityType enemyType = getEnemyType(entity);
     if(enemyType == EntityType::NONE) {
         return;
     }
-
     vector<Entity*> enemys;
     if(m_range) {
-        enemys = m_range->getEntityInRange(enemyType);
+        enemys =
+            m_range->getEntityInRange(entity->getScene(), enemyType);
         if(enemys.empty()) {
             if(entity->getStatus() == EntityStatus::Attack) {
                 entity->updateStatus(EntityStatus::Normal);
@@ -152,7 +151,12 @@ void AttackComp::attackInRange(Entity* entity)
     if(!m_range) {
         return;
     }
-    auto enemys = m_range->getEnemyInRange(entity);
+    EntityType enemyType = getEnemyType(entity);
+    if(enemyType == EntityType::NONE) {
+        return;
+    }
+    auto enemys =
+        m_range->getEntityInRange(entity->getScene(), enemyType);
     _attack(entity, enemys);
 }
 
@@ -161,6 +165,11 @@ bool AttackComp::hasEnemys(Entity* entity)
     if(!m_range) {
         return false;
     }
-    auto enemys = m_range->getEnemyInRange(entity);
+    EntityType enemyType = getEnemyType(entity);
+    if(enemyType == EntityType::NONE) {
+        return false;
+    }
+    auto enemys =
+        m_range->getEntityInRange(entity->getScene(), enemyType);
     return !enemys.empty();
 }

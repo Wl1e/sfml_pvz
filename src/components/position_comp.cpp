@@ -10,23 +10,6 @@ using namespace std;
 using namespace sf;
 using namespace demo;
 
-// PositionComp::PositionComp(
-//     const PositionType& pos,
-//     const SizeType& size,
-//     bool ignoreCollision
-// ) :
-//     m_ignoreCollision(ignoreCollision),
-//     m_hitbox(sf::RectangleShape(size))
-// {
-//     m_hitbox.setPosition(pos);
-
-// #ifdef DEMO_DEBUG
-//     m_hitbox.setFillColor(sf::Color::Transparent);
-//     m_hitbox.setOutlineColor(sf::Color::White);
-//     m_hitbox.setOutlineThickness(1);
-// #endif
-// }
-
 PositionComp::PositionComp(
     RangeType type,
     const PositionType& pos,
@@ -42,6 +25,7 @@ PositionComp::PositionComp(
         printf("err shape\n");
     }
     m_box->setPosition(pos);
+    setRangeTransplant(m_box, Color::White);
 }
 
 PositionComp::~PositionComp()
@@ -81,4 +65,13 @@ void PositionComp::whenAdd(Entity* entity)
 void PositionComp::whenDel(Entity* entity)
 {
     getSystem("collision")->delEntity(entity);
+}
+
+bool PositionComp::intersection(const PositionComp& pos)
+{
+    if(m_ignoreCollision || pos.m_ignoreCollision) {
+        return false;
+    }
+    auto targetBox = pos.getBox();
+    return isColliding(getBox(), targetBox);
 }

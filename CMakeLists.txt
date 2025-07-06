@@ -17,7 +17,7 @@ set(SOURCES
 
     src/base/tools.cpp
     src/base/direction.cpp
-    src/base/attack_range.cpp
+    # src/base/attack_range.cpp
     src/base/range.cpp
 
     src/event_manager.cpp

@@ -1,4 +1,4 @@
-#include <base/attack_range.hpp>
+#include <base/range.hpp>
 #include <entity/attack.hpp>
 #include <entity/plant/plant.hpp>
 #include <event_manager.hpp>
@@ -56,10 +56,11 @@ void Plant::_initComp(const PlantData& data, const Vector2i& pos)
         RangeType::Rectangle, true_pos, SizeType(trueSize)
     );
 
-    auto true_range = new AttackRange(data.range);
+    auto true_range = data.range;
     true_range->setPosition(
         getComp<CompType::POSITION>()->getCenterPos()
     );
+    auto p = getComp<CompType::POSITION>()->getCenterPos();
     addComp<CompType::ATTACK>(data.damage, data.CD, true_range);
     getComp<CompType::ATTACK>()->setAttackFunc(
         data.type == "shooter" ? plantAttackZombie
