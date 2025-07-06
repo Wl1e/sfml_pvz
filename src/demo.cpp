@@ -48,7 +48,7 @@ void createTool()
     game.scene()->addTool(plantCreator);
 }
 
-void test_simple_tool()
+void simple_test()
 {
     game.scene()->setBackGround(
         "/home/wlle/code/demo/sfml2/resource/Background.jpg"
@@ -56,8 +56,11 @@ void test_simple_tool()
     game.setFrame(60);
 
     createTool();
+    cout << "finish create tool\n";
     createPlant();
+    cout << "finish create plant\n";
     createZombie();
+    cout << "finish create zombie\n";
 
     // thread([&]() {
     //     this_thread::sleep_for(1s);
@@ -70,6 +73,6 @@ void test_simple_tool()
 int main()
 {
     cout << "start test" << endl;
-    test_simple_tool();
+    simple_test();
     return 0;
 }

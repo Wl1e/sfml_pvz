@@ -102,9 +102,10 @@ bool AttackRange::_inRange(Entity* entity) const
     assert(entity->hasComp(CompType::POSITION));
     auto pos = entity->getComp<CompType::POSITION>();
     // 无法真正适配圆形
-    return m_range->getGlobalBounds()
-        .findIntersection(pos->getHitbox().getGlobalBounds())
-        .has_value();
+    // return m_range->getGlobalBounds()
+    //     .findIntersection(pos->getBox().getGlobalBounds())
+    //     .has_value();
+    return false;
 }
 
 void AttackRange::display(GameScene* scene)

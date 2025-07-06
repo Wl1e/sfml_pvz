@@ -51,7 +51,9 @@ void Bullet::_initComp(const BulletData& data)
     }
 
     addComp<CompType::POSITION>(
-        data.plantData.start, SizeType(animationSize)
+        RangeType::Rectangle,
+        data.plantData.start,
+        SizeType(animationSize)
     );
 
     auto true_range = new AttackRange(

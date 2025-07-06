@@ -319,3 +319,12 @@ void GameScene::delEntity(Entity* entity)
 //     }
 //     return res;
 // }
+
+void GameScene::draw(const sf::Drawable& object) const
+{
+    m_window->draw(object);
+}
+void GameScene::draw(const BaseRange* obejct) const
+{
+    m_window->draw(*(obejct->getShape()));
+}

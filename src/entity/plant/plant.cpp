@@ -52,7 +52,9 @@ void Plant::_initComp(const PlantData& data, const Vector2i& pos)
     true_pos -= PositionType(trueSize.componentWiseDiv({2, 1}));
     animation->setAnimationPos(true_pos);
 
-    addComp<CompType::POSITION>(true_pos, SizeType(trueSize));
+    addComp<CompType::POSITION>(
+        RangeType::Rectangle, true_pos, SizeType(trueSize)
+    );
 
     auto true_range = new AttackRange(data.range);
     true_range->setPosition(

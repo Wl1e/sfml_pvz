@@ -22,7 +22,10 @@ void PlantCreator::use(const Vector2i& pos)
 void PlantCreator::_initComps()
 {
     addComp<CompType::POSITION>(
-        PositionType(0, 0), SizeType(65, 71), true
+        RangeType::Rectangle,
+        PositionType(0, 0),
+        SizeType(65, 71),
+        true
     );
     addComp<CompType::ANIMATION>(
         "/home/wlle/code/demo/sfml2/resource/plant/PeaShooter/"

@@ -9,23 +9,7 @@
 
 namespace demo {
 
-class GameScene;
 class Entity;
-
-// class IBaseAttackRange
-// {
-// public:
-//     virtual ~IBaseAttackRange() = default;
-//     virtual void updatePos(const sf::Vector2f&) = 0;
-//     virtual bool inRange(Entity*) const = 0;
-//     virtual void display(GameScene*) = 0;
-
-//     virtual std::vector<Entity*> getEnemyInRange(Entity*) = 0;
-
-//     virtual Shape* getShape() const = 0;
-
-//     virtual void setPosition(const PositionType& pos);
-// };
 
 enum class RangeType
 {
@@ -33,47 +17,70 @@ enum class RangeType
     Circle
 };
 
+class BaseRange
+{
+public:
+    virtual RangeType getType() const = 0;
+    virtual sf::Shape* getShape() const = 0;
+    virtual SizeType getSize() const = 0;
+    virtual PositionType getPosition() const = 0;
+    virtual PositionType getCenterPosition() const = 0;
+    virtual PositionType getBottomPosition() const = 0;
+    virtual std::vector<Entity*> getEntityInRange(EntityType) = 0;
+
+    virtual void move(const sf::Vector2f&) = 0;
+    virtual void setPosition(const PositionType&) = 0;
+    virtual void setBottomPosition(const PositionType&) = 0;
+
+    virtual bool inRange(Entity* entity) const = 0;
+};
+
 template<class T>
 concept ShapeType = std::is_same_v<T, sf::RectangleShape>
                     || std::is_same_v<T, sf::CircleShape>;
 
 template<ShapeType shape>
-class Range
+class Range : public BaseRange
 {
 public:
     explicit Range(const SizeType&);
     ~Range() = default;
 
-    void updatePos(const sf::Vector2f& move_value)
+    RangeType getType() const
     {
-        m_range->move(move_value);
+        return m_type;
     }
-    void setPosition(const PositionType&);
-    void setBottomPosition(const PositionType&);
+    sf::Shape* getShape() const override;
+    SizeType getSize() const override;
+    PositionType getPosition() const override;
+    PositionType getCenterPosition() const override;
+    PositionType getBottomPosition() const override;
+    std::vector<Entity*> getEntityInRange(EntityType) override;
 
-    std::vector<Entity*> getEntityInRange(EntityType);
-    shape* getShape() const
+    void setPosition(const PositionType&) override;
+    void setBottomPosition(const PositionType&) override;
+    void move(const sf::Vector2f& value) override
     {
-        return m_range.get();
+        m_range->move(value);
     }
-    SizeType getSize() const;
 
-    PositionType getPosition() const;
-    PositionType getCenterPosition() const;
-    PositionType getBottomPosition() const;
     // FIXME
-    bool inRange(Entity* entity) const
+    bool inRange(Entity* entity) const override
     {
         return _inRange(entity);
     }
-    template<ShapeType otherShape>
-    bool isColliding(const Range<otherShape>&) const;
 
 protected:
     bool _inRange(Entity*) const;
 
 private:
     std::unique_ptr<shape> m_range;
+    RangeType m_type;
 };
+
+using RectangleRange = Range<sf::RectangleShape>;
+using CircleRange = Range<sf::CircleShape>;
+
+bool isColliding(BaseRange*, BaseRange*);
 
 }; // namespace demo

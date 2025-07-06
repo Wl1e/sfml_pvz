@@ -27,26 +27,33 @@ using namespace demo;
 // #endif
 // }
 
-template<ShapeType shape>
 PositionComp::PositionComp(
+    RangeType type,
     const PositionType& pos,
     const SizeType& size,
     bool ignoreCollision
-) : m_ignoreCollision(ignoreCollision), m_box(Range<shape>(size))
+) : m_ignoreCollision(ignoreCollision)
 {
-    auto trueBox = get<Range<shape>>(m_box);
-    trueBox.setPosition(pos);
+    if(type == RangeType::Rectangle) {
+        m_box = new Range<sf::RectangleShape>(size);
+    } else if(type == RangeType::Circle) {
+        m_box = new Range<sf::CircleShape>(size);
+    } else {
+        printf("err shape\n");
+    }
+    m_box->setPosition(pos);
 }
 
 PositionComp::~PositionComp()
 {
+    delete m_box;
 }
 
 void PositionComp::update(Entity* entity)
 {
     // FIXME: 后续分离出renderComp就替换
 #ifdef DEMO_DEBUG
-    entity->getScene()->draw(m_hitbox);
+    entity->getScene()->draw(m_box);
 #endif
     if(!entity->hasComp(CompType::MOVEMENT)) {
         return;
@@ -56,16 +63,18 @@ void PositionComp::update(Entity* entity)
 
 PositionType PositionComp::getCenterPos() const
 {
-    return m_hitbox.getPosition() + m_hitbox.getGeometricCenter();
+    return m_box->getCenterPosition();
 }
 PositionType PositionComp::getBottomPos() const
 {
-    return m_hitbox.getPosition()
-           + m_hitbox.getSize().componentWiseDiv({2, 1});
+    return m_box->getBottomPosition();
 }
 
 void PositionComp::whenAdd(Entity* entity)
 {
+    if(m_ignoreCollision) {
+        return;
+    }
     getSystem("collision")->addEntity(entity);
 }
 

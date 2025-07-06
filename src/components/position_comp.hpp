@@ -16,28 +16,27 @@ public:
     // explicit PositionComp(
     //     const PositionType&, const SizeType&, bool = false
     // );
-    template<ShapeType shape>
     explicit PositionComp(
-        const PositionType&, const SizeType&, bool = false
+        RangeType, const PositionType&, const SizeType&, bool = false
     );
     ~PositionComp();
 
     // 要不然position和size都改成Vector2f得了
     PositionType getPos() const
     {
-        return m_hitbox.getPosition();
+        return m_box->getPosition();
     }
     SizeType getSize() const
     {
-        return m_hitbox.getSize();
+        return m_box->getSize();
     }
     sf::Vector2i getAxisPos() const
     {
         return pos2axis(getPos());
     }
-    const sf::RectangleShape& getHitbox() const
+    const BaseRange* const getBox() const
     {
-        return m_hitbox;
+        return m_box;
     }
     PositionType getCenterPos() const;
     PositionType getBottomPos() const;
@@ -48,9 +47,9 @@ public:
     }
 
     void update(Entity* entity) override;
-    void move(const sf::Vector2f& move)
+    void move(const sf::Vector2f& value)
     {
-        m_hitbox.move(move);
+        m_box->move(value);
     }
     void setIgnoreCollision(bool ignoreCollision)
     {
@@ -58,7 +57,7 @@ public:
     }
     void setPosition(const PositionType& pos)
     {
-        m_hitbox.setPosition(pos);
+        m_box->setPosition(pos);
     }
 
     bool intersection(const PositionComp& pos)
@@ -66,9 +65,12 @@ public:
         if(m_ignoreCollision || pos.m_ignoreCollision) {
             return false;
         }
-        return m_hitbox.getGlobalBounds()
-            .findIntersection(pos.m_hitbox.getGlobalBounds())
-            .has_value();
+        auto targetBox = pos.getBox();
+        // if(isColliding(getBox(), targetBox)) {}
+        // return m_hitbox.getGlobalBounds()
+        //     .findIntersection(pos.m_hitbox.getGlobalBounds())
+        //     .has_value();
+        return false;
     }
     bool clicked(const PositionType& clickPos)
     {
@@ -82,9 +84,7 @@ private:
     bool m_ignoreCollision;
     sf::RectangleShape m_hitbox;
 
-    std::
-        variant<Range<sf::RectangleShape>, Range<sf::RectangleShape>>
-            m_box;
+    BaseRange* m_box;
 };
 
 // bool overlay(const PositionComp&, const PositionComp&);

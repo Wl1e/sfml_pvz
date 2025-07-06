@@ -16,7 +16,9 @@ public:
         const SizeType& size
     )
     {
-        addComp<CompType::POSITION>(pos, size);
+        addComp<CompType::POSITION>(
+            RangeType::Rectangle, pos, size, true
+        );
         addComp<CompType::ANIMATION>(resource_path);
         getComp<CompType::ANIMATION>()->setSize(size);
     }

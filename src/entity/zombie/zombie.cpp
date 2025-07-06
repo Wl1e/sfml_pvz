@@ -62,7 +62,9 @@ void Zombie::_initComp(const ZombieData& data, int path)
         animationSize.y = UI_DEFINE::GRASS_WIDE - 10;
     }
     true_pos -= PositionType(animationSize.componentWiseDiv({2, 1}));
-    addComp<CompType::POSITION>(true_pos, SizeType(animationSize));
+    addComp<CompType::POSITION>(
+        RangeType::Rectangle, true_pos, SizeType(animationSize)
+    );
 
     animation->setUpdateInterval(data.frame2animation);
     animation->setAnimationPos(true_pos);

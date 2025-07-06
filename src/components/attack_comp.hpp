@@ -15,13 +15,12 @@
 namespace demo {
 
 class Bullet;
-class AttackRange;
+class BaseRange;
 
 // void defaultAttackFunc(Entity*);
 
 // 再加一个ConvexShape?
-// using AttackRange =
-//     std::variant<sf::CircleShape, sf::RectangleShape>;
+using AttackRange = BaseRange;
 using AttackFunction =
     std::function<void(Entity*, const std::vector<Entity*>&)>;
 

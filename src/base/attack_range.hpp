@@ -4,6 +4,7 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Shape.hpp>
 
+#include <base/range.hpp>
 #include <base/tools.hpp>
 
 namespace demo {
@@ -25,12 +26,6 @@ class Entity;
 
 //     virtual void setPosition(const PositionType& pos);
 // };
-
-enum class RangeType
-{
-    Rectangle = 0,
-    Circle
-};
 
 class AttackRange
 {

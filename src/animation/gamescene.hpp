@@ -85,10 +85,8 @@ public:
 
     bool isOpen() const;
 
-    void draw(sf::Drawable& object)
-    {
-        m_window->draw(object);
-    }
+    void draw(const sf::Drawable& object) const;
+    void draw(const BaseRange*) const;
 
 private:
     void _initUI();

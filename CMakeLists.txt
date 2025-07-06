@@ -7,7 +7,7 @@ project(demo VERSION 1.0)
 set(CMAKE_BUILD_TYPE Debug)
 
 # Set C++ standard
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # Add source files
@@ -18,6 +18,7 @@ set(SOURCES
     src/base/tools.cpp
     src/base/direction.cpp
     src/base/attack_range.cpp
+    src/base/range.cpp
 
     src/event_manager.cpp
 

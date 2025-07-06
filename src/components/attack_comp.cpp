@@ -1,5 +1,6 @@
 #include <animation/gamescene.hpp>
 #include <base/attack_range.hpp>
+#include <base/range.hpp>
 #include <components/attack_comp.hpp>
 #include <components/hp_comp.hpp>
 #include <entity/entity.hpp>
@@ -34,10 +35,10 @@ AttackComp::AttackComp(int damage, Frame cd, AttackRange* range) :
 void AttackComp::update(Entity* entity)
 {
     if(auto move = entity->getComp<CompType::MOVEMENT>(); move) {
-        m_range->updatePos(move->getMoveValue());
+        m_range->move(move->getMoveValue());
     }
 #ifdef DEMO_DEBUG
-    m_range->display(entity->getScene());
+    entity->getScene()->draw(m_range.get());
 #endif
 
     // 被动攻击、休眠植物
@@ -46,9 +47,22 @@ void AttackComp::update(Entity* entity)
         return;
     }
 
+    EntityType enemyType = EntityType::NONE;
+    if(isPlant(entity)) {
+        enemyType = EntityType::ZOMBIE;
+    } else if(isBullet(entity)) {
+        enemyType = EntityType::ZOMBIE;
+    } else if(isZombie(entity)) {
+        enemyType = EntityType::PLANT;
+    }
+
+    if(enemyType == EntityType::NONE) {
+        return;
+    }
+
     vector<Entity*> enemys;
     if(m_range) {
-        enemys = m_range->getEnemyInRange(entity);
+        enemys = m_range->getEntityInRange(enemyType);
         if(enemys.empty()) {
             if(entity->getStatus() == EntityStatus::Attack) {
                 entity->updateStatus(EntityStatus::Normal);
@@ -118,11 +132,11 @@ void AttackComp::_updateAttackRange(Entity* entity)
 {
     if(auto movement = entity->getComp<CompType::MOVEMENT>();
        movement) {
-        m_range->updatePos(movement->getMoveValue());
+        m_range->move(movement->getMoveValue());
     }
 
 #ifdef DEMO_DEBUG
-    m_range->display(entity->getScene());
+    entity->getScene()->draw(m_range.get());
 #endif
 }
 

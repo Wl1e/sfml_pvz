@@ -15,6 +15,12 @@ void CollisionSystem::addEntity(Entity* entity)
 {
     auto position = entity->getComp<CompType::POSITION>();
     assert(position);
+    printf(
+        "%p %f %f\n",
+        position,
+        position->getBottomPos().x,
+        position->getBottomPos().y
+    );
     BaseSystem::addEntity(entity);
     m_entitys[getPath(position->getBottomPos())].insert(entity);
     // printf("add entity %p\n", entity);
@@ -73,8 +79,9 @@ bool CollisionSystem::_collision(
         return false;
     }
 
-    return position1->getHitbox()
-        .getGlobalBounds()
-        .findIntersection(position2->getHitbox().getGlobalBounds())
-        .has_value();
+    // return position1->getHitbox()
+    //     .getGlobalBounds()
+    //     .findIntersection(position2->getHitbox().getGlobalBounds())
+    //     .has_value();
+    return false;
 }
