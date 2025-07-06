@@ -1,3 +1,6 @@
+# 未使用
+# 各模块之间耦合严重，切不开
+
 set(COMPONENT_SRC
     movement_comp.cpp
     position_comp.cpp

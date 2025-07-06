@@ -38,6 +38,9 @@ void Plant::_statusFunction()
 
 // 不同植物有太多自定义的东西了
 // 需要一些定义了
+
+// bullet、plant、zombie的_initComp都相当的混乱，主要是偷懒借用animation的大小充当box
+// 的大小，组件之间有耦合
 void Plant::_initComp(const PlantData& data, const Vector2i& pos)
 {
     auto true_pos = axis2pos(pos2axis(PositionType(pos)));

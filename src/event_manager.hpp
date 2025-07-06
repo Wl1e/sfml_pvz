@@ -4,6 +4,7 @@
 
 namespace demo {
 
+// 事件管理器
 enum EventType
 {
     Attack = 0,

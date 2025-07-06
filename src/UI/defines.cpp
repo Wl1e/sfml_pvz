@@ -53,6 +53,7 @@ const int UI_DEFINE::GRASS_START_Y = config["grass_start_y"].asInt();
 const int UI_DEFINE::GRASS_PATH = config["grass_path"].asInt();
 const int UI_DEFINE::GRASS_COUNT = config["grass_count"].asInt();
 
+// 防止由于animation过大导致体积占多条道
 SizeType demo::fitableSize(sf::Vector2u rawSize)
 {
     if(rawSize.x >= UI_DEFINE::GRASS_LENGTH) {
