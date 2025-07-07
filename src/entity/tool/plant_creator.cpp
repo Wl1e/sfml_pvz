@@ -6,10 +6,18 @@ using namespace std;
 using namespace sf;
 using namespace demo;
 
-PlantCreator::PlantCreator(const std::string& plant) :
-    Tool("PlantCreator"), m_plant(plant)
+PlantCreator::PlantCreator() : Tool("PlantCreator")
 {
-    _initComps();
+}
+
+void PlantCreator::init(
+    std::string_view plant,
+    const PositionType& position,
+    const SizeType& size
+)
+{
+    m_plant = string(plant);
+    _initComps(position, size);
     _initEvents();
 }
 
@@ -19,14 +27,14 @@ void PlantCreator::use(const Vector2i& pos)
     getScene()->addPlant(newPlant);
 }
 
-void PlantCreator::_initComps()
+void PlantCreator::_initComps(
+    const PositionType& position, const SizeType& size
+)
 {
     addComp<CompType::POSITION>(
-        RangeType::Rectangle,
-        PositionType(0, 0),
-        SizeType(65, 71),
-        true
+        RangeType::Rectangle, position, size, true
     );
+    // 根据plant找
     addComp<CompType::ANIMATION>(
         "/home/wlle/code/demo/sfml2/resource/plant/PeaShooter/"
         "Peashooter.png"

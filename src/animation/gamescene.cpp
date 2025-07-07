@@ -74,16 +74,16 @@ void GameScene::update()
 
     updateSystems();
 
+    _updateTools();
     _updateBullets();
     _updatePlants();
     _updateZombies();
-    _updateTools();
 }
 
 void GameScene::_updateBackground()
 {
     for(auto bg : m_backgrounds) {
-        bg->updade();
+        bg->update();
     }
 }
 
@@ -94,7 +94,7 @@ void GameScene::_updatePlants()
             if(!plant) {
                 continue;
             }
-            plant->updade();
+            plant->update();
         }
     }
 }
@@ -102,7 +102,7 @@ void GameScene::_updateZombies()
 {
     for(auto& zombies : m_zombies) {
         for(auto zombie : zombies) {
-            zombie->updade();
+            zombie->update();
         }
     }
 }
@@ -110,14 +110,14 @@ void GameScene::_updateZombies()
 void GameScene::_updateBullets()
 {
     for(auto bullet : m_bullets) {
-        bullet->updade();
+        bullet->update();
     }
 }
 
 void GameScene::_updateTools()
 {
     for(auto tool : m_tools) {
-        tool->updade();
+        tool->update();
     }
 }
 
@@ -229,6 +229,7 @@ void GameScene::click(const sf::Vector2i& pos)
         if(auto position = tool->getComp<CompType::POSITION>();
            position && position->clicked(clickPos)) {
             m_hand = tool;
+            printf("select tool %p\n", tool);
             trigger(
                 m_hand, EventType::Click, make_any<sf::Vector2i>(pos)
             );

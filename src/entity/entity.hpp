@@ -76,7 +76,7 @@ public:
     }
 
     // TODO: 可以根据需要新增beforeUpdate和afterUpdate
-    void updade();
+    virtual void update();
     // void updateAnimation();
 
     virtual void click(const sf::Vector2i& pos)

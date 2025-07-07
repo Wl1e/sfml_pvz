@@ -25,7 +25,7 @@ Entity::~Entity()
     }
 }
 
-void Entity::updade()
+void Entity::update()
 {
     // TODO: 后续将计算分离出去，只有animation才在主线程更新
     for(auto& it : m_component) {
