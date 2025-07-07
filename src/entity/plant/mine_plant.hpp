@@ -15,6 +15,7 @@ public:
 
 protected:
     void _initComp(const PlantData&, const sf::Vector2i&);
+    void _initEvents();
 };
 
 } // namespace demo

@@ -30,7 +30,9 @@ public:
 
     void run();
     void update();
-    void setBackGround(std::string_view path);
+    void addBackGround(
+        std::string_view, const PositionType&, const SizeType&
+    );
 
     void addPlant(Plant* plant);
     void addZombie(Zombie* zombie);
@@ -103,7 +105,7 @@ private:
 
 private:
     sf::RenderWindow* m_window;
-    std::unique_ptr<Background> m_background;
+    std::vector<Background*> m_backgrounds;
     std::thread::id m_thread_id;
 
     std::unordered_set<Bullet*> m_bullets;

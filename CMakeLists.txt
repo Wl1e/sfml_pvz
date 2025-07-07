@@ -14,6 +14,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(SOURCES
     src/UI/defines.cpp
     src/UI/ui_layout.cpp
+    src/UI/background.cpp
 
     src/base/tools.cpp
     src/base/direction.cpp

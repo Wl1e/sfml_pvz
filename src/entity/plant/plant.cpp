@@ -18,7 +18,7 @@ Plant::Plant(const PlantData& data, const Vector2i& pos) :
     m_bullet_type(data.bullet_type)
 {
     _initComp(data, pos);
-    _initEvent(data.type);
+    _initEvents();
 }
 
 void Plant::_statusFunction()
@@ -58,67 +58,13 @@ void Plant::_initComp(const PlantData& data, const Vector2i& pos)
     addComp<CompType::POSITION>(
         RangeType::Rectangle, true_pos, SizeType(trueSize)
     );
+    auto position = getComp<CompType::POSITION>();
 
     auto true_range = data.range;
-    true_range->setPosition(
-        getComp<CompType::POSITION>()->getCenterPos()
-    );
-    auto p = getComp<CompType::POSITION>()->getCenterPos();
+    true_range->setPosition(position->getCenterPos());
     addComp<CompType::ATTACK>(data.damage, data.CD, true_range);
-    getComp<CompType::ATTACK>()->setAttackFunc(
-        data.type == "shooter" ? plantAttackZombie
-                               : minePlantAttackZombie
-    );
 }
 
-static unordered_map<string, unordered_map<EventType, EventCallback>>
-    events = {
-        {"shooter",
-         {{EventType::FinishAnimation,
-           [](Entity* entity, const std::any&) {
-               if(entity->getStatus() != EntityStatus::Attack) {
-                   return;
-               }
-               if(auto attack = entity->getComp<CompType::ATTACK>();
-                  attack) {
-                   attack->attackInRange(entity);
-               }
-           }}}},
-        {
-            "mine",
-            {{EventType::Collide,
-              [](Entity* entity, const std::any&) {
-                  if(auto attack =
-                         entity->getComp<CompType::ATTACK>();
-                     attack) {
-                      attack->attackInRange(entity);
-                      entity->updateStatus(EntityStatus::Death);
-                  }
-              }}},
-        }
-};
-
-void Plant::_initEvent(const string& type)
+void Plant::_initEvents()
 {
-
-    // registerEvent(
-    //     this,
-    //     EventType::FinishAnimation,
-    //     [](Entity* entity, const std::any&) {
-    //         if(entity->getStatus() != EntityStatus::Attack) {
-    //             return;
-    //         }
-    //         if(auto attack = entity->getComp<CompType::ATTACK>();
-    //            attack) {
-    //             attack->attackInRange(entity);
-    //         }
-    //     }
-    // );
-    if(events.find(type) == events.end()) {
-        return;
-    }
-
-    for(auto& [eventType, cb] : events[type]) {
-        registerEvent(this, eventType, cb);
-    }
 }

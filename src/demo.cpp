@@ -15,7 +15,16 @@ using namespace demo;
 
 Game game;
 
-void createPlant()
+void initBackground()
+{
+    game.scene()->addBackGround(
+        "/home/wlle/code/demo/sfml2/resource/Background.jpg",
+        PositionType(0, 0),
+        SizeType(game.scene()->getSize())
+    );
+}
+
+void initPlant()
 {
     auto pos = axis2pos({3, 2});
     cout << "[ " << pos.x << ' ' << pos.y << "]\n";
@@ -29,7 +38,7 @@ void createPlant()
     game.scene()->addPlant(plant);
 }
 
-void createZombie()
+void initZombie()
 {
     cout << "create zombie\n";
     auto zombie =
@@ -42,7 +51,7 @@ void createZombie()
     game.scene()->addZombie(zombie);
 }
 
-void createTool()
+void initTool()
 {
     auto plantCreator = new PlantCreator("PeaShooter");
     game.scene()->addTool(plantCreator);
@@ -50,16 +59,15 @@ void createTool()
 
 void simple_test()
 {
-    game.scene()->setBackGround(
-        "/home/wlle/code/demo/sfml2/resource/Background.jpg"
-    );
-    game.setFrame(60);
 
-    createTool();
+    game.setFrame(60);
+    // initBackground();
+    cout << "finish create background\n";
+    initTool();
     cout << "finish create tool\n";
-    createPlant();
+    initPlant();
     cout << "finish create plant\n";
-    createZombie();
+    initZombie();
     cout << "finish create zombie\n";
 
     // thread([&]() {

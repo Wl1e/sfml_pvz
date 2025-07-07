@@ -4,7 +4,9 @@
 
 #include <base/range.hpp>
 #include <entity/plant/factory.hpp>
+#include <entity/plant/mine_plant.hpp>
 #include <entity/plant/plant.hpp>
+#include <entity/plant/shooter_plant.hpp>
 
 using namespace std;
 using namespace sf;
@@ -78,6 +80,11 @@ Plant* PlantFactory::create(const string& name, const Vector2i& pos)
         return nullptr;
     }
 
+    if(m_data[name]->type == "shooter") {
+        return new ShooterPlant(*m_data[name], pos);
+    } else if(m_data[name]->type == "shooter") {
+        return new MinePlant(*m_data[name], pos);
+    }
     return new Plant(*m_data[name], pos);
     // 或许factory应该负责plant组件的添加
 }

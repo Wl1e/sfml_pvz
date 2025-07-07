@@ -39,7 +39,7 @@ protected:
     void _statusFunction() override;
 
     virtual void _initComp(const PlantData&, const sf::Vector2i&);
-    virtual void _initEvent(const std::string&);
+    virtual void _initEvents();
 
 private:
     std::string m_bullet_type;

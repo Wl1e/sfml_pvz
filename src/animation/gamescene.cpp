@@ -13,6 +13,7 @@
 #include <entity/zombie/zombie.hpp>
 #include <event_manager.hpp>
 #include <system/init.hpp>
+#include <UI/background.hpp>
 #include <UI/defines.hpp>
 #include <UI/ui_layout.hpp>
 
@@ -20,16 +21,11 @@ using namespace std;
 using namespace sf;
 using namespace demo;
 
-// bool defaultCloseFunc(const Event::Closed& event)
-// {
-//     if(event.is<Event::KeyPressed>()) {
-//         auto keyPressedEvent = event.getIf<Event::KeyPressed>();
-//         if(keyPressedEvent->code == Keyboard::Key::Escape) {
-//             return true;
-//         }
-//     }
-//     return false;
-// }
+/**
+ * TODO:
+ * 这个文件太大了
+ * 后续可以根据图像和逻辑进行拆分
+ */
 
 GameScene::GameScene() :
     m_window(new sf::RenderWindow(
@@ -38,7 +34,6 @@ GameScene::GameScene() :
         "game",
         State::Windowed
     )),
-    m_background(make_unique<Background>()),
     m_thread_id(this_thread::get_id()),
     m_plants(
         UI_DEFINE::GRASS_PATH,
@@ -49,6 +44,7 @@ GameScene::GameScene() :
     m_window->setKeyRepeatEnabled(false);
 
     initSystems();
+    BackgroundLayout::initScene(this);
 }
 
 GameScene::~GameScene()
@@ -86,8 +82,8 @@ void GameScene::update()
 
 void GameScene::_updateBackground()
 {
-    if(m_background) {
-        m_background->updade();
+    for(auto bg : m_backgrounds) {
+        bg->updade();
     }
 }
 
@@ -173,12 +169,17 @@ bool GameScene::isOpen() const
     return m_window->isOpen();
 }
 
-void GameScene::setBackGround(std::string_view path)
+void GameScene::addBackGround(
+    std::string_view path,
+    const PositionType& position,
+    const SizeType& size
+)
 {
-    m_background->init(
-        path, PositionType(0, 0), SizeType(m_window->getSize())
-    );
-    m_background->setScene(this);
+    auto background = new Background();
+    background->init(path, position, size);
+    background->setScene(this);
+    m_backgrounds.push_back(background);
+    printf("add backfround %s success\n", path.data());
 }
 
 void GameScene::addPlant(Plant* plant)
@@ -313,4 +314,9 @@ void GameScene::draw(const sf::Drawable& object) const
 void GameScene::draw(const BaseRange* obejct) const
 {
     m_window->draw(*(obejct->getShape()));
+}
+
+void GameScene::_initUI()
+{
+    Background* shop = new Background();
 }

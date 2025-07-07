@@ -28,6 +28,11 @@ public:
             ComponentFactory::getFactory()->create<cType>(args...);
         m_component[cType]->whenAdd(this);
     }
+    void delComp(CompType cType)
+    {
+        m_component[cType]->whenDel(this);
+        m_component[cType] = nullptr;
+    }
     void setScene(GameScene* scene)
     {
         m_scene = scene;
