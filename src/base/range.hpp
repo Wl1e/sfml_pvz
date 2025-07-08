@@ -32,6 +32,7 @@ public:
 
     virtual void move(const sf::Vector2f&) = 0;
     virtual void setPosition(const PositionType&) = 0;
+    virtual void setCenterPosition(const PositionType&) = 0;
     virtual void setBottomPosition(const PositionType&) = 0;
 
     virtual bool inRange(Entity* entity) const = 0;
@@ -48,6 +49,12 @@ public:
     explicit Range(const SizeType&);
     ~Range() = default;
 
+    Range(const Range& range) :
+        m_range(std::make_unique<shape>(*range.m_range)),
+        m_type(range.m_type)
+    {
+    }
+
     RangeType getType() const
     {
         return m_type;
@@ -61,6 +68,7 @@ public:
     getEntityInRange(GameScene*, EntityType) override;
 
     void setPosition(const PositionType&) override;
+    void setCenterPosition(const PositionType&) override;
     void setBottomPosition(const PositionType&) override;
     void move(const sf::Vector2f& value) override
     {

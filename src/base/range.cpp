@@ -123,6 +123,14 @@ void Range<RectangleShape>::setBottomPosition(
 }
 
 template<>
+void Range<RectangleShape>::setCenterPosition(
+    const PositionType& pos
+)
+{
+    setPosition(pos - m_range->getGeometricCenter());
+}
+
+template<>
 bool Range<RectangleShape>::_inRange(Entity* entity) const
 {
     auto position = entity->getComp<CompType::POSITION>();
@@ -178,6 +186,12 @@ template<>
 void Range<CircleShape>::setBottomPosition(const PositionType& pos)
 {
     m_range->setPosition(pos - SizeType(0.f, getSize().x));
+}
+
+template<>
+void Range<CircleShape>::setCenterPosition(const PositionType& pos)
+{
+    setPosition(pos);
 }
 
 template<>

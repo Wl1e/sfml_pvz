@@ -19,6 +19,8 @@ public:
 
     static const int GRASS_PATH;
     static const int GRASS_COUNT;
+
+    static const PositionType SHOP_POSITION;
 };
 
 SizeType fitableSize(sf::Vector2u);

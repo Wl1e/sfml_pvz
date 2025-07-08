@@ -60,7 +60,9 @@ void Plant::_initComp(const PlantData& data, const Vector2i& pos)
     );
     auto position = getComp<CompType::POSITION>();
 
-    auto true_range = data.range;
+    auto true_range =
+        new RectangleRange(*static_cast<RectangleRange*>(data.range)
+        );
     true_range->setPosition(position->getCenterPos());
     addComp<CompType::ATTACK>(data.damage, data.CD, true_range);
 }

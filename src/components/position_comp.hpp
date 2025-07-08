@@ -59,6 +59,10 @@ public:
     {
         m_box->setPosition(pos);
     }
+    void setCenterPosition(const PositionType& pos)
+    {
+        m_box->setCenterPosition(pos);
+    }
 
     bool intersection(const PositionComp&);
     bool clicked(const PositionType& clickPos)

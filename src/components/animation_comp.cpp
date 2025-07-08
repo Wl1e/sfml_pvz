@@ -130,9 +130,9 @@ int AnimationComp::_updateAnimation()
         m_idx = 1;
     }
     m_sprite->setTexture(m_frames->at(m_status)[m_idx++], false);
-    if(m_sprite->getColor() != Color::White) {
-        m_sprite->setColor(Color::White);
-    }
+    // if(m_sprite->getColor() != Color::White) {
+    //     m_sprite->setColor(Color::White);
+    // }
 
     return ret;
 }
@@ -157,4 +157,9 @@ void AnimationComp::_updatePos(const PositionType& pos)
 void AnimationComp::setColor(const sf::Color& color)
 {
     m_sprite->setColor(color);
+}
+
+void AnimationComp::resetColor()
+{
+    setColor(Color(255, 255, 255, 255));
 }

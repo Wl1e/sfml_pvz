@@ -1,3 +1,4 @@
+#include <animation/gamescene.hpp>
 #include <components/hp_comp.hpp>
 #include <entity/entity.hpp>
 #include <event_manager.hpp>
@@ -37,6 +38,16 @@ void HPComp::whenAdd(Entity* entity)
                animation) {
                 animation->setColor(sf::Color(255, 255, 255, 100));
             }
+            entity->getScene()->addHander([entity](GameScene*) {
+                if(!entity) {
+                    return;
+                }
+                if(auto animation =
+                       entity->getComp<CompType::ANIMATION>();
+                   animation) {
+                    animation->resetColor();
+                }
+            });
         }
     );
 }

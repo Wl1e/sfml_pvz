@@ -6,6 +6,7 @@
 #include <entity/bullet/factory.hpp>
 #include <entity/plant/factory.hpp>
 #include <entity/tool/card.hpp>
+#include <entity/tool/plant_creator.hpp>
 #include <entity/zombie/factory.hpp>
 #include <game.h>
 
@@ -53,8 +54,8 @@ void initZombie()
 
 void initTool()
 {
-    auto plantCreator =
-        new Card("PeaShooter", PositionType(0, 0), SizeType(90, 70));
+    auto plantCreator = new PlantCreator;
+    plantCreator->init("PeaShooter", 0);
     game.scene()->addTool(plantCreator);
 }
 

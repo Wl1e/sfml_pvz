@@ -59,6 +59,7 @@ public:
         return m_status;
     }
     void setColor(const sf::Color&);
+    void resetColor();
 
 protected:
     int _updateAnimation();

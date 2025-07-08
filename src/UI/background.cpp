@@ -17,16 +17,10 @@ const SizeType ADJUST_ANIMA = SizeType(-2, -2);
 static const unordered_map<string, pair<PositionType, SizeType>>
     ELEMENTS = {
         {"Background.jpg", {PositionType(0, 0), FULL_SCREEN}},
-        // {"Card.png",
-        //  {PositionType(GRASS_START_X + 100, 10), SizeType(70,
-        //  90)}},
-        // {"Shop.png",
-        //  {PositionType(GRASS_START_X, 0), SizeType(600, 110)}}
+        {"Shop.png", {UI_DEFINE::SHOP_POSITION, SizeType(600, 110)}}
 };
 
-static vector<string> updateOrder{
-    "Background.jpg", "Shop.png", "Card.png"
-};
+static vector<string> updateOrder{"Background.jpg", "Shop.png"};
 
 void BackgroundLayout::initScene(GameScene* scene)
 {
