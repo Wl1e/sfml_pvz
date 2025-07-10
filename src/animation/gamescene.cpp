@@ -3,11 +3,11 @@
 
 #include <animation/event_handler.hpp>
 #include <animation/gamescene.hpp>
+#include <base/frame.hpp>
 #include <base/tools.hpp>
 #include <entity/attack.hpp>
 #include <entity/background.hpp>
 #include <entity/bullet/bullet.hpp>
-#include <entity/frame.hpp>
 #include <entity/plant/plant.hpp>
 #include <entity/tool/tool.hpp>
 #include <entity/zombie/zombie.hpp>

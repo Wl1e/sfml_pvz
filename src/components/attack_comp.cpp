@@ -1,9 +1,9 @@
 #include <animation/gamescene.hpp>
+#include <base/frame.hpp>
 #include <base/range.hpp>
 #include <components/attack_comp.hpp>
 #include <components/hp_comp.hpp>
 #include <entity/entity.hpp>
-#include <entity/frame.hpp>
 #include <event_manager.hpp>
 
 using namespace std;

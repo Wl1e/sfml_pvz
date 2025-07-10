@@ -7,7 +7,7 @@
 #include <entity/plant/factory.hpp>
 #include <entity/tool/card.hpp>
 #include <entity/tool/plant_creator.hpp>
-#include <entity/zombie/factory.hpp>
+#include <entity/tool/zombie_creator.hpp>
 #include <game.h>
 
 using namespace std;
@@ -42,14 +42,17 @@ void initPlant()
 void initZombie()
 {
     cout << "create zombie\n";
-    auto zombie =
-        ZombieFactory::getFactory()->create("NormalZombie", 2);
-    if(!zombie) {
-        cout << "create zombie error\n";
-        return;
-    }
+    auto zombiecreator = new ZombieCreator();
+    zombiecreator->setCD(300);
+    game.scene()->addTool(zombiecreator);
+    // auto zombie =
+    //     ZombieFactory::getFactory()->create("NormalZombie", 2);
+    // if(!zombie) {
+    //     cout << "create zombie error\n";
+    //     return;
+    // }
 
-    game.scene()->addZombie(zombie);
+    // game.scene()->addZombie(zombie);
 }
 
 void initTool()

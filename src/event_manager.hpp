@@ -14,7 +14,8 @@ enum EventType
     // 和上面算不同类型的Event
     FinishAnimation,
 
-    Click
+    Click,
+    MouseMove,
 };
 
 class Entity;

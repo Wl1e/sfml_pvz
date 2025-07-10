@@ -48,4 +48,6 @@ dstT* castTo(srcT* src)
     return dynamic_cast<dstT*>(src);
 }
 
+int randomInt(int min, int max);
+
 } // namespace demo

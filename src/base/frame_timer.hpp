@@ -11,7 +11,7 @@
 #include <queue>
 #include <unordered_set>
 
-#include <entity/frame.hpp>
+#include <base/frame.hpp>
 
 namespace demo {
 

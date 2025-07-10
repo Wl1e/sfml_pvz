@@ -1,10 +1,10 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 
 #include <animation/gamescene.hpp>
+#include <base/frame.hpp>
 #include <components/animation_comp.hpp>
 #include <components/position_comp.hpp>
 #include <entity/entity.hpp>
-#include <entity/frame.hpp>
 #include <event_manager.hpp>
 
 using namespace std;

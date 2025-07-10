@@ -20,8 +20,8 @@ private:
 
 private:
     std::string m_plant;
-
     std::unique_ptr<Background> m_background;
+    bool m_handing;
 };
 
 } // namespace demo

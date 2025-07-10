@@ -14,7 +14,8 @@ static const string CARD_PATH{
 };
 
 PlantCreator::PlantCreator() :
-    Tool("PlantCreator"), m_background(make_unique<Background>())
+    Tool("PlantCreator"), m_background(make_unique<Background>()),
+    m_handing(false)
 {
 }
 
@@ -85,20 +86,34 @@ void PlantCreator::_initEvents()
     registerEvent(
         this,
         EventType::Click,
-        [](Entity* entity, const std::any&) {
+        [](Entity* entity, const any&) {
             if(auto animation =
                    entity->getComp<CompType::ANIMATION>();
                animation) {
-                animation->setColor(sf::Color(255, 255, 255, 100));
+                animation->setColor(Color(0, 0, 0, 100));
             }
+        }
+    );
+    registerEvent(
+        this,
+        EventType::MouseMove,
+        [](Entity* entity, const any& any_pos) {
+            auto position = any_cast<Vector2i>(any_pos);
         }
     );
 }
 
 void PlantCreator::update()
 {
-    // 丑陋的写法，只是为了兼容
-    // 一个Entity里塞入其他Entity就会有这么多问题 •_ゝ•
+    /**
+     * 丑陋的写法，只是为了兼容
+     * 一个Entity里塞入其他Entity就会有这么多问题 •_ゝ•
+     *
+     * 解决方法：允许一个entity拥有多个同类型component
+     * 好处：简化逻辑、更灵活
+     * 缺点：getComp需要修改
+     *  */
+
     if(m_background->getScene() == nullptr) {
         m_background->setScene(getScene());
     }

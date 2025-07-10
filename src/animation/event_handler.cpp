@@ -4,33 +4,34 @@
 #include <animation/gamescene.hpp>
 #include <components/position_comp.hpp>
 #include <entity/tool/tool.hpp>
+#include <event_manager.hpp>
 
 using namespace std;
 using namespace sf;
 using namespace demo;
 
 void EventHandler::OnKeyPressed(
-    sf::RenderWindow* window, const sf::Event::KeyPressed& event
+    RenderWindow* window, const Event::KeyPressed& event
 )
 {
-    if(event.scancode == sf::Keyboard::Scancode::Escape) {
+    if(event.scancode == Keyboard::Scancode::Escape) {
         window->close();
     } else if(true) {
         // ...
     }
 }
 void EventHandler::OnClosed(
-    sf::RenderWindow* window, const sf::Event::Closed&
+    RenderWindow* window, const Event::Closed&
 )
 {
     window->close();
 }
 
 static Mouse::Button pressed_button;
-static sf::Vector2i pressed_pos(-1, -1);
+static Vector2i pressed_pos(-1, -1);
 
 void EventHandler::OnMouseButtonPressed(
-    GameScene* scene, const sf::Event::MouseButtonPressed& event
+    GameScene* scene, const Event::MouseButtonPressed& event
 )
 {
     cout << event.position.x << ' ' << event.position.y << '\n';
@@ -39,7 +40,7 @@ void EventHandler::OnMouseButtonPressed(
 }
 
 void EventHandler::OnMouseButtonReleased(
-    GameScene* scene, const sf::Event::MouseButtonReleased& event
+    GameScene* scene, const Event::MouseButtonReleased& event
 )
 {
     if(event.button == pressed_button) {
@@ -51,7 +52,7 @@ void EventHandler::OnMouseButtonReleased(
 }
 
 void EventHandler::OnMounseMove(
-    GameScene* scene, const sf::Event::MouseMoved& event
+    GameScene* scene, const Event::MouseMoved& event
 )
 {
     auto hand = scene->getHand();
@@ -59,10 +60,10 @@ void EventHandler::OnMounseMove(
         return;
     }
 
-    if(!hand->hasComp(CompType::POSITION)) {
-        return;
-    }
-    hand->getComp<CompType::POSITION>()->setPosition(
-        PositionType(event.position)
+    // 目前没有全局事件触发(触发所有entity的某个事件)
+    trigger(
+        hand,
+        EventType::MouseMove,
+        make_any<Vector2i>(event.position)
     );
 }

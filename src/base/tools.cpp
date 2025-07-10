@@ -1,4 +1,5 @@
 #include <iostream>
+#include <random>
 
 #include <SFML/System/Sleep.hpp>
 #include <SFML/System/Time.hpp>
@@ -96,6 +97,15 @@ PositionType axis2pos(const sf::Vector2i& axis)
                UI_DEFINE::GRASS_LENGTH / 2,
                UI_DEFINE::GRASS_WIDE - 10
            );
+}
+
+int randomInt(int min, int max)
+{
+    static std::mt19937 ubrg(time(NULL));
+    static uniform_int_distribution distr;
+
+    distr.param(uniform_int_distribution<int>::param_type(min, max));
+    return distr(ubrg);
 }
 
 } // namespace demo
